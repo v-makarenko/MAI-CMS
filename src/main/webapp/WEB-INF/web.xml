@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+		  http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"   version="3.0">
+    <context-param>
+        <param-name>resteasy.scan</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <!--<context-param>-->
+        <!--<param-name>resteasy.scan.providers</param-name>-->
+        <!--<param-value>false</param-value>-->
+    <!--</context-param>-->
+    <!--<context-param>-->
+        <!--<param-name>resteasy.scan.resources</param-name>-->
+        <!--<param-value>false</param-value>-->
+    <!--</context-param>-->
+
+    <context-param>
+        <param-name>resteasy.servlet.mapping.prefix</param-name>
+        <param-value>/api</param-value>
+    </context-param>
+    <listener>
+        <listener-class>
+            org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap
+        </listener-class>
+    </listener>
+
+    <servlet>
+        <servlet-name>RestServlet</servlet-name>
+        <servlet-class>org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher</servlet-class>
+        <!--<init-param>-->
+            <!--<param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>-->
+            <!--<param-value>true</param-value>-->
+        <!--</init-param>-->
+        <!--<load-on-startup>1</load-on-startup>-->
+        <!--<async-supported>true</async-supported>-->
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RestServlet</servlet-name>
+        <url-pattern>/api/*</url-pattern>
+    </servlet-mapping>
+
+    <!--<filter>-->
+        <!--<filter-name>springSecurityFilterChain</filter-name>-->
+        <!--<filter-class>org.springframework.web.filter.DelegatingFilterProxy-->
+        <!--</filter-class>-->
+    <!--</filter>-->
+
+    <!--<filter-mapping>-->
+        <!--<filter-name>springSecurityFilterChain</filter-name>-->
+        <!--<url-pattern>/api/private*</url-pattern>-->
+    <!--</filter-mapping>-->
+
+    <!--security-->
+
+    <!--<security-constraint>-->
+        <!--<display-name>protected-pages</display-name>-->
+        <!--<web-resource-collection>-->
+            <!--<web-resource-name>protected-pages</web-resource-name>-->
+            <!--<url-pattern>/api/*</url-pattern>-->
+        <!--</web-resource-collection>-->
+        <!--<auth-constraint>-->
+            <!--<role-name>restaurant</role-name>-->
+        <!--</auth-constraint>-->
+        <!--<user-data-constraint>-->
+            <!--<transport-guarantee>NONE</transport-guarantee>-->
+        <!--</user-data-constraint>-->
+    <!--</security-constraint>-->
+
+    <!--<login-config>-->
+        <!--<auth-method>BASIC</auth-method>-->
+        <!--<realm-name>jdbcRealm</realm-name>-->
+    <!--</login-config>-->
+
+</web-app>

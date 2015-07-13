@@ -2,10 +2,8 @@ package ru.vmakarenko.filters;
 
 import ru.vmakarenko.dto.users.AccessAuthDto;
 
-import javax.inject.Inject;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -15,9 +13,7 @@ import java.io.IOException;
  * Created by vmakarenko on 22.04.2015.
  */
 @WebFilter(filterName = "AuthFilter",
-        urlPatterns = {"/*"},
-        initParams = {
-                @WebInitParam(name = "mood", value = "awake")})
+        urlPatterns = {"/*"})
 public class AuthFilter implements Filter {
 
     @Override

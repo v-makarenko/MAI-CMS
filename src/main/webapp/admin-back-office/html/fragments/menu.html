@@ -1,0 +1,38 @@
+<div ng-controller="MenuController">
+    <div ng-class="menuItemSelected==='orders' ? 'menu-item-active' : 'menu-item'"
+         ng-click="gotoLink('/orders')">
+        <span>
+            Заказы
+        </span>
+    </div>
+    <div ng-class="menuItemSelected==='stats' ? 'menu-item-active' : 'menu-item'"
+         ng-click="gotoLink('/stats')">
+        <span>
+        Статистика
+        </span>
+    </div>
+    <div ng-class="menuItemSelected==='menu' ? 'menu-item-active' : 'menu-item'"
+         ng-click="gotoLink('/menuEdit/false')">
+        <span>
+            Меню
+        </span>
+    </div>
+    <div ng-class="menuItemSelected==='settings' ? 'menu-item-active' : 'menu-item'"
+         ng-click="gotoLink('/settings')">
+        <span>
+            Настройки
+        </span>
+    </div>
+    <div class="menu-item"
+         ng-click="sendReport()">
+        <span>
+            Обратная связь
+        </span>
+    </div>
+    <div class="menu-item"
+         ng-click="logout()">
+        <span>
+            Выход
+        </span>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+.my-page-header{
+    height: 50px;
+    background-color: rgb(25, 55, 100);
+    color: white;
+    font-family: monospace;
+}
+.page-menu{
+    /*width:200px;*/
+    background-color: rgb(25, 55, 100);
+    float: left;
+    !important; color: white;
+    font-style: normal;
+}
+.menu-item-active{
+    background-color: rgb(255, 255, 255);
+    !important; color: rgb(25, 55, 100)
+}
+.menu-item:hover {
+    cursor: pointer;
+    background-color: rgb(36, 95, 161);
+}
+
+.menu-item-active, .menu-item {
+    height: 2em;
+    font-size: 1.5em;
+    text-decoration: none;
+}
+
+
+
+.my-content{
+}
+
+#header{
+    border-bottom-width: 0.1em;
+    border-bottom-color: #7197ff;
+    border-bottom-style: solid;
+}
+
+#not-header{
+    clear:both;
+}
+
+.dropdown-div .dropdown-ul{
+    display:none;
+    position: fixed;
+}
+.dropdown-div:hover .dropdown-ul{
+    display:block;
+}
+.dropdown-div{
+    height: 100%;
+}
+.my-page-header div div:hover{
+    background-color: rgb(39, 88, 162);
+}
