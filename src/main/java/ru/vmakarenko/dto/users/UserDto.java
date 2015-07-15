@@ -2,39 +2,49 @@ package ru.vmakarenko.dto.users;
 
 import ru.vmakarenko.dto.common.CommonDto;
 
+import javax.persistence.Column;
+
 /**
  * Created by VMakarenko on 4/25/2015.
  */
 public class UserDto extends CommonDto {
-    private String name;
-    private String surname;
-    private String phone;
+    private String firstName;
+    private String secondName;
+    private String passportSeries;
+    private String passportNo;
     private String email;
-    private String contactName;
+    private String password;
 
-
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getSecondName() {
+        return secondName;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setSecondName(String secondName) {
+        this.secondName = secondName;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getPassportSeries() {
+        return passportSeries;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setPassportSeries(String passportSeries) {
+        this.passportSeries = passportSeries;
+    }
+
+    public String getPassportNo() {
+        return passportNo;
+    }
+
+    public void setPassportNo(String passportNo) {
+        this.passportNo = passportNo;
     }
 
     public String getEmail() {
@@ -45,11 +55,11 @@ public class UserDto extends CommonDto {
         this.email = email;
     }
 
-    public String getContactName() {
-        return contactName;
+    public String getPassword() {
+        return password;
     }
 
-    public void setContactName(String contactName) {
-        this.contactName = contactName;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

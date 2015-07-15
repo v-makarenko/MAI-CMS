@@ -10,18 +10,8 @@ public class UserSignUpDto extends CommonDto {
     private String surname;
     private String phone;
     private String email;
-    private String username;
     private String password;
     private String password2;
-    private String contactName;
-
-    public String getContactName() {
-        return contactName;
-    }
-
-    public void setContactName(String contactName) {
-        this.contactName = contactName;
-    }
 
     public String getName() {
         return name;
@@ -69,13 +59,5 @@ public class UserSignUpDto extends CommonDto {
 
     public void setPassword2(String password2) {
         this.password2 = password2;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 }

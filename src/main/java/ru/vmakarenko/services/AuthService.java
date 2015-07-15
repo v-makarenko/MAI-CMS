@@ -1,12 +1,11 @@
 package ru.vmakarenko.services;
 
-import ru.vmakarenko.dao.UserDao;
+import ru.vmakarenko.common.TokenService;
 import ru.vmakarenko.dto.users.AccessAuthDto;
 import ru.vmakarenko.dto.users.UserAuthDto;
-import ru.vmakarenko.entities.users.AbstractUser;
+import ru.vmakarenko.dto.users.UserDto;
 
 import javax.ejb.Stateless;
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.util.UUID;
 
@@ -16,14 +15,17 @@ import java.util.UUID;
 @Stateless
 public class AuthService {
     @Inject
-    UserService userService;
+    private UserService userService;
+    @Inject
+    private TokenService tokenService;
 
-    public AccessAuthDto login(UserAuthDto dto){
-        AbstractUser user = userService.findByUsernameAndPassword(dto.getEmail(), dto.getPassword());
+    public AccessAuthDto login(UserAuthDto dto) {
+        UserDto user = userService.getByEmailAndPassword(dto.getEmail(), dto.getPassword());
         if (user != null) {
             AccessAuthDto accessAuthDto = new AccessAuthDto();
             accessAuthDto.setEmail(dto.getEmail());
             accessAuthDto.setToken(UUID.randomUUID().toString());
+            tokenService.add(accessAuthDto.getToken(), user);
             return accessAuthDto;
         }
         return null;
