@@ -13,11 +13,38 @@
 <script src="http://underscorejs.org/underscore.js"></script>
 <script src="http://momentjs.com/downloads/moment.js"></script>
 <!-- users js -->
+<script type="application/javascript">
+    function login(email, password){
+        $.post("/api/auth/login",
+                {
+                    email: email,
+                    password: password
+                },
+                function(data, status){
+                    if(data.status="OK"){
+                        if(data.userType == 'MEMBER'){
+                            location.path('/member-back-office.html');
+                        }
+                        if(data.userType == 'ADMIN'){
+                            location.path('/admin-back-office.html');
+                        }
+                    }else{
+                        alert('Неверный пароль!');
+                    }
+                });
+    }
+</script>
+
 <title>Ежегодные конференции МАИ</title>
 
 <body>
 <div>
     Вход:<br>
+    <input id="email" placeholder="Ваша почта"><br>
+    <input id="password" placeholder="Ваш пароль" type="password"><br>
+    <button type="button" value="Тест юзер" onclick="$('#email').val('test@test.ru'); $('#password').val('test');">Тест Юзер</button><br>
+    <button type="button" value="Тест админ" onclick="$('#email').val('admin@test.ru'); $('#password').val('admin');">Тест Админ</button><br>
+    <button type="button" value="Вход">Вход</button>
 
 </div>
 <div>

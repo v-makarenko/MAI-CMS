@@ -4,4 +4,31 @@
         xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+        <changeSet id="201507140851" author="vmakarenko">
+                <comment>
+                        Init 1
+                </comment>
+                <sql>
+                        CREATE TABLE UNIVERSITIES (
+                        id BigInt PRIMARY KEY,
+                        short_name text,
+                        long_name text
+                        );
+                        CREATE TABLE DEGREE_TITLES (
+                        id BigInt PRIMARY KEY,
+                        short_name text,
+                        long_name text
+                        );
+                        CREATE TABLE USERS (
+                        id BigInt PRIMARY KEY,
+                        first_name text,
+                        second_name text,
+                        passport_series text,
+                        passport_no text,
+                        university_id BigInt REFERENCES UNIVERSITIES(ID),
+                        title_id BigInt REFERENCES DEGREE_TITLES(ID)
+                        );
+                </sql>
+
+        </changeSet>
 </databaseChangeLog>

@@ -54,30 +54,6 @@ public class GenericDao<T> {
         return o != null ? (T) o : null;
     }
 
-//
-//    /**
-//     * Выставить статус как inactive
-//     *
-//     * @param id id объекта
-//     * @return true если объект успешно удален, false в ином случае
-//     */
-//    public boolean delete(UUID id) {
-//        Object ref = null;
-//        try {
-//            ref = this.em.getReference(getEntityClass(), id);
-//        } catch (Exception e) {
-//            LOG.error("Сущность с id = :id не найдена для удаления".replace(":id", id.toString()));
-//        }
-//        if (ref != null) {
-//            if (ref instanceof DomainEntity) {
-//                ((DomainEntity) ref).setStatus(EntityStatus.DELETED.toString());
-//            }
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
-
     /**
      * Реально удалить объект из бд
      *
@@ -130,67 +106,5 @@ public class GenericDao<T> {
      */
     public List<T> findAll() {
         return em.createQuery("Select entity FROM " + getEntityClass().getSimpleName() + " entity").getResultList();
-    }
-
-    /**
-     * получить все неудаленные объекты заданного класса T с фильтрацией
-     *
-     * @param filter фильтр
-     * @return список найденных объектов
-     */
-    public List<T> findActive(CommonFilter filter) {
-        return findActivePaged(filter);
-    }
-
-    /**
-     * Получить все неудаленные объекты заданного класса T с фильтрацией
-     *
-     * @param filter      фильтр
-     *                    если значение limit == 0, то ограничение не устанавливается
-     * @return
-     */
-    public List<T> findActivePaged(CommonFilter filter) {
-        TypedQuery<T> typedQuery = em.createQuery(getActivePagedQuery(filter, "entity", getEntityClass().getSimpleName()), getEntityClass());
-
-        Long page = filter.getPage();
-        Long limit = filter.getLimit();
-
-        if (page != null && limit != null) {
-            typedQuery.setFirstResult((int) ((page - 1) * limit));
-            typedQuery.setMaxResults(filter.getLimit().intValue());
-        }
-
-        filter.setParams(typedQuery);
-        return typedQuery.getResultList();
-    }
-
-    public Long findActiveCount(CommonFilter filter) {
-
-        TypedQuery<Long> typedQuery = em.createQuery(getActivePagedQuery(filter, "count(entity.name)", getEntityClass().getSimpleName()), Long.class);
-        filter.setParams(typedQuery);
-
-        return typedQuery.getSingleResult();
-    }
-
-    protected String getActivePagedQuery(CommonFilter filter, String target, String type) {
-        return String.format("Select %s FROM %s entity"
-                + filter.getJoinClause()
-                + filter.getWhereClause() + " and entity.status like 'ACTIVE'" + filter.getOrderByClause(), target, type);
-        // только для неудаленных и не скрытых записей, если надо будет что-то еще, лучше написать отдельный метод
-
-    }
-
-    /**
-     * получить все объекты заданного класса T с фильтрацией
-     *
-     * @param filter фильтр
-     * @return список найденных объектов
-     */
-    public List<T> findAll(CommonFilter filter) {
-        TypedQuery<T> typedQuery = em.createQuery("Select entity FROM " + getEntityClass().getSimpleName() + " entity"
-                + filter.getJoinClause()
-                + filter.getWhereClause() + filter.getOrderByClause(), getEntityClass()); // только для неудаленных и не скрытых записей, если надо будет что-то еще, лучше написать отдельный метод
-        filter.setParams(typedQuery);
-        return typedQuery.getResultList();
     }
 }

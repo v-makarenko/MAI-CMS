@@ -26,7 +26,7 @@ public class UserService {
         userDao.insert(mapperService.map(dto, RestUser.class));
     }
 
-    public AbstractUser findByUsernameAndPassword(String username, String password){
+    public AbstractUser findByEmailAndPassword(String email, String password){
         List<AbstractUser> abstractUserList =  userDao.findAll(new CommonFilter(new UserFilter().username(username).password(password)));
         if(abstractUserList.size() > 0 ){
             return abstractUserList.get(0);

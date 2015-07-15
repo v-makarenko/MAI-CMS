@@ -35,15 +35,15 @@ public class AuthResource {
     public Response login(@Context HttpServletRequest request, UserAuthDto userAuthDto) {
         AccessAuthDto responseDto = authService.login(userAuthDto);
         if (responseDto != null) {
-            request.getSession().setAttribute(AccessAuthDto.PARAM_AUTH_ID, responseDto.getId());
+            request.getSession().setAttribute(AccessAuthDto.PARAM_AUTH_EMAIL, responseDto.getEmail());
             request.getSession().setAttribute(AccessAuthDto.PARAM_AUTH_TOKEN, responseDto.getToken());
             Calendar c = Calendar.getInstance();
             c.add(Calendar.HOUR, 1);
-            NewCookie cookie1 = new NewCookie(AccessAuthDto.PARAM_AUTH_ID, responseDto.getToken());
-            NewCookie cookie2 = new NewCookie(AccessAuthDto.PARAM_AUTH_TOKEN, responseDto.getId());
+            NewCookie cookie1 = new NewCookie(AccessAuthDto.PARAM_AUTH_EMAIL, responseDto.getToken());
+            NewCookie cookie2 = new NewCookie(AccessAuthDto.PARAM_AUTH_TOKEN, responseDto.getEmail());
             return Response
                     .ok(responseDto)
-                    .cookie(new NewCookie[]{new NewCookie("token", responseDto.getToken()), new NewCookie("id", responseDto.getId())})
+                    .cookie(new NewCookie[]{new NewCookie(AccessAuthDto.PARAM_AUTH_TOKEN, responseDto.getToken()), new NewCookie(AccessAuthDto.PARAM_AUTH_EMAIL, responseDto.getEmail())})
                     .build();
         } else {
             return Response.status(Response.Status.FORBIDDEN).build();
@@ -53,7 +53,7 @@ public class AuthResource {
     @POST
     @Path("logout")
     public Response logout(@Context HttpServletRequest request) {
-        request.getSession().removeAttribute(AccessAuthDto.PARAM_AUTH_ID);
+        request.getSession().removeAttribute(AccessAuthDto.PARAM_AUTH_EMAIL);
         request.getSession().removeAttribute(AccessAuthDto.PARAM_AUTH_TOKEN);
         return Response.ok().build();
     }
@@ -61,7 +61,7 @@ public class AuthResource {
     @GET
     @Path("isAuthenticated")
     public Response isAuthenticated(@Context HttpServletRequest request) {
-        return Response.ok(request.getSession().getAttribute(AccessAuthDto.PARAM_AUTH_ID) != null
+        return Response.ok(request.getSession().getAttribute(AccessAuthDto.PARAM_AUTH_EMAIL) != null
                 && request.getSession().getAttribute(AccessAuthDto.PARAM_AUTH_TOKEN) != null).build();
     }
 
@@ -75,7 +75,7 @@ public class AuthResource {
     @Path("getCurrentUser")
     public Response getCurrentUser(@Context HttpServletRequest request) {
         CommonResponse response = new CommonResponse("OK");
-        response.setData(userService.findByUsername((String) request.getSession().getAttribute(AccessAuthDto.PARAM_AUTH_ID)));
+        response.setData(userService.findByUsername((String) request.getSession().getAttribute(AccessAuthDto.PARAM_AUTH_EMAIL)));
         return Response.ok(response).build();
     }
 

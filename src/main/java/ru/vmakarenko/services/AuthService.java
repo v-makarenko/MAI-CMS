@@ -19,10 +19,10 @@ public class AuthService {
     UserService userService;
 
     public AccessAuthDto login(UserAuthDto dto){
-        AbstractUser user = userService.findByUsernameAndPassword(dto.getUsername(), dto.getPassword());
+        AbstractUser user = userService.findByUsernameAndPassword(dto.getEmail(), dto.getPassword());
         if (user != null) {
             AccessAuthDto accessAuthDto = new AccessAuthDto();
-            accessAuthDto.setId(dto.getUsername());
+            accessAuthDto.setEmail(dto.getEmail());
             accessAuthDto.setToken(UUID.randomUUID().toString());
             return accessAuthDto;
         }
