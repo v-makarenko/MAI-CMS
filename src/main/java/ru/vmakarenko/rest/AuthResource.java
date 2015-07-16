@@ -26,8 +26,6 @@ import java.util.Calendar;
  * Created by vmakarenko on 22.04.2015.
  */
 @Path("auth")
-@Consumes("application/json")
-@Produces("application/json")
 public class AuthResource {
     @Inject
     private UserService userService;
@@ -44,7 +42,7 @@ public class AuthResource {
             NewCookie cookie1 = new NewCookie(AccessAuthDto.PARAM_AUTH_EMAIL, responseDto.getToken());
             NewCookie cookie2 = new NewCookie(AccessAuthDto.PARAM_AUTH_TOKEN, responseDto.getEmail());
             return Response
-                    .ok(responseDto)
+                    .ok(RestResponse.createOk().data(tokenService.get(responseDto.getToken())))
                     .cookie(new NewCookie[]{cookie1, cookie2})
                     .build();
         } else {

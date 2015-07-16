@@ -1,10 +1,8 @@
 package ru.vmakarenko.entities;
 
-import org.dom4j.tree.AbstractEntity;
+import ru.vmakarenko.common.UserType;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by VMakarenko on 7/15/2015.
@@ -14,8 +12,8 @@ import javax.persistence.Table;
 public class User extends DomainEntity{
     @Column(name = "first_name")
     private String firstName;
-    @Column(name = "second_name")
-    private String secondName;
+    @Column(name = "last_name")
+    private String lastName;
     @Column(name = "passport_series")
     private String passportSeries;
     @Column(name = "passport_no")
@@ -24,6 +22,9 @@ public class User extends DomainEntity{
     private String email;
     @Column(name = "password")
     private String password;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "user_type")
+    private UserType userType;
 
     public String getFirstName() {
         return firstName;
@@ -33,12 +34,12 @@ public class User extends DomainEntity{
         this.firstName = firstName;
     }
 
-    public String getSecondName() {
-        return secondName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setSecondName(String secondName) {
-        this.secondName = secondName;
+    public void setLastName(String secondName) {
+        this.lastName = secondName;
     }
 
     public String getPassportSeries() {
@@ -71,5 +72,13 @@ public class User extends DomainEntity{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
     }
 }

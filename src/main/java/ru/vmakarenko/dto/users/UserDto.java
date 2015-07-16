@@ -2,18 +2,17 @@ package ru.vmakarenko.dto.users;
 
 import ru.vmakarenko.dto.common.CommonDto;
 
-import javax.persistence.Column;
-
 /**
  * Created by VMakarenko on 4/25/2015.
  */
 public class UserDto extends CommonDto {
     private String firstName;
-    private String secondName;
+    private String lastName;
     private String passportSeries;
     private String passportNo;
     private String email;
     private String password;
+    private String userType;
 
     public String getFirstName() {
         return firstName;
@@ -23,12 +22,12 @@ public class UserDto extends CommonDto {
         this.firstName = firstName;
     }
 
-    public String getSecondName() {
-        return secondName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setSecondName(String secondName) {
-        this.secondName = secondName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getPassportSeries() {
@@ -61,5 +60,13 @@ public class UserDto extends CommonDto {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 }

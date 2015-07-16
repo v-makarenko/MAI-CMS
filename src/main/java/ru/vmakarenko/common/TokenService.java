@@ -2,13 +2,19 @@ package ru.vmakarenko.common;
 
 import ru.vmakarenko.dto.users.UserDto;
 
+import javax.ejb.Singleton;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by VMakarenko on 4/22/2015.
  */
+@Singleton
+@ApplicationScoped
 public class TokenService {
-    private HashMap<String, UserEntry> tokenMap;
+    private Map<String, UserEntry> tokenMap = new HashMap<>();
 
     public void add(String token, UserDto userDto) {
         UserEntry entry = new UserEntry();
@@ -23,6 +29,10 @@ public class TokenService {
     public boolean check(String token, String email) {
         UserEntry entry = tokenMap.get(token);
         return entry != null && entry.getUser().getEmail().equals(email);
+    }
+
+    public UserDto get(String token) {
+        return tokenMap.get(token).getUser();
     }
 
     class UserEntry {

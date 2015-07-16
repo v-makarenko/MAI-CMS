@@ -1,34 +1,77 @@
 ﻿<databaseChangeLog
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
-        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
-        <changeSet id="201507140851" author="vmakarenko">
-                <comment>
-                        Init 1
-                </comment>
-                <sql>
-                        CREATE TABLE UNIVERSITIES (
-                        id BigInt PRIMARY KEY,
-                        short_name text,
-                        long_name text
-                        );
-                        CREATE TABLE DEGREE_TITLES (
-                        id BigInt PRIMARY KEY,
-                        short_name text,
-                        long_name text
-                        );
-                        CREATE TABLE USERS (
-                        id BigInt PRIMARY KEY,
-                        first_name text,
-                        second_name text,
-                        passport_series text,
-                        passport_no text,
-                        university_id BigInt REFERENCES UNIVERSITIES(ID),
-                        title_id BigInt REFERENCES DEGREE_TITLES(ID)
-                        );
-                </sql>
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+    <changeSet id="201507140851" author="vmakarenko">
+        <comment>
+            Init 1
+        </comment>
+        <sql>
+            CREATE TABLE UNIVERSITIES (
+            id uuid PRIMARY KEY,
+            short_name text,
+            long_name text
+            );
+            CREATE TABLE DEGREE_TITLES (
+            id uuid PRIMARY KEY,
+            short_name text,
+            long_name text
+            );
+            CREATE TABLE USERS (
+            id uuid PRIMARY KEY,
+            first_name text,
+            second_name text,
+            passport_series text,
+            passport_no text,
+            university_id uuid REFERENCES UNIVERSITIES(ID),
+            title_id uuid REFERENCES DEGREE_TITLES(ID)
+            );
+        </sql>
+    </changeSet>
+    <changeSet id="201507152339" author="vmakarenko">
+        <comment>
+            Init 2
+        </comment>
+        <sql>
+            ALTER TABLE USERS ADD COLUMN password text;
+            ALTER TABLE USERS ADD COLUMN email text;
+        </sql>
 
-        </changeSet>
+    </changeSet>
+    <changeSet id="201507162005" author="vmakarenko">
+        <comment>
+            Init 3
+        </comment>
+        <sql>
+            ALTER TABLE USERS ADD COLUMN user_type text;
+            ALTER TABLE USERS RENAME COLUMN second_name TO last_name;
+
+            INSERT INTO UNIVERSITIES (id, short_name, long_name)
+            VALUES ('00000000-0000-0000-0000-000000000000', 'МАИ', 'Московский авиационный институт (Государственный Технический Университет)');
+
+            INSERT INTO DEGREE_TITLES (id, short_name, long_name)
+            VALUES ('00000000-0000-0000-0000-000000000001', 'мл. научный сотрудник', 'младший научный сотрудник');
+
+            INSERT INTO USERS ( id, first_name, last_name, passport_series,
+            passport_no, university_id, title_id, password, email) VALUES
+            ('00000000-0000-0000-0000-000000000002', 'Администратор', 'Администратор', '0000', '000000',
+            '00000000-0000-0000-0000-000000000000', '00000000-0000-0000-0000-000000000001', 'admin', 'admin@test.ru');
+
+            INSERT INTO USERS ( id, first_name, last_name, passport_series,
+            passport_no, university_id, title_id, password, email) VALUES
+            ('00000000-0000-0000-0000-000000000003', 'Пользователь', 'Пользователь', '0001', '000111',
+            '00000000-0000-0000-0000-000000000000', '00000000-0000-0000-0000-000000000001', 'test', 'test@test.ru');
+        </sql>
+    </changeSet>
+    <changeSet id="201507162008" author="vmakarenko">
+        <comment>
+            Init 4
+        </comment>
+        <sql>
+            UPDATE USERS SET user_type = 'ADMIN'
+            WHERE id = '00000000-0000-0000-0000-000000000002';
+            UPDATE USERS SET user_type = 'MEMBER'
+            WHERE id = '00000000-0000-0000-0000-000000000003';
+        </sql>
+    </changeSet>
 </databaseChangeLog>
