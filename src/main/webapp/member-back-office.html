@@ -13,15 +13,20 @@
 <script src="http://underscorejs.org/underscore.js"></script>
 <script src="http://momentjs.com/downloads/moment.js"></script>
 <!-- users js -->
+<script src="member-back-office/js/app.js"></script>
+
+<script src="member-back-office/js/controllers/home-controller.js"></script>
+
+<script src="common/js/services/auth-service.js"></script>
+
+
 <title>Ваша персональная страница</title>
 
-<body>
-<div>
-    <h1>
-        Личный кабинет
-    </h1>
-    Ваш личный кабинет в системе. Хотите что-нибудь сделать?
+<div ng-app="app">
+    <div ng-view>
+    </div>
 </div>
 
+<body>
 </body>
 </html>
