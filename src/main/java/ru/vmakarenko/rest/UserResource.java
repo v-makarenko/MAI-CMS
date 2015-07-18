@@ -5,6 +5,7 @@ import ru.vmakarenko.common.RestResponse;
 import ru.vmakarenko.common.TokenService;
 import ru.vmakarenko.dto.users.AccessAuthDto;
 import ru.vmakarenko.dto.users.UserAuthDto;
+import ru.vmakarenko.dto.users.UserDto;
 import ru.vmakarenko.dto.users.UserSignUpDto;
 import ru.vmakarenko.services.AuthService;
 import ru.vmakarenko.services.UserService;
@@ -32,6 +33,15 @@ public class UserResource {
     public Response getCurrentUser(@Context HttpServletRequest request){
         return Response
                 .ok(RestResponse.createOk().data(userService.getCurrentUser(request)))
+                .build();
+    }
+
+    @Path("update")
+    @GET
+    public Response update(UserDto userDto){
+        userService.update(userDto);
+        return Response
+                .ok(RestResponse.createOk())
                 .build();
     }
 }

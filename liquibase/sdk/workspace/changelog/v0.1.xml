@@ -74,4 +74,26 @@
             WHERE id = '00000000-0000-0000-0000-000000000003';
         </sql>
     </changeSet>
+    <changeSet id="201507181405" author="vmakarenko">
+        <comment>
+            added messages for internal exchange
+        </comment>
+        <sql>
+            CREATE TABLE MESSAGES (
+            id uuid PRIMARY KEY,
+            from_user_id uuid REFERENCES USERS(id),
+            to_user_id uuid REFERENCES USERS(id),
+            msg text
+            );
+        </sql>
+    </changeSet>
+    <changeSet id="201507181408" author="vmakarenko">
+        <comment>
+            add patronymic for users
+        </comment>
+        <sql>
+            ALTER TABLE users ADD COLUMN
+            patronymic text;
+        </sql>
+    </changeSet>
 </databaseChangeLog>

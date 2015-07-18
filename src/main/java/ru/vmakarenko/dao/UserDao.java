@@ -33,4 +33,5 @@ public class UserDao extends GenericDao<User> {
             return null;
         }
     }
+
 }

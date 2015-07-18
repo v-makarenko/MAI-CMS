@@ -14,6 +14,8 @@ public class User extends DomainEntity{
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
+    @Column(name = "patronymic")
+    private String patronymic;
     @Column(name = "passport_series")
     private String passportSeries;
     @Column(name = "passport_no")
@@ -80,5 +82,13 @@ public class User extends DomainEntity{
 
     public void setUserType(UserType userType) {
         this.userType = userType;
+    }
+
+    public String getPatronymic() {
+        return patronymic;
+    }
+
+    public void setPatronymic(String patronymic) {
+        this.patronymic = patronymic;
     }
 }

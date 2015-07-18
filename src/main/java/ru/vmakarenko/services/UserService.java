@@ -42,4 +42,8 @@ public class UserService {
                 userDao.getByEmail(Util.getCookieValueFromRequest(AccessAuthDto.PARAM_AUTH_EMAIL, request))
                 , UserDto.class);
     }
+
+    public void update(UserDto userDto){
+        userDao.update(mapperService.map(userDto, User.class));
+    }
 }

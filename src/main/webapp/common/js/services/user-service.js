@@ -9,10 +9,8 @@ angular.module("app").service('UserService',
             return $http.post(url + '', user)
         };
 
-        this.getCurrentUser = function(user){
-            return $http.get(
-                   url + 'getCurrentUser', user
-            );
+        this.getCurrentUser = function(){
+            return $http.get(url + 'getCurrent');
         }
     }
 )
