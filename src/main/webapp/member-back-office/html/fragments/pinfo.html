@@ -1,0 +1,29 @@
+<div>
+<h1>
+        Ваши персональные данные
+    </h1>
+    <form>
+        <div>
+            Имя: <input ng-model="user.firstName">
+        </div>
+        <div>
+            Фамилия: <input ng-model="user.lastName">
+        </div>
+        <div>
+            Отчество: <input ng-model="user.patronymic">
+        </div>
+        <div>
+            Серия паспорта: <input ng-model="user.passportSeries">
+        </div>
+        <div>
+            Номер паспорта: <input ng-model="user.passportNo">
+        </div>
+        <div>
+            e-mail: <input ng-model="user.email">
+        </div>
+        <div>
+            Телефон: <input ng-model="user.phone">
+        </div>
+        <button type="button" ng-click="save()">Сохранить</button>
+    </form>
+</div>

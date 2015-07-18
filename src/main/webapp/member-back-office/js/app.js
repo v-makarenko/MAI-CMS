@@ -7,8 +7,20 @@ angular.module('app', [
     function ($routeProvider) {
         $routeProvider.
             when('/home', {
-                templateUrl: 'html/fragments/home.html',
+                templateUrl: '/member-back-office/html/fragments/home.html',
                 controller: 'HomeController'
+            }).
+            when('/pinfo', {
+                templateUrl: '/member-back-office/html/fragments/pinfo.html',
+                controller: 'PersonalInfoController'
+            }).
+            when('/publications', {
+                templateUrl: '/member-back-office/html/fragments/publications.html',
+                controller: 'PublicationsController'
+            }).
+            when('/messages', {
+                templateUrl: '/member-back-office/html/fragments/messages.html',
+                controller: 'MessagesController'
             }).
             otherwise({
                 redirectTo: '/home'
@@ -20,7 +32,7 @@ angular.module('app', [
 
             var callback = function() {
                 if (!$rootScope.authenticated) {
-                    window.location.href = '../index.html';
+                    //window.location.href = '../index.html';
                 }
             };
 

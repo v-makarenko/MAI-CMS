@@ -22,4 +22,15 @@ public class UserDao extends GenericDao<User> {
             return null;
         }
     }
+
+    public User getByEmail(String email) {
+        List<User> userList = em.createQuery("select u from User u where u.email = :email", User.class)
+                .setParameter("email", email)
+                .getResultList();
+        if(userList.size() > 0 ){
+            return userList.get(0);
+        }else{
+            return null;
+        }
+    }
 }

@@ -12,7 +12,7 @@ public class Util {
     public static String getCookieValueFromRequest(String cookieName, HttpServletRequest request){
         String result = "";
         for(Cookie cookie : request.getCookies()){
-            if(cookie.getName().equals(AccessAuthDto.PARAM_AUTH_TOKEN)){
+            if(cookie.getName().equals(cookieName)){
                 result = cookie.getValue();
             }
         }

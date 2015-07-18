@@ -12,6 +12,7 @@
 <script src="http://underscorejs.org/underscore.js"></script>
 <script src="http://momentjs.com/downloads/moment.js"></script>
 <!-- users js -->
+
 <script type="application/javascript">
     function login(email, password){
         $.ajax({
@@ -27,7 +28,7 @@
         }).done(function(data){
             if(data.status == "OK"){
                 if(data.data.userType == 'MEMBER'){
-                    window.location.href = '/member-back-office.html';
+//                    window.location.href = '/member-back-office.html';
                 }
                 if(data.data.userType == 'ADMIN'){
                     window.location.href = '/admin-back-office.html';
