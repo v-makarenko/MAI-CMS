@@ -13,9 +13,7 @@ import ru.vmakarenko.util.Util;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
@@ -24,6 +22,8 @@ import javax.ws.rs.core.Response;
  * Created by vmakarenko on 22.04.2015.
  */
 @Path("/private/user")
+@Consumes("application/json")
+@Produces("application/json")
 public class UserResource {
     @Inject
     private UserService userService;
@@ -37,7 +37,7 @@ public class UserResource {
     }
 
     @Path("update")
-    @GET
+    @POST
     public Response update(UserDto userDto){
         userService.update(userDto);
         return Response

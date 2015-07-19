@@ -14,7 +14,7 @@ angular.module('app').controller('PersonalInfoController', ['$scope', 'UserServi
         };
 
         $scope.save = function() {
-            UserService.save($scope.currentUser).success(
+            UserService.save($scope.user).success(
                 function(data){
                     if(data.status == 'OK'){
                         alert('OK');
