@@ -30,9 +30,17 @@ public class UserResource {
 
     @Path("getCurrent")
     @GET
-    public Response getCurrentUser(@Context HttpServletRequest request){
+    public Response getCurrent(@Context HttpServletRequest request){
         return Response
                 .ok(RestResponse.createOk().data(userService.getCurrentUser(request)))
+                .build();
+    }
+
+    @Path("getAll")
+    @GET
+    public Response getAll(){
+        return Response
+                .ok(RestResponse.createOk().data(userService.getAll()))
                 .build();
     }
 

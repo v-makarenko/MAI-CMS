@@ -3,8 +3,9 @@
  */
 
 
-angular.module('app').controller('MainController', ['$scope','$location',
-    function ($scope, $location) {
+angular.module('app').controller('MainController', ['$scope','$rootScope','$location', 'AuthService',
+    function ($scope, $rootScope, $location, AuthService) {
+        $scope.currentUser = $rootScope.currentUser;
         $scope.toHome = function(){
             $location.path('/home')
         };
@@ -16,6 +17,11 @@ angular.module('app').controller('MainController', ['$scope','$location',
         };
         $scope.toPublications = function(){
             $location.path('/publications')
+        };
+        $scope.logout = function() {
+            AuthService.logout().success(function(){
+                window.location.href = '../index.html';
+            });
         }
     }
 ]);

@@ -1,6 +1,34 @@
 <div>
-<h1>
+    <h1>
         Почта
     </h1>
-    Вам никто не написал, сорри
+    <button type="button" ng-click="setState('NEW_MAIL')">Новое письмо </button>
+    <button type="button" ng-click="setState('INCOMING')">Входящие </button>
+
+    <div ng-show="state==='NEW_MAIL'">
+        <div>
+            Кому: <select ng-model="newMsg.to" ng-options="user.id as user.lastName for user in users"></select>
+        </div>
+        <div>
+            <textarea ng-model="newMsg.text"></textarea>
+        </div>
+        <div>
+            <button ng-click="sendMsg()">Отправить</button>
+        </div>
+    </div>
+    <div ng-show="state==='INCOMING'">
+        <div ng-repeat="msg in incomingMsgList">
+            {{$index + 1}}. =====================================<br>
+            <div>
+                {{msg.fromName}}
+            </div>
+            <div>
+                {{msg.text}}
+            </div>
+            <div>
+                ============================================
+            </div>
+        </div>
+
+    </div>
 </div>

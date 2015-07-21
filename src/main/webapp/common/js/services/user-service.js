@@ -11,7 +11,11 @@ angular.module("app").service('UserService',
 
         this.getCurrentUser = function(){
             return $http.get(url + 'getCurrent');
-        }
+        };
+
+        this.getAllUsers = function(){
+            return $http.get(url + 'getAll');
+        };
     }
 )
 ;

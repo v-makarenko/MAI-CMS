@@ -14,7 +14,7 @@ public class Message extends DomainEntity{
     @ManyToOne
     @JoinColumn(name = "to_user_id")
     private User to;
-    @Column(name = "mgs")
+    @Column(name = "msg")
     private String text;
     // maybe shuold add some attaches
 

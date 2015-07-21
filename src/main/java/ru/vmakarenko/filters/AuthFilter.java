@@ -2,6 +2,7 @@ package ru.vmakarenko.filters;
 
 import ru.vmakarenko.common.TokenService;
 import ru.vmakarenko.dto.users.AccessAuthDto;
+import ru.vmakarenko.services.CurrentService;
 import ru.vmakarenko.util.Util;
 
 import javax.inject.Inject;
@@ -21,6 +22,8 @@ import java.io.IOException;
 public class AuthFilter implements Filter {
     @Inject
     private TokenService tokenService;
+    @Inject
+    private CurrentService currentService;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -33,8 +36,9 @@ public class AuthFilter implements Filter {
         HttpServletResponse httpServletResponse = (HttpServletResponse)servletResponse;
         String token = Util.getCookieValueFromRequest(AccessAuthDto.PARAM_AUTH_TOKEN, httpServletRequest);
         String email = Util.getCookieValueFromRequest(AccessAuthDto.PARAM_AUTH_EMAIL, httpServletRequest);
-
         if(tokenService.check(token, email)){
+            currentService.setEmail(email);
+            currentService.setToken(token);
             filterChain.doFilter(servletRequest,servletResponse);
         } else {
             httpServletResponse.sendError(HttpServletResponse.SC_FORBIDDEN);

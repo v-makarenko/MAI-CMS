@@ -1,14 +1,19 @@
 package ru.vmakarenko.services;
 
+import ma.glasnost.orika.CustomMapper;
 import ma.glasnost.orika.MapperFactory;
+import ma.glasnost.orika.MappingContext;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
+import ru.vmakarenko.dto.common.MessageDto;
 import ru.vmakarenko.dto.users.UserDto;
+import ru.vmakarenko.entities.Message;
 import ru.vmakarenko.entities.User;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
@@ -28,6 +33,18 @@ public class MapperService {
         mapperFactory.classMap(User.class, UserDto.class)
                 .byDefault().register();
 
+        mapperFactory.classMap(Message.class, MessageDto.class)
+                .fieldAToB("from.id", "from").fieldAToB("to.id", "to")
+                .customize(
+                        new CustomMapper<Message, MessageDto>() {
+                            public void mapAtoB(Message a, MessageDto b, MappingContext context) {
+                                // add your custom mapping code here
+                                if (a.getFrom() != null) {
+                                    b.setFromName(a.getFrom().getLastName() + " " + a.getFrom().getFirstName());
+                                }
+                            }
+                        }
+                ).byDefault().register();
 
     }
 
@@ -44,4 +61,5 @@ public class MapperService {
         if (from == null) return new ArrayList<>();
         return from.parallelStream().map(fromItem -> mapperFactory.getMapperFacade().map(fromItem, toClass)).collect(Collectors.toList());
     }
+
 }

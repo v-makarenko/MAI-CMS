@@ -19,10 +19,10 @@ import javax.servlet.http.HttpServletRequest;
 @Stateless
 public class UserService {
     @Inject
-    UserDao userDao;
+    private UserDao userDao;
 
     @Inject
-    MapperService mapperService;
+    private MapperService mapperService;
 
     public UserDto getByEmailAndPassword(String email, String password) {
         return mapperService.map(userDao.getByEmailAndPassword(email, password), UserDto.class);
@@ -45,5 +45,9 @@ public class UserService {
 
     public void update(UserDto userDto){
         userDao.update(mapperService.map(userDto, User.class));
+    }
+
+    public Object getAll() {
+        return mapperService.map(userDao.findAll(), UserDto.class);
     }
 }
