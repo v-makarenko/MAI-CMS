@@ -18,10 +18,12 @@
 <script src="member-back-office/js/controllers/home-controller.js"></script>
 <script src="member-back-office/js/controllers/messages-controller.js"></script>
 <script src="member-back-office/js/controllers/personal-info-controller.js"></script>
+<script src="member-back-office/js/controllers/email-distr-controller.js"></script>
 <script src="/common/js/controllers/main-controller.js"></script>
 
 <script src="common/js/services/auth-service.js"></script>
 <script src="common/js/services/user-service.js"></script>
+<script src="member-back-office/js/services/email-service.js"></script>
 <script src="member-back-office/js/services/messages-service.js"></script>
 
 
@@ -38,6 +40,7 @@
         <span ng-click="toMessages()">Почта</span>
         <span ng-click="toPublications()">Публикации</span>
         <span ng-click="toPinfo()">Персональная информация</span>
+        <span ng-click="toDistrib()">Рассылка почты</span>
         <span ng-click="logout()">Выход</span>
     </div>
     <div ng-view>

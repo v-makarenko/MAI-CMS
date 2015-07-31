@@ -7,16 +7,19 @@ angular.module('app').controller('MainController', ['$scope','$rootScope','$loca
     function ($scope, $rootScope, $location, AuthService) {
         $scope.currentUser = $rootScope.currentUser;
         $scope.toHome = function(){
-            $location.path('/home')
+            $location.path('/home');
         };
         $scope.toPinfo = function(){
-            $location.path('/pinfo')
+            $location.path('/pinfo');
         };
         $scope.toMessages = function(){
-            $location.path('/messages')
+            $location.path('/messages');
         };
         $scope.toPublications = function(){
-            $location.path('/publications')
+            $location.path('/publications');
+        };
+        $scope.toDistrib = function(){
+            $location.path('/distribMail');
         };
         $scope.logout = function() {
             AuthService.logout().success(function(){

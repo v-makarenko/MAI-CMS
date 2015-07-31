@@ -4,8 +4,12 @@ import ma.glasnost.orika.CustomMapper;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.MappingContext;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
+import ru.vmakarenko.dto.common.EmailMessageDto;
+import ru.vmakarenko.dto.common.EmailTemplateDto;
 import ru.vmakarenko.dto.common.MessageDto;
 import ru.vmakarenko.dto.users.UserDto;
+import ru.vmakarenko.entities.EmailMessage;
+import ru.vmakarenko.entities.EmailTemplate;
 import ru.vmakarenko.entities.Message;
 import ru.vmakarenko.entities.User;
 
@@ -32,6 +36,15 @@ public class MapperService {
         // users stuff
         mapperFactory.classMap(User.class, UserDto.class)
                 .byDefault().register();
+
+
+        mapperFactory.classMap(EmailMessage.class, EmailMessageDto.class)
+                .byDefault().register();
+
+
+        mapperFactory.classMap(EmailTemplate.class, EmailTemplateDto.class)
+                .byDefault().register();
+
 
         mapperFactory.classMap(Message.class, MessageDto.class)
                 .fieldAToB("from.id", "from").fieldAToB("to.id", "to")

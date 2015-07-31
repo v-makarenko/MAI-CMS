@@ -96,4 +96,48 @@
             patronymic text;
         </sql>
     </changeSet>
+    <changeSet id="201507302157" author="vmakarenko">
+        <comment>
+            added table for email messages
+        </comment>
+        <sql>
+            CREATE TABLE EMAIL_MESSAGES (
+            id uuid PRIMARY KEY,
+            to_addr text,
+            is_sent boolean,
+            msg_title text,
+            msg_text text
+            );
+        </sql>
+    </changeSet>
+    <changeSet id="201507302159" author="vmakarenko">
+        <comment>
+            added table for email templates
+        </comment>
+        <sql>
+            CREATE TABLE EMAIL_TEMPLATES (
+            id uuid PRIMARY KEY,
+            name text,
+            template_text text
+            );
+        </sql>
+    </changeSet>
+    <changeSet id="201507302238" author="vmakarenko">
+        <comment>
+            added table for settings
+        </comment>
+        <sql>
+            CREATE TABLE APP_SETTINGS (
+            id uuid PRIMARY KEY,
+            key text,
+            value text
+            );
+            insert into app_settings (id, key, value) values ('00000000-0000-0000-0000-000000000004', 'mail.my.username', 'mai.conference');
+            insert into app_settings (id, key, value) values ('00000000-0000-0000-0000-000000000005', 'mail.my.address', 'mai.conference@yandex.ru');
+            insert into app_settings (id, key, value) values ('00000000-0000-0000-0000-000000000006', 'mail.my.password', 'umc806');
+            insert into app_settings (id, key, value) values ('00000000-0000-0000-0000-000000000007', 'mail.my.host', 'smtp.yandex.ru');
+            insert into app_settings (id, key, value) values ('00000000-0000-0000-0000-000000000008', 'mail.my.security', 'SSL');
+            insert into app_settings (id, key, value) values ('00000000-0000-0000-0000-000000000009', 'mail.my.port', '465');
+        </sql>
+    </changeSet>
 </databaseChangeLog>
