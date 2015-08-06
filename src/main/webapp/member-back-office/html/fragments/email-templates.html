@@ -1,0 +1,18 @@
+<div>
+    <h1>
+        Шаблоны почты
+    </h1>
+    <div>
+        <button type="button" ng-click="addTemplate()">+</button>
+        <div ng-repeat="template in templates">
+            <button type="button" ng-click="currentTemplate = templates[$index]">{{template.name}}</button>
+        </div>
+        <div>
+            <input ng-model="currentTemplate.name">
+            <textarea ng-model="currentTemplate.template"></textarea>
+        </div>
+        <div>
+            <button type="button" ng-click="save(currentTemplate)"></button>
+        </div>
+    </div>
+</div>

@@ -36,13 +36,13 @@ public class EmailService {
 
     @PostConstruct
     public void postConstruct(){
-        email = username = pass = "";
         // TODO make centralized key store
         email = settingsDao.get("mail.my.address");
         username = settingsDao.get("mail.my.username");
         pass = settingsDao.get("mail.my.password");
         Properties properties = System.getProperties();
 
+        // TODO move to common config java class
         properties.put("mail.transport.protocol", "smtp");
 
         properties.put("mail.smtp.starttls.enable","true");

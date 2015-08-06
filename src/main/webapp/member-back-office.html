@@ -4,7 +4,6 @@
 </head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="./css/common.css">
 <script src="/common/js/lib/jquery/jquery-1.11.2.js"></script>
 <script src="/common/js/lib/angular/angular.min.js"></script>
 <script src="/common/js/lib/angular/angular-route.min.js"></script>
@@ -19,11 +18,13 @@
 <script src="member-back-office/js/controllers/messages-controller.js"></script>
 <script src="member-back-office/js/controllers/personal-info-controller.js"></script>
 <script src="member-back-office/js/controllers/email-distr-controller.js"></script>
+<script src="member-back-office/js/controllers/email-templates-controller.js"></script>
 <script src="/common/js/controllers/main-controller.js"></script>
 
 <script src="common/js/services/auth-service.js"></script>
 <script src="common/js/services/user-service.js"></script>
 <script src="member-back-office/js/services/email-service.js"></script>
+<script src="member-back-office/js/services/email-templates-service.js"></script>
 <script src="member-back-office/js/services/messages-service.js"></script>
 
 
@@ -41,6 +42,7 @@
         <span ng-click="toPublications()">Публикации</span>
         <span ng-click="toPinfo()">Персональная информация</span>
         <span ng-click="toDistrib()">Рассылка почты</span>
+        <span ng-click="toMailTemplates()">Почтовые шаблоны</span>
         <span ng-click="logout()">Выход</span>
     </div>
     <div ng-view>

@@ -26,6 +26,10 @@ angular.module('app', [
                 templateUrl: '/member-back-office/html/fragments/distrib-mail.html',
                 controller: 'EmailDistrController'
             }).
+            when('/emailTemplates', {
+                templateUrl: '/member-back-office/html/fragments/email-templates.html',
+                controller: 'EmailTemplatesController'
+            }).
             otherwise({
                 redirectTo: '/home'
             });
