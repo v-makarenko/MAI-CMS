@@ -140,4 +140,12 @@
             insert into app_settings (id, key, value) values ('00000000-0000-0000-0000-000000000009', 'mail.my.port', '465');
         </sql>
     </changeSet>
+    <changeSet id="20150808230100" author="vmakarenko">
+        <comment>
+            added topic for templates
+        </comment>
+        <sql>
+            ALTER TABLE EMAIL_TEMPLATES ADD COLUMN email_topic text;
+        </sql>
+    </changeSet>
 </databaseChangeLog>

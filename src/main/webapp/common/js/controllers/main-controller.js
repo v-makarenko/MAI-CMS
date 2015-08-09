@@ -21,6 +21,9 @@ angular.module('app').controller('MainController', ['$scope','$rootScope','$loca
         $scope.toDistrib = function(){
             $location.path('/distribMail');
         };
+        $scope.toMailTemplates = function(){
+            $location.path('/emailTemplates');
+        };
         $scope.logout = function() {
             AuthService.logout().success(function(){
                 window.location.href = '../index.html';

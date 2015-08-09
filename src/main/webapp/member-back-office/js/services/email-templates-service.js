@@ -12,10 +12,6 @@ angular.module("app").service('EmailTemplatesService',
         this.save = function(template) {
             return $http.post(url,template);l
         }
-
-
-
-
     }
 )
 ;

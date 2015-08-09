@@ -27,11 +27,4 @@ public class EmailResource {
         service.distribute();
         return Response.ok(RestResponse.createOk()).build();
     }
-
-    public Response editTemplate () {
-        return null;
-    }
-
-
-
 }

@@ -13,13 +13,13 @@ public class EmailTemplate extends DomainEntity{
     @Column(name = "name")
     private String name;
     @Column(name = "template_text")
-    private Boolean text;
+    private String text;
 
-    public Boolean getText() {
+    public String getText() {
         return text;
     }
 
-    public void setText(Boolean text) {
+    public void setText(String text) {
         this.text = text;
     }
 

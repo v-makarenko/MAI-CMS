@@ -2,6 +2,7 @@ package ru.vmakarenko.dao;
 
 import ru.vmakarenko.dao.generic.GenericDao;
 import ru.vmakarenko.entities.EmailMessage;
+import ru.vmakarenko.entities.EmailTemplate;
 
 import javax.ejb.Stateless;
 
@@ -9,6 +10,6 @@ import javax.ejb.Stateless;
  * Created by VMakarenko on 4/25/2015.
  */
 @Stateless
-public class EmailTemplateDao extends GenericDao<EmailMessage> {
+public class EmailTemplateDao extends GenericDao<EmailTemplate> {
 
 }
