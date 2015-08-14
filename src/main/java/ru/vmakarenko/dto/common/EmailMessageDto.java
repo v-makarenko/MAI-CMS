@@ -13,7 +13,7 @@ public class EmailMessageDto extends DomainEntity{
     private String to;
     private Boolean sent = false;
     private String text;
-    private String title;
+    private String topic;
 
 
     public Boolean getSent() {
@@ -38,5 +38,13 @@ public class EmailMessageDto extends DomainEntity{
 
     public void setText(String msgText) {
         this.text = msgText;
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 }

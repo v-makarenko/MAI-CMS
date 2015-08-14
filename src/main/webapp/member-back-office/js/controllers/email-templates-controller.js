@@ -6,6 +6,7 @@
 angular.module('app').controller('EmailTemplatesController', ['$scope', 'EmailTemplatesService',
     function ($scope, EmailTemplatesService) {
         $scope.currentTemplate = {};
+        $scope.isNew = true;
 
 
         $scope.getTemplates = function() {
@@ -14,14 +15,24 @@ angular.module('app').controller('EmailTemplatesController', ['$scope', 'EmailTe
             });
         };
 
-        $scope.save = function(template){
-            EmailTemplatesService.save(template);
+        $scope.save = function(){
+            EmailTemplatesService.save($scope.currentTemplate).success(function(data){
+                if(data.status == 'OK'){
+                    $scope.getTemplates();
+                }
+            });
         };
 
         $scope.getTemplates();
 
         $scope.setCurrent = function(id){
             $scope.currentTemplate = $scope.templates[id];
+            $scope.isNew = false;
+        };
+
+        $scope.createNew =function() {
+            $scope.isNew = true;
+            $scope.currentTemplate = {};
         }
 
     }

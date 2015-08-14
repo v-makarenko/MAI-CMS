@@ -14,6 +14,8 @@ public class EmailTemplate extends DomainEntity{
     private String name;
     @Column(name = "template_text")
     private String text;
+    @Column(name = "email_topic")
+    private String topic;
 
     public String getText() {
         return text;
@@ -30,4 +32,14 @@ public class EmailTemplate extends DomainEntity{
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
+
+
 }

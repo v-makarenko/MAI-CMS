@@ -10,6 +10,7 @@ import ru.vmakarenko.services.MessageService;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
+import java.util.UUID;
 
 /**
  * Created by vmakarenko on 22.04.2015.
@@ -24,7 +25,7 @@ public class EmailResource {
     @Path("/distribute")
     @POST
     public Response distributeMsgs () {
-        service.distribute();
+        service.distributeWithTemplate(UUID.fromString("b3c99e20-30a4-455f-9d9d-0564ea9b95ee"));
         return Response.ok(RestResponse.createOk()).build();
     }
 }

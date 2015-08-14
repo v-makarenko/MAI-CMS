@@ -12,6 +12,7 @@ import javax.persistence.Table;
 public class EmailTemplateDto extends DomainEntity{
     private String name;
     private String text;
+    private String topic;
 
     public String getText() {
         return text;
@@ -27,5 +28,13 @@ public class EmailTemplateDto extends DomainEntity{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 }
