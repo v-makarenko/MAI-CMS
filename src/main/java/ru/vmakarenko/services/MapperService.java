@@ -8,16 +8,15 @@ import ru.vmakarenko.dto.common.EmailMessageDto;
 import ru.vmakarenko.dto.common.EmailTemplateDto;
 import ru.vmakarenko.dto.common.MessageDto;
 import ru.vmakarenko.dto.users.UserDto;
-import ru.vmakarenko.entities.EmailMessage;
-import ru.vmakarenko.entities.EmailTemplate;
-import ru.vmakarenko.entities.Message;
-import ru.vmakarenko.entities.User;
+import ru.vmakarenko.entities.messages.EmailMessage;
+import ru.vmakarenko.entities.messages.EmailTemplate;
+import ru.vmakarenko.entities.messages.InnerMessage;
+import ru.vmakarenko.entities.users.User;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
@@ -46,14 +45,14 @@ public class MapperService {
                 .byDefault().register();
 
 
-        mapperFactory.classMap(Message.class, MessageDto.class)
+        mapperFactory.classMap(InnerMessage.class, MessageDto.class)
                 .fieldAToB("from.id", "from").fieldAToB("to.id", "to")
                 .customize(
-                        new CustomMapper<Message, MessageDto>() {
-                            public void mapAtoB(Message a, MessageDto b, MappingContext context) {
+                        new CustomMapper<InnerMessage, MessageDto>() {
+                            public void mapAtoB(InnerMessage a, MessageDto b, MappingContext context) {
                                 // add your custom mapping code here
                                 if (a.getFrom() != null) {
-                                    b.setFromName(a.getFrom().getLastName() + " " + a.getFrom().getFirstName());
+                                    b.setFromName(a.getFrom().getSurname() + " " + a.getFrom().getFirstName());
                                 }
                             }
                         }

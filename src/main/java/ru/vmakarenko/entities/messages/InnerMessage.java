@@ -1,21 +1,30 @@
-package ru.vmakarenko.entities;
+package ru.vmakarenko.entities.messages;
+
+import ru.vmakarenko.entities.DomainEntity;
+import ru.vmakarenko.entities.users.User;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by VMakarenko on 7/15/2015.
  */
 @Entity
-@Table(name = "messages")
-public class Message extends DomainEntity{
+@Table(name = "inner_messages")
+public class InnerMessage extends DomainEntity {
     @ManyToOne
-    @JoinColumn(name = "from_user_id")
+    @JoinColumn(name = "sender_id")
     private User from;
     @ManyToOne
-    @JoinColumn(name = "to_user_id")
+    @JoinColumn(name = "receiver_id")
     private User to;
-    @Column(name = "msg")
+    @Column(name = "text")
     private String text;
+    @Column(name="time")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date time;
+
+//    private List<InnerMessageAttaches>
     // maybe shuold add some attaches
 
 

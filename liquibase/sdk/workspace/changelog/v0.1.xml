@@ -7,145 +7,379 @@
             Init 1
         </comment>
         <sql>
-            CREATE TABLE UNIVERSITIES (
-            id uuid PRIMARY KEY,
-            short_name text,
-            long_name text
+            CREATE TABLE Users (
+            id bigint,
+            name TEXT,
+            surname TEXT,
+            patronymic TEXT,
+            passport_series TEXT,
+            passport_number TEXT,
+            email TEXT,
+            password_hash TEXT,
+            working_place_id bigint,
+            date_of_birth DATE,
+            CONSTRAINT Users_pk PRIMARY KEY (id)
+            ) WITH (
+            OIDS=FALSE
             );
-            CREATE TABLE DEGREE_TITLES (
-            id uuid PRIMARY KEY,
-            short_name text,
-            long_name text
-            );
-            CREATE TABLE USERS (
-            id uuid PRIMARY KEY,
-            first_name text,
-            second_name text,
-            passport_series text,
-            passport_no text,
-            university_id uuid REFERENCES UNIVERSITIES(ID),
-            title_id uuid REFERENCES DEGREE_TITLES(ID)
-            );
-        </sql>
-    </changeSet>
-    <changeSet id="201507152339" author="vmakarenko">
-        <comment>
-            Init 2
-        </comment>
-        <sql>
-            ALTER TABLE USERS ADD COLUMN password text;
-            ALTER TABLE USERS ADD COLUMN email text;
-        </sql>
 
-    </changeSet>
-    <changeSet id="201507162005" author="vmakarenko">
-        <comment>
-            Init 3
-        </comment>
-        <sql>
-            ALTER TABLE USERS ADD COLUMN user_type text;
-            ALTER TABLE USERS RENAME COLUMN second_name TO last_name;
 
-            INSERT INTO UNIVERSITIES (id, short_name, long_name)
-            VALUES ('00000000-0000-0000-0000-000000000000', 'МАИ', 'Московский авиационный институт (Государственный Технический Университет)');
 
-            INSERT INTO DEGREE_TITLES (id, short_name, long_name)
-            VALUES ('00000000-0000-0000-0000-000000000001', 'мл. научный сотрудник', 'младший научный сотрудник');
+            CREATE TABLE Events (
+            id bigint,
+            create_date DATE,
+            name TEXT,
+            event_type TEXT,
+            start_date DATE,
+            end_date DATE,
+            application_start_date DATE,
+            application_end_date DATE,
+            payment_start_date DATE,
+            payment_end_date DATE,
+            program_ready_date DATE,
+            results_ready_date DATE,
+            CONSTRAINT Events_pk PRIMARY KEY (id)
+            ) WITH (
+            OIDS=FALSE
+            );
 
-            INSERT INTO USERS ( id, first_name, last_name, passport_series,
-            passport_no, university_id, title_id, password, email) VALUES
-            ('00000000-0000-0000-0000-000000000002', 'Администратор', 'Администратор', '0000', '000000',
-            '00000000-0000-0000-0000-000000000000', '00000000-0000-0000-0000-000000000001', 'admin', 'admin@test.ru');
 
-            INSERT INTO USERS ( id, first_name, last_name, passport_series,
-            passport_no, university_id, title_id, password, email) VALUES
-            ('00000000-0000-0000-0000-000000000003', 'Пользователь', 'Пользователь', '0001', '000111',
-            '00000000-0000-0000-0000-000000000000', '00000000-0000-0000-0000-000000000001', 'test', 'test@test.ru');
-        </sql>
-    </changeSet>
-    <changeSet id="201507162008" author="vmakarenko">
-        <comment>
-            Init 4
-        </comment>
-        <sql>
-            UPDATE USERS SET user_type = 'ADMIN'
-            WHERE id = '00000000-0000-0000-0000-000000000002';
-            UPDATE USERS SET user_type = 'MEMBER'
-            WHERE id = '00000000-0000-0000-0000-000000000003';
-        </sql>
-    </changeSet>
-    <changeSet id="201507181405" author="vmakarenko">
-        <comment>
-            added messages for internal exchange
-        </comment>
-        <sql>
-            CREATE TABLE MESSAGES (
-            id uuid PRIMARY KEY,
-            from_user_id uuid REFERENCES USERS(id),
-            to_user_id uuid REFERENCES USERS(id),
-            msg text
+
+            CREATE TABLE Reports (
+            id bigint,
+            reporter_id bigint,
+            creator_id bigint,
+            report_name TEXT,
+            event_id bigint,
+            file_id bigint,
+            status_id bigint,
+            CONSTRAINT Reports_pk PRIMARY KEY (id)
+            ) WITH (
+            OIDS=FALSE
             );
-        </sql>
-    </changeSet>
-    <changeSet id="201507181408" author="vmakarenko">
-        <comment>
-            add patronymic for users
-        </comment>
-        <sql>
-            ALTER TABLE users ADD COLUMN
-            patronymic text;
-        </sql>
-    </changeSet>
-    <changeSet id="201507302157" author="vmakarenko">
-        <comment>
-            added table for email messages
-        </comment>
-        <sql>
-            CREATE TABLE EMAIL_MESSAGES (
-            id uuid PRIMARY KEY,
-            to_addr text,
-            is_sent boolean,
-            msg_title text,
-            msg_text text
+
+
+
+            CREATE TABLE Coauthors (
+            id bigint,
+            report_id bigint,
+            user_id bigint,
+            CONSTRAINT Coauthors_pk PRIMARY KEY (id)
+            ) WITH (
+            OIDS=FALSE
             );
-        </sql>
-    </changeSet>
-    <changeSet id="201507302159" author="vmakarenko">
-        <comment>
-            added table for email templates
-        </comment>
-        <sql>
-            CREATE TABLE EMAIL_TEMPLATES (
-            id uuid PRIMARY KEY,
-            name text,
-            template_text text
+
+
+
+            CREATE TABLE External_authors (
+            id bigint,
+            surname TEXT,
+            created_by_id bigint,
+            name TEXT,
+            patronymic TEXT,
+            working_place TEXT,
+            position TEXT,
+            report_id bigint,
+            CONSTRAINT External_authors_pk PRIMARY KEY (id)
+            ) WITH (
+            OIDS=FALSE
             );
-        </sql>
-    </changeSet>
-    <changeSet id="201507302238" author="vmakarenko">
-        <comment>
-            added table for settings
-        </comment>
-        <sql>
-            CREATE TABLE APP_SETTINGS (
-            id uuid PRIMARY KEY,
-            key text,
-            value text
+
+
+
+            CREATE TABLE Inner_Messages (
+            id bigint,
+            text TEXT,
+            sender_id bigint,
+            receiver_id bigint,
+            time DATE,
+            CONSTRAINT Inner_Messages_pk PRIMARY KEY (id)
+            ) WITH (
+            OIDS=FALSE
             );
-            insert into app_settings (id, key, value) values ('00000000-0000-0000-0000-000000000004', 'mail.my.username', 'mai.conference');
-            insert into app_settings (id, key, value) values ('00000000-0000-0000-0000-000000000005', 'mail.my.address', 'mai.conference@yandex.ru');
-            insert into app_settings (id, key, value) values ('00000000-0000-0000-0000-000000000006', 'mail.my.password', 'umc806');
-            insert into app_settings (id, key, value) values ('00000000-0000-0000-0000-000000000007', 'mail.my.host', 'smtp.yandex.ru');
-            insert into app_settings (id, key, value) values ('00000000-0000-0000-0000-000000000008', 'mail.my.security', 'SSL');
-            insert into app_settings (id, key, value) values ('00000000-0000-0000-0000-000000000009', 'mail.my.port', '465');
-        </sql>
-    </changeSet>
-    <changeSet id="20150808230100" author="vmakarenko">
-        <comment>
-            added topic for templates
-        </comment>
-        <sql>
-            ALTER TABLE EMAIL_TEMPLATES ADD COLUMN email_topic text;
+
+
+
+            CREATE TABLE Inner_message_attaches (
+            id bigint,
+            file_id bigint,
+            message_id bigint,
+            CONSTRAINT Inner_message_attaches_pk PRIMARY KEY (id)
+            ) WITH (
+            OIDS=FALSE
+            );
+
+
+
+            CREATE TABLE External_Messages (
+            id bigint,
+            topic TEXT,
+            text TEXT,
+            from_email TEXT,
+            create_time DATE,
+            send_time DATE,
+            sent_status BOOLEAN,
+            CONSTRAINT External_Messages_pk PRIMARY KEY (id)
+            ) WITH (
+            OIDS=FALSE
+            );
+
+
+
+            CREATE TABLE Files (
+            id bigint,
+            file_name TEXT,
+            display_name TEXT,
+            type TEXT,
+            content bytea,
+            path TEXT,
+            CONSTRAINT Files_pk PRIMARY KEY (id)
+            ) WITH (
+            OIDS=FALSE
+            );
+
+
+
+            CREATE TABLE External_Message_Receivers (
+            id bigint,
+            message_id bigint,
+            user_id bigint,
+            create_time DATE,
+            is_read BOOLEAN,
+            CONSTRAINT External_Message_Receivers_pk PRIMARY KEY (id)
+            ) WITH (
+            OIDS=FALSE
+            );
+
+
+            CREATE TABLE User_def_events (
+            id bigint,
+            name TEXT,
+            is_broadcast BOOLEAN,
+            description TEXT,
+            template_id bigint,
+            CONSTRAINT User_def_events_pk PRIMARY KEY (id)
+            ) WITH (
+            OIDS=FALSE
+            );
+
+
+
+            CREATE TABLE Events_Conn_User_def_Events (
+            id bigint,
+            event_id bigint,
+            user_def_event_id bigint,
+            date_from DATE,
+            date_to DATE,
+            CONSTRAINT Events_Conn_User_def_Events_pk PRIMARY KEY (id)
+            ) WITH (
+            OIDS=FALSE
+            );
+
+
+
+            CREATE TABLE Working_places (
+            id bigint,
+            full_name TEXT,
+            short_name TEXT,
+            phys_address TEXT,
+            juridical_address TEXT,
+            approved BOOLEAN,
+            CONSTRAINT Working_places_pk PRIMARY KEY (id)
+            ) WITH (
+            OIDS=FALSE
+            );
+
+
+
+            CREATE TABLE Users_Events(
+            id bigint,
+            events_id bigint,
+            users_id bigint,
+            CONSTRAINT Users_Events_pk PRIMARY KEY (id)
+            ) WITH (
+            OIDS=FALSE
+            );
+
+
+
+            CREATE TABLE Event_Document (
+            id bigint,
+            name TEXT,
+            event_id bigint,
+            file_id bigint,
+            CONSTRAINT Event_Document_pk PRIMARY KEY (id)
+            ) WITH (
+            OIDS=FALSE
+            );
+
+
+
+            CREATE TABLE External_message_attaches (
+            id bigint,
+            file_id bigint,
+            message_id bigint,
+            CONSTRAINT External_message_attaches_pk PRIMARY KEY (id)
+            ) WITH (
+            OIDS=FALSE
+            );
+
+
+
+            CREATE TABLE Sections (
+            id bigint,
+            name TEXT,
+            create_time DATE,
+            CONSTRAINT Sections_pk PRIMARY KEY (id)
+            ) WITH (
+            OIDS=FALSE
+            );
+
+
+
+            CREATE TABLE Available_sections (
+            id bigint,
+            section_id bigint,
+            event_id bigint,
+            CONSTRAINT Available_sections_pk PRIMARY KEY (id)
+            ) WITH (
+            OIDS=FALSE
+            );
+
+
+
+            CREATE TABLE Reports_Sections (
+            id bigint,
+            is_approved BOOLEAN,
+            report_id bigint,
+            section_id bigint,
+            CONSTRAINT Reports_Sections_pk PRIMARY KEY (id)
+            ) WITH (
+            OIDS=FALSE
+            );
+
+
+
+            CREATE TABLE Reports_Users (
+            id bigint,
+            report_id bigint,
+            user_id bigint,
+            status integer,
+            CONSTRAINT Reports_Users_pk PRIMARY KEY (id)
+            ) WITH (
+            OIDS=FALSE
+            );
+
+
+
+            CREATE TABLE User_Log (
+            id bigint,
+            time DATE,
+            user_id bigint,
+            msg TEXT,
+            log_type TEXT,
+            CONSTRAINT User_Log_pk PRIMARY KEY (id)
+            ) WITH (
+            OIDS=FALSE
+            );
+
+
+
+            CREATE TABLE Reports_Future_Users (
+            id bigint,
+            report_id bigint,
+            email TEXT,
+            CONSTRAINT Reports_Future_Users_pk PRIMARY KEY (id)
+            ) WITH (
+            OIDS=FALSE
+            );
+
+
+
+            CREATE TABLE Reports_Statuses (
+            id bigint,
+            name TEXT,
+            display_name TEXT,
+            CONSTRAINT Reports_Statuses_pk PRIMARY KEY (id)
+            ) WITH (
+            OIDS=FALSE
+            );
+
+
+
+            CREATE TABLE Broadcast_templates (
+            id bigint,
+            name TEXT,
+            topic TEXT,
+            text TEXT,
+            CONSTRAINT Broadcast_templates_pk PRIMARY KEY (id)
+            ) WITH (
+            OIDS=FALSE
+            );
+
+
+
+            ALTER TABLE Users ADD CONSTRAINT Users_fk0 FOREIGN KEY (working_place_id) REFERENCES Working_places(id);
+
+
+            ALTER TABLE Reports ADD CONSTRAINT Reports_fk0 FOREIGN KEY (reporter_id) REFERENCES Users(id);
+            ALTER TABLE Reports ADD CONSTRAINT Reports_fk1 FOREIGN KEY (creator_id) REFERENCES Users(id);
+            ALTER TABLE Reports ADD CONSTRAINT Reports_fk2 FOREIGN KEY (event_id) REFERENCES Events(id);
+            ALTER TABLE Reports ADD CONSTRAINT Reports_fk3 FOREIGN KEY (file_id) REFERENCES Files(id);
+            ALTER TABLE Reports ADD CONSTRAINT Reports_fk4 FOREIGN KEY (status_id) REFERENCES Reports_Statuses(id);
+
+            ALTER TABLE Coauthors ADD CONSTRAINT Coauthors_fk0 FOREIGN KEY (report_id) REFERENCES Reports(id);
+            ALTER TABLE Coauthors ADD CONSTRAINT Coauthors_fk1 FOREIGN KEY (user_id) REFERENCES Users(id);
+
+            ALTER TABLE External_authors ADD CONSTRAINT External_authors_fk0 FOREIGN KEY (created_by_id) REFERENCES Users(id);
+
+            ALTER TABLE External_authors_conn_reports ADD CONSTRAINT External_authors_conn_reports_fk0 FOREIGN KEY (external_author_id) REFERENCES External_authors(id);
+            ALTER TABLE External_authors_conn_reports ADD CONSTRAINT External_authors_conn_reports_fk1 FOREIGN KEY (report_id) REFERENCES Reports(id);
+
+            ALTER TABLE Inner_Messages ADD CONSTRAINT Inner_Messages_fk0 FOREIGN KEY (sender_id) REFERENCES Users(id);
+            ALTER TABLE Inner_Messages ADD CONSTRAINT Inner_Messages_fk1 FOREIGN KEY (receiver_id) REFERENCES Users(id);
+
+            ALTER TABLE Inner_message_attaches ADD CONSTRAINT Inner_message_attaches_fk0 FOREIGN KEY (file_id) REFERENCES Files(id);
+            ALTER TABLE Inner_message_attaches ADD CONSTRAINT Inner_message_attaches_fk1 FOREIGN KEY (message_id) REFERENCES Inner_Messages(id);
+
+
+
+            ALTER TABLE External_Message_Receivers ADD CONSTRAINT External_Message_Receivers_fk0 FOREIGN KEY (message_id) REFERENCES External_Messages(id);
+            ALTER TABLE External_Message_Receivers ADD CONSTRAINT External_Message_Receivers_fk1 FOREIGN KEY (user_id) REFERENCES Users(id);
+
+            ALTER TABLE User_Roles ADD CONSTRAINT User_Roles_fk0 FOREIGN KEY (user_id) REFERENCES Users(id);
+
+            ALTER TABLE User_def_events ADD CONSTRAINT User_def_events_fk0 FOREIGN KEY (template_id) REFERENCES Broadcast_templates(id);
+
+            ALTER TABLE Events_Conn_User_def_Events ADD CONSTRAINT Events_Conn_User_def_Events_fk0 FOREIGN KEY (event_id) REFERENCES Events(id);
+            ALTER TABLE Events_Conn_User_def_Events ADD CONSTRAINT Events_Conn_User_def_Events_fk1 FOREIGN KEY (user_def_event_id) REFERENCES User_def_events(id);
+
+
+            ALTER TABLE Users_Events ADD CONSTRAINT Users_Events_fk0 FOREIGN KEY (events_id) REFERENCES Events(id);
+            ALTER TABLE Users_Events ADD CONSTRAINT Users_Events_fk1 FOREIGN KEY (users_id) REFERENCES Users(id);
+
+            ALTER TABLE Event_Document ADD CONSTRAINT Event_Document_fk0 FOREIGN KEY (event_id) REFERENCES Events(id);
+            ALTER TABLE Event_Document ADD CONSTRAINT Event_Document_fk1 FOREIGN KEY (file_id) REFERENCES Files(id);
+
+            ALTER TABLE External_message_attaches ADD CONSTRAINT External_message_attaches_fk0 FOREIGN KEY (file_id) REFERENCES Files(id);
+            ALTER TABLE External_message_attaches ADD CONSTRAINT External_message_attaches_fk1 FOREIGN KEY (message_id) REFERENCES External_Messages(id);
+
+
+            ALTER TABLE Available_sections ADD CONSTRAINT Available_sections_fk0 FOREIGN KEY (section_id) REFERENCES Sections(id);
+            ALTER TABLE Available_sections ADD CONSTRAINT Available_sections_fk1 FOREIGN KEY (event_id) REFERENCES Events(id);
+
+            ALTER TABLE Reports_Sections ADD CONSTRAINT Reports_Sections_fk0 FOREIGN KEY (report_id) REFERENCES Reports(id);
+            ALTER TABLE Reports_Sections ADD CONSTRAINT Reports_Sections_fk1 FOREIGN KEY (section_id) REFERENCES Available_sections(id);
+
+            ALTER TABLE Reports_Users ADD CONSTRAINT Reports_Users_fk0 FOREIGN KEY (report_id) REFERENCES Reports(id);
+            ALTER TABLE Reports_Users ADD CONSTRAINT Reports_Users_fk1 FOREIGN KEY (user_id) REFERENCES Users(id);
+            ALTER TABLE Reports_Users ADD CONSTRAINT Reports_Users_fk2 FOREIGN KEY (status) REFERENCES Reports_Statuses(id);
+
+            ALTER TABLE User_Log ADD CONSTRAINT User_Log_fk0 FOREIGN KEY (user_id) REFERENCES Users(id);
+
+            ALTER TABLE Reports_Future_Users ADD CONSTRAINT Reports_Future_Users_fk0 FOREIGN KEY (report_id) REFERENCES Reports(id);
+
+
         </sql>
     </changeSet>
 </databaseChangeLog>

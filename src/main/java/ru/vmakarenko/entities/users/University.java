@@ -1,6 +1,7 @@
-package ru.vmakarenko.entities;
+package ru.vmakarenko.entities.users;
 
 import org.dom4j.tree.AbstractEntity;
+import ru.vmakarenko.entities.DomainEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +12,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="universities")
-public class University extends DomainEntity{
+public class University extends DomainEntity {
     @Column(name = "short_name")
     private String shortName;
     @Column(name = "long_name")

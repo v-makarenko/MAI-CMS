@@ -1,8 +1,5 @@
 package ru.vmakarenko.dao;
 
-import ru.vmakarenko.dao.generic.GenericDao;
-import ru.vmakarenko.entities.Message;
-
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

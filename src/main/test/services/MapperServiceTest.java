@@ -4,8 +4,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import ru.vmakarenko.dto.common.MessageDto;
-import ru.vmakarenko.entities.Message;
-import ru.vmakarenko.entities.User;
+import ru.vmakarenko.entities.messages.InnerMessage;
+import ru.vmakarenko.entities.users.User;
 import ru.vmakarenko.services.MapperService;
 
 import java.util.UUID;
@@ -27,7 +27,7 @@ public class MapperServiceTest {
         dto.setFrom(UUID.randomUUID());
         dto.setTo(UUID.randomUUID());
         dto.setText("text");
-        Message msg = service.map(dto, Message.class);
+        InnerMessage msg = service.map(dto, InnerMessage.class);
         Assert.assertEquals(msg.getText(), dto.getText());
         Assert.assertNull(msg.getTo());
         Assert.assertNull(msg.getFrom());
@@ -35,13 +35,13 @@ public class MapperServiceTest {
 
     @Test
     public void messageMappingTestToDto() {
-        Message msg = new Message();
+        InnerMessage msg = new InnerMessage();
         User from = new User();
         User to = new User();
         from.setId(UUID.randomUUID());
         to.setId(UUID.randomUUID());
-        from.setLastName("Фамилия");
-        from.setFirstName("Имя");
+        from.setSurname("Фамилия");
+        from.setName("Имя");
         msg.setFrom(from);
         msg.setTo(to);
         msg.setText("Text");
@@ -50,7 +50,7 @@ public class MapperServiceTest {
         Assert.assertEquals(msg.getText(), dto.getText());
         Assert.assertEquals(msg.getTo().getId(), dto.getTo());
         Assert.assertEquals(msg.getFrom().getId(), dto.getFrom());
-        Assert.assertEquals(msg.getFrom().getLastName() + " " + msg.getFrom().getFirstName(),
+        Assert.assertEquals(msg.getFrom().getSurname() + " " + msg.getFrom().getFirstName(),
                 dto.getFromName());
     }
 }

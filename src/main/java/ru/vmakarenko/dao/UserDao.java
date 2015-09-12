@@ -1,7 +1,7 @@
 package ru.vmakarenko.dao;
 
 import ru.vmakarenko.dao.generic.GenericDao;
-import ru.vmakarenko.entities.User;
+import ru.vmakarenko.entities.users.User;
 
 import javax.ejb.Stateless;
 import java.util.List;

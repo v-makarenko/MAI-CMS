@@ -3,10 +3,9 @@ package ru.vmakarenko.services;
 import ru.vmakarenko.dao.EmailDao;
 import ru.vmakarenko.dao.SettingsDao;
 import ru.vmakarenko.dto.common.EmailMessageDto;
-import ru.vmakarenko.entities.EmailMessage;
+import ru.vmakarenko.entities.messages.EmailMessage;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import javax.ejb.Schedule;
 import javax.ejb.Stateless;
 import javax.inject.Inject;

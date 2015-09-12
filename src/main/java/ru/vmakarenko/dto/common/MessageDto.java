@@ -1,9 +1,7 @@
 package ru.vmakarenko.dto.common;
 
 import ru.vmakarenko.entities.DomainEntity;
-import ru.vmakarenko.entities.User;
 
-import javax.persistence.*;
 import java.util.UUID;
 
 /**

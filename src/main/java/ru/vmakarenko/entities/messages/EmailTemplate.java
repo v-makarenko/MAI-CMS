@@ -1,4 +1,6 @@
-package ru.vmakarenko.entities;
+package ru.vmakarenko.entities.messages;
+
+import ru.vmakarenko.entities.DomainEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +11,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "email_templates")
-public class EmailTemplate extends DomainEntity{
+public class EmailTemplate extends DomainEntity {
     @Column(name = "name")
     private String name;
     @Column(name = "template_text")

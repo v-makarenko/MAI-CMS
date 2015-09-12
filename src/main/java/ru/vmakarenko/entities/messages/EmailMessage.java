@@ -1,4 +1,6 @@
-package ru.vmakarenko.entities;
+package ru.vmakarenko.entities.messages;
+
+import ru.vmakarenko.entities.DomainEntity;
 
 import javax.persistence.*;
 
@@ -7,7 +9,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "email_messages")
-public class EmailMessage extends DomainEntity{
+public class EmailMessage extends DomainEntity {
     @Column(name = "TO_ADDR")
     private String to;
     @Column(name = "IS_SENT")

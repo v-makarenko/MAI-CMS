@@ -1,8 +1,7 @@
 package ru.vmakarenko.dao;
 
 import ru.vmakarenko.dao.generic.GenericDao;
-import ru.vmakarenko.entities.EmailMessage;
-import ru.vmakarenko.entities.EmailTemplate;
+import ru.vmakarenko.entities.messages.EmailTemplate;
 
 import javax.ejb.Stateless;
 
