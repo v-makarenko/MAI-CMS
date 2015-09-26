@@ -1,6 +1,6 @@
 package ru.vmakarenko.entities.users;
 
-import ru.vmakarenko.common.UserRole;
+import ru.vmakarenko.common.UserType;
 import ru.vmakarenko.entities.DomainEntity;
 
 import javax.persistence.*;
@@ -28,7 +28,7 @@ public class User extends DomainEntity {
     private String passwordHash;
     @Enumerated(EnumType.STRING)
     @Column(name = "user_type")
-    private UserRole userRole;
+    private UserType userType;
     @Column(name = "date_of_birth")
     @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
@@ -76,12 +76,12 @@ public class User extends DomainEntity {
         this.email = email;
     }
 
-    public UserRole getUserRole() {
-        return userRole;
+    public UserType getUserType() {
+        return userType;
     }
 
-    public void setUserRole(UserRole userRole) {
-        this.userRole = userRole;
+    public void setUserType(UserType userRole) {
+        this.userType = userRole;
     }
 
     public String getPatronymic() {

@@ -1,0 +1,65 @@
+<div class="fixed-width-mid ">
+    <div>
+        <a href="#/events/" class="btn">Назад</a>
+    </div>
+    <div class="form-group">
+        <label for="event-name">
+            Название события
+        </label>
+        <input class="form-control" type="text" id="event-name" ng-model="currentEvent.name"/>
+    </div>
+
+
+    <accordion>
+        <accordion-group heading="Настройка ключевых дат">
+            <div>
+                <form>
+                    <div class="form-group">
+                        <label for="event-start-date">
+                            Начало события
+                        </label>
+                        <input class="form-control" id="event-start-date" type="date"
+                               format="dd/mm/yyyy"
+                               date-time ng-model="currentEvent.startDate">
+                        <!--<input class="form-control" type="text" id="event-start-date" ng-model="currentEvent.startDate"/>-->
+                    </div>
+                    <div class="form-group">
+                        <label for="event-end-date">
+                            Конец события
+                        </label>
+                        <input class="form-control" id="event-end-date" type="date"
+                               date-time ng-model="currentEvent.endDate">
+                        <!--<input class="form-control" type="text" id="event-end-date" ng-model="currentEvent.endDate"/>-->
+                    </div>
+                </form>
+            </div>
+        </accordion-group>
+        <accordion-group heading="Шаблоны рассылаемых сообщений">
+            <div class="vertical-tabs">
+                <tabset vertical="true" >
+                    <tab ng-repeat="template in currentEvent.templates"
+                         heading="template.name">
+                        <textarea ng-model="template.text"></textarea>
+
+                    </tab>
+                    <tab heading="(+)Новый шаблон">Vertical content 2</tab>
+                </tabset>
+            </div>
+        </accordion-group>
+        <accordion-group heading="Даты рассылки сообщений">
+            <div>
+
+            </div>
+        </accordion-group>
+        <accordion-group heading="Статистика">
+            <div>
+                В данной конференции примет участие:  человек.
+                ???
+
+            </div>
+        </accordion-group>
+    </accordion>
+    <div>
+        <button ng-click="save()" class="btn">Сохранить</button>
+    </div>
+</div>

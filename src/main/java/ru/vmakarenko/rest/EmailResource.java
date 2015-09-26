@@ -25,7 +25,7 @@ public class EmailResource {
     @Path("/distribute")
     @POST
     public Response distributeMsgs () {
-        service.distributeWithTemplate(UUID.fromString("b3c99e20-30a4-455f-9d9d-0564ea9b95ee"));
+//        service.distributeWithTemplate(UUID.fromString("b3c99e20-30a4-455f-9d9d-0564ea9b95ee"));
         return Response.ok(RestResponse.createOk()).build();
     }
 }

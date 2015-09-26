@@ -2,7 +2,7 @@
  * Created by VMakarenko on 7/17/2015.
  */
 angular.module('app', [
-    'ngRoute'
+    'ngRoute', 'ui.bootstrap'
 ]).config(['$routeProvider',
     function ($routeProvider) {
         $routeProvider.
@@ -14,9 +14,13 @@ angular.module('app', [
                 templateUrl: '/member-back-office/html/fragments/pinfo.html',
                 controller: 'PersonalInfoController'
             }).
-            when('/publications', {
-                templateUrl: '/member-back-office/html/fragments/publications.html',
-                controller: 'PublicationsController'
+            when('/psettings', {
+                templateUrl: '/member-back-office/html/fragments/psettings.html',
+                controller: 'PersonalSettingsController'
+            }).
+            when('/events', {
+                templateUrl: '/member-back-office/html/fragments/events.html',
+                controller: 'EventsController'
             }).
             when('/messages', {
                 templateUrl: '/member-back-office/html/fragments/messages.html',

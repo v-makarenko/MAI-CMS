@@ -12,7 +12,7 @@ import java.util.List;
 @Stateless
 public class UserDao extends GenericDao<User> {
     public User getByEmailAndPassword(String email, String password){
-        List<User> userList = em.createQuery("select u from User u where u.email = :email and u.password = :password", User.class)
+        List<User> userList = em.createQuery("select u from User u where u.email = :email and u.passwordHash = :password", User.class)
                 .setParameter("email", email)
                 .setParameter("password", password)
                 .getResultList();

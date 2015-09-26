@@ -4,20 +4,79 @@
 </head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="./css/common.css">
-<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-route.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="common/css/common.css">
+<link rel="stylesheet" href="common/css/lib/angular-datepicker/angular-datepicker.css">
+<script src="/common/js/lib/jquery/jquery-1.11.2.js"></script>
+<script src="/common/js/lib/angular/angular.min.js"></script>
+<script src="/common/js/lib/angular/angular-route.min.js"></script>
+<script src="/common/js/lib/bootstrap/bootstrap.js"></script>
 <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.2.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular-moment/0.10.2/angular-moment.min.js"></script>
+<script src="/common/js/lib/angular-datepicker/angular-datepicker.js"></script>
 <script src="http://underscorejs.org/underscore.js"></script>
 <script src="http://momentjs.com/downloads/moment.js"></script>
 <!-- users js -->
-<title>Администрирование системы</title>
+<script src="admin-back-office/js/app.js"></script>
+
+<script src="admin-back-office/js/controllers/users-controller.js"></script>
+<script src="admin-back-office/js/controllers/user-edit-modal-controller.js"></script>
+<script src="admin-back-office/js/controllers/events-controller.js"></script>
+<script src="admin-back-office/js/controllers/event-edit-controller.js"></script>
+<script src="/common/js/controllers/main-controller.js"></script>
+<script src="/common/js/controllers/delete-modal-controller.js"></script>
+
+<script src="common/js/services/auth-service.js"></script>
+<script src="common/js/services/users-service.js"></script>
+<script src="common/js/services/events-service.js"></script>
+
+
+<title>Администрирование</title>
+
+
+<div ng-app="app" ng-controller="MainController">
+    <div id="header" class="header-row">
+        <div>
+            <img src="common/images/mai-logo.png" class="header-logo"/>
+        </div>
+        <div style="width: 600px">
+            dfs
+        </div>
+        <div id="img-div">
+            <div id="img-circle" style="background-image: url('/common/images/avatar.png')">
+            </div>
+            <div>
+                {{currentUser.surname}} {{currentUser.name}}
+            </div>
+        </div>
+        <div ng-click="helpOn()" class="btn" tooltip="Нажмите сюда, чтобы получить помощь по странице">
+            <img src="common/images/help-icon.png" width="50px" height="50px"/>
+            Помощь
+        </div>
+        <div class="btn" ng-click="exit()">
+            Выход <img src="common/images/exit-icon.png" width="50px" height="50px"/>
+        </div>
+    </div>
+    <div class="no-float">
+        <ul class="nav nav-tabs">
+            <li ng-class="curTab=='messages' ? 'active' : ''">
+                <a href="#/messages">Почта</a>
+            </li>
+            <li ng-class="curTab=='events' ? 'active' : ''">
+                <a href="#/events">Конференции</a>
+            </li>
+            <li ng-class="curTab=='psettings' ? 'active' : ''">
+                <a href="#/users">Пользователи</a>
+            </li>
+            <li ng-class="curTab=='psettings' ? 'active' : ''">
+                <a href="#/users">Места работы</a>
+            </li>
+        </ul>
+    </div>
+    <div ng-view>
+    </div>
+</div>
 
 <body>
-<h1>Система управления конференциями</h1>
-    Административная панель
-
 </body>
 </html>

@@ -4,6 +4,7 @@ import ma.glasnost.orika.CustomMapper;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.MappingContext;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
+import ru.vmakarenko.common.UserType;
 import ru.vmakarenko.dto.common.EmailMessageDto;
 import ru.vmakarenko.dto.common.EmailTemplateDto;
 import ru.vmakarenko.dto.common.MessageDto;
@@ -34,6 +35,17 @@ public class MapperService {
 
         // users stuff
         mapperFactory.classMap(User.class, UserDto.class)
+                .customize(new CustomMapper<User, UserDto>() {
+                    @Override
+                    public void mapAtoB(User user, UserDto userDto, MappingContext context) {
+                        userDto.setUserType(user.getUserType().name());
+                    }
+
+                    @Override
+                    public void mapBtoA(UserDto userDto, User user, MappingContext context) {
+                        user.setUserType(UserType.valueOf(userDto.getUserType().toUpperCase()));
+                    }
+                })
                 .byDefault().register();
 
 
@@ -52,7 +64,7 @@ public class MapperService {
                             public void mapAtoB(InnerMessage a, MessageDto b, MappingContext context) {
                                 // add your custom mapping code here
                                 if (a.getFrom() != null) {
-                                    b.setFromName(a.getFrom().getSurname() + " " + a.getFrom().getFirstName());
+                                    b.setFromName(a.getFrom().getSurname() + " " + a.getFrom().getName());
                                 }
                             }
                         }

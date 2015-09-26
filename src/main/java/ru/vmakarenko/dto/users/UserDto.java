@@ -6,30 +6,14 @@ import ru.vmakarenko.dto.common.CommonDto;
  * Created by VMakarenko on 4/25/2015.
  */
 public class UserDto extends CommonDto {
-    private String firstName;
-    private String lastName;
+    private String name;
+    private String surname;
     private String patronymic;
     private String passportSeries;
-    private String passportNo;
+    private String passportNumber;
     private String email;
     private String password;
     private String userType;
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 
     public String getPassportSeries() {
         return passportSeries;
@@ -39,12 +23,12 @@ public class UserDto extends CommonDto {
         this.passportSeries = passportSeries;
     }
 
-    public String getPassportNo() {
-        return passportNo;
+    public String getPassportNumber() {
+        return passportNumber;
     }
 
-    public void setPassportNo(String passportNo) {
-        this.passportNo = passportNo;
+    public void setPassportNumber(String passportNumber) {
+        this.passportNumber = passportNumber;
     }
 
     public String getEmail() {
@@ -77,5 +61,21 @@ public class UserDto extends CommonDto {
 
     public void setPatronymic(String patronymic) {
         this.patronymic = patronymic;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 }

@@ -22,11 +22,11 @@ public class Report extends DomainEntity{
     @ManyToOne
     @JoinColumn(name = "event_id")
     private Event event;
-    @ManyToOne
-    @JoinColumn(name = "file_id")
-    private FileEntry file;
-    @Column(name = "report_status")
-    private ReportStatus reportStatus;
+//    @ManyToOne
+//    @JoinColumn(name = "file_id")
+//    private FileEntry file;
+//    @Column(name = "report_status")
+//    private ReportStatus reportStatus;
 
     public User getReporter() {
         return reporter;
@@ -60,19 +60,19 @@ public class Report extends DomainEntity{
         this.event = event;
     }
 
-    public FileEntry getFile() {
-        return file;
-    }
-
-    public void setFile(FileEntry file) {
-        this.file = file;
-    }
-
-    public ReportStatus getReportStatus() {
-        return reportStatus;
-    }
-
-    public void setReportStatus(ReportStatus reportStatus) {
-        this.reportStatus = reportStatus;
-    }
+//    public FileEntry getFile() {
+//        return file;
+//    }
+//
+//    public void setFile(FileEntry file) {
+//        this.file = file;
+//    }
+//
+//    public ReportStatus getReportStatus() {
+//        return reportStatus;
+//    }
+//
+//    public void setReportStatus(ReportStatus reportStatus) {
+//        this.reportStatus = reportStatus;
+//    }
 }

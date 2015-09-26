@@ -6,33 +6,21 @@ angular.module('app', [
     'ngRoute']).config(['$routeProvider',
     function ($routeProvider) {
         $routeProvider.
-            when('/orders', {
-                templateUrl: 'html/orders.html',
-                controller: 'OrdersController'
+            when('/users', {
+                templateUrl: '/admin-back-office/html/users.html',
+                controller: 'UsersController'
             }).
-            when('/menuEdit/:edit', {
-                templateUrl: 'html/menu-edit.html',
-                controller: 'MenuEditController'
+            when('/events', {
+                templateUrl: '/admin-back-office/html/fragments/events.html',
+                controller: 'EventsController'
             }).
-            when('/stats', {
-                templateUrl: 'html/stats.html',
-                controller: 'StatsController'
-            }).
-            when('/login', {
-                templateUrl: 'html/login.html',
-                controller: 'LoginController'
-            }).
-            when('/signUp', {
-                templateUrl: 'html/signUp.html',
-                controller: 'SignUpController'
-            }).
-            when('/settings', {
-                templateUrl: 'html/settings.html',
-                controller: 'SettingsController'
+            when('/messages', {
+                templateUrl: '/common/html/fragments/messages.html',
+                controller: 'MessagesController'
             }).
 
             otherwise({
-                redirectTo: '/login'
+                redirectTo: '/events'
             });
     }]).run(function ($rootScope, AuthService, $location) {
     AuthService.isAuthenticated().success(function (data) {

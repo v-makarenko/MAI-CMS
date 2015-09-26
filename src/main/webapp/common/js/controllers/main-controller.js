@@ -5,12 +5,15 @@
 
 angular.module('app').controller('MainController', ['$scope','$rootScope','$location', 'AuthService',
     function ($scope, $rootScope, $location, AuthService) {
-        $scope.currentUser = $rootScope.currentUser;
+        $scope.currentUser = $rootScope.currentUser = {name: 'Иван', surname:'Иванов'};
         $scope.toHome = function(){
             $location.path('/home');
         };
-        $scope.toPinfo = function(){
+        $scope.toInfo = function(){
             $location.path('/pinfo');
+        };
+        $scope.toSettings = function(){
+            $location.path('/psettings');
         };
         $scope.toMessages = function(){
             $location.path('/messages');
@@ -18,17 +21,25 @@ angular.module('app').controller('MainController', ['$scope','$rootScope','$loca
         $scope.toPublications = function(){
             $location.path('/publications');
         };
+        $scope.toEvents = function(){
+            $location.path('/events');
+        };
         $scope.toDistrib = function(){
             $location.path('/distribMail');
         };
         $scope.toMailTemplates = function(){
             $location.path('/emailTemplates');
         };
-        $scope.logout = function() {
+
+        $scope.exit = function(){
             AuthService.logout().success(function(){
                 window.location.href = '../index.html';
             });
-        }
+        };
+
+        $scope.helpOn = function(){
+
+        };
     }
 ]);
 

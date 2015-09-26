@@ -23,6 +23,8 @@ angular.module('app').controller('MainController',
         });
 
 
+
+
         //$rootScope.isAuthenticated = true;
 
     }

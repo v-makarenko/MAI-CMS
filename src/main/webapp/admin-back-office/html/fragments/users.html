@@ -1,0 +1,24 @@
+<div>
+    Фильтр для поиска
+    <button type="button" class="btn">Поиск</button>
+</div>
+<table class="table table-striped">
+    <thead>
+    <th>
+        №
+    </th>
+    <th>
+        ФИО
+    </th>
+    <th>
+        Дата рождения
+    </th>
+    </thead>
+    <tbody>
+    <tr ng-repeat="user in users" ng-click="editUser(user.id)">
+        <td>{{$index}}</td>
+        <td>{{user.surname}} {{user.name}}</td>
+        <td>{{user.dateOfBirth}}</td>
+    </tr>
+    </tbody>
+</table>

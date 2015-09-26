@@ -76,7 +76,7 @@ public class EmailService {
 
     }
 
-    @Schedule(hour = "*", minute = "*", second = "*/10")
+//    @Schedule(hour = "*", minute = "*", second = "*/10")
     public void sendAll(){
         List<EmailMessage> emailList = emailDao.findNotSent();
         for(EmailMessage item : emailList) {

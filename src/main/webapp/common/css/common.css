@@ -1,0 +1,45 @@
+.header-row div{
+    float:left;
+}
+
+.no-float{
+    float: none;
+}
+
+.header-logo{
+    width: 100px;
+    height: 100px;
+}
+
+.header-row{
+    height:100px;
+    margin-bottom: 20px;
+    border-bottom: darkgrey 5px;
+}
+
+.fixed-width-mid{
+    width:600px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.exit-div{
+    width: 100px;
+    height: 50px;
+    border-radius: 5px;
+    background: blue;
+}
+
+#img-div #img-circle{
+    float: none;
+    border-radius: 100px;
+    border: solid blueviolet 5px;
+    width: 75px;
+    height: 75px;
+    background-size: 100% auto;
+}
+
+.vertical-tabs .nav-tabs{
+    width:150px;
+    float: left;
+}

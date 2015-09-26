@@ -14,11 +14,12 @@ import javax.persistence.*;
 public class ExternalAuthor extends DomainEntity {
     @Column(name= "name")
     private String name;
-    @Column(name= "surnmae")
+    @Column(name= "surname")
     private String surname;
     @Column(name= "patronymic")
     private String patronymic;
-    @Column(name= "created_by_id")
+    @ManyToOne
+    @JoinColumn(name= "created_by_id")
     private User createdBy;
     @Column(name= "working_place")
     private String workingPlace;

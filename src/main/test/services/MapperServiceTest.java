@@ -24,8 +24,8 @@ public class MapperServiceTest {
     public void messageMappingTestFromDto() {
         MessageDto dto = new MessageDto();
         dto.setFromName("Name");
-        dto.setFrom(UUID.randomUUID());
-        dto.setTo(UUID.randomUUID());
+//        dto.setFrom(UUID.randomUUID());
+//        dto.setTo(UUID.randomUUID());
         dto.setText("text");
         InnerMessage msg = service.map(dto, InnerMessage.class);
         Assert.assertEquals(msg.getText(), dto.getText());
@@ -50,7 +50,7 @@ public class MapperServiceTest {
         Assert.assertEquals(msg.getText(), dto.getText());
         Assert.assertEquals(msg.getTo().getId(), dto.getTo());
         Assert.assertEquals(msg.getFrom().getId(), dto.getFrom());
-        Assert.assertEquals(msg.getFrom().getSurname() + " " + msg.getFrom().getFirstName(),
+        Assert.assertEquals(msg.getFrom().getSurname() + " " + msg.getFrom().getName(),
                 dto.getFromName());
     }
 }

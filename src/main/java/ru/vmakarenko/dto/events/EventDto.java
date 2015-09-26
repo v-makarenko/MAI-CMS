@@ -1,41 +1,24 @@
-package ru.vmakarenko.entities.events;
+package ru.vmakarenko.dto.events;
 
 import ru.vmakarenko.entities.DomainEntity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Date;
 
 /**
  * Created by VMakarenko on 7/15/2015.
  */
-@Entity
-@Table(name="events")
-public class Event extends DomainEntity {
-    @Column(name = "name")
+public class EventDto extends DomainEntity {
     private String name;
-
-    @Column(name = "create_date")
     private Date createDate;
-
-    @Column(name = "event_type")
     private String eventType;
-
-    @Column(name = "start_date")
     private Date startDate;
-
-    @Column(name = "end_date")
     private Date endDate;
-
-    @Column(name = "application_start_date")
     private Date applicationStartDate;
-
-    @Column(name = "application_end_date")
     private Date applicationEndDate;
-
-    @Column(name = "payment_start_date")
     private Date paymentStartDate;
-
-    @Column(name = "payment_end_date")
     private Date paymentEndDate;
 
     public String getName() {

@@ -4,6 +4,7 @@
 </head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="member-back-office/css/common.css">
 <script src="/common/js/lib/jquery/jquery-1.11.2.js"></script>
 <script src="/common/js/lib/angular/angular.min.js"></script>
 <script src="/common/js/lib/angular/angular-route.min.js"></script>
@@ -16,13 +17,15 @@
 
 <script src="member-back-office/js/controllers/home-controller.js"></script>
 <script src="member-back-office/js/controllers/messages-controller.js"></script>
+<script src="member-back-office/js/controllers/events-controller.js"></script>
 <script src="member-back-office/js/controllers/personal-info-controller.js"></script>
+<script src="member-back-office/js/controllers/personal-settings-controller.js"></script>
 <script src="member-back-office/js/controllers/email-distr-controller.js"></script>
 <script src="member-back-office/js/controllers/email-templates-controller.js"></script>
 <script src="/common/js/controllers/main-controller.js"></script>
 
 <script src="common/js/services/auth-service.js"></script>
-<script src="common/js/services/user-service.js"></script>
+<script src="common/js/services/users-service.js"></script>
 <script src="member-back-office/js/services/email-service.js"></script>
 <script src="member-back-office/js/services/email-templates-service.js"></script>
 <script src="member-back-office/js/services/messages-service.js"></script>
@@ -31,19 +34,54 @@
 <title>Ваша персональная страница</title>
 
 
-<div ng-app="app">
-    <div>
-        Добро пожаловать, {{currentUser.fullName}}
+<div ng-app="app" ng-controller="MainController">
+    <div id="header" class="header-row">
+        <div>
+            <img src="common/images/mai-logo.png" class="header-logo"/>
+        </div>
+        <div style="width: 600px">
+            dfs
+        </div>
+        <div id="img-div">
+            <div id="img-circle" style="background-image: url('/common/images/avatar.png')">
+            </div>
+            <div>
+                {{currentUser.surname}} {{currentUser.name}}
+            </div>
+        </div>
+        <div ng-click="helpOn()" class="btn" tooltip="Нажмите сюда, чтобы получить помощь по странице">
+            <img src="common/images/help-icon.png" width="50px" height="50px"/>
+            Помощь
+        </div>
+        <div class="btn" ng-click="exit()">
+            Выход <img src="common/images/exit-icon.png" width="50px" height="50px"/>
+        </div>
     </div>
-    <div ng-controller="MainController">
-        <span ng-click="">На главную</span>
-        <span ng-click="toHome()">Домой</span>
-        <span ng-click="toMessages()">Почта</span>
-        <span ng-click="toPublications()">Публикации</span>
-        <span ng-click="toPinfo()">Персональная информация</span>
-        <span ng-click="toDistrib()">Рассылка почты</span>
-        <span ng-click="toMailTemplates()">Почтовые шаблоны</span>
-        <span ng-click="logout()">Выход</span>
+    <div class="no-float">
+        <ul class="nav nav-tabs">
+            <li ng-class="curTab=='messages' ? 'active' : ''">
+                <a href="#/messages">Почта</a>
+            </li>
+            <li ng-class="curTab=='events' ? 'active' : ''">
+                <a href="#/events">Конференции</a>
+            </li>
+            <li ng-class="curTab=='psettings' ? 'active' : ''">
+                <a href="#/psettings">Настройки</a>
+            </li>
+            <li ng-class="curTab=='pinfo' ? 'active' : ''">
+                <a href="#/pinfo">Обо мне</a>
+            </li>
+        </ul>
+
+
+        <!--<span ng-click="">На главную</span>-->
+        <!--<span ng-click="toHome()">Домой</span>-->
+        <!--<span ng-click="toMessages()">Почта</span>-->
+        <!--<span ng-click="toPublications()">Публикации</span>-->
+        <!--<span ng-click="toPinfo()">Персональная информация</span>-->
+        <!--<span ng-click="toDistrib()">Рассылка почты</span>-->
+        <!--<span ng-click="toMailTemplates()">Почтовые шаблоны</span>-->
+        <!--<span ng-click="logout()">Выход</span>-->
     </div>
     <div ng-view>
     </div>

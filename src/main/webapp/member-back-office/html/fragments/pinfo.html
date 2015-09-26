@@ -1,29 +1,29 @@
-<div>
-<h1>
-        Ваши персональные данные
-    </h1>
+<div class="fixed-width-mid">
     <form>
-        <div>
-            Имя: <input ng-model="user.firstName">
+        <div class="form-group">
+            <label for="info-surname">Фамилия:</label>
+            <input class="form-control" id="info-surname" ng-model="user.surname">
         </div>
-        <div>
-            Фамилия: <input ng-model="user.lastName">
+        <div class="form-group">
+            <label for="info-name">Имя:</label>
+            <input class="form-control" id="info-name" ng-model="user.name">
         </div>
-        <div>
-            Отчество: <input ng-model="user.patronymic">
+        <div class="form-group">
+            <label for="info-patronymic">Отчество:</label>
+            <input class="form-control" id="info-patronymic" ng-model="user.patronymic">
         </div>
-        <div>
-            Серия паспорта: <input ng-model="user.passportSeries">
+        <div class="form-group">
+            <label for="info-passportSeries">Серия паспорта:</label>
+            <input class="form-control" id="info-passportSeries" ng-model="user.passportSeries">
         </div>
-        <div>
-            Номер паспорта: <input ng-model="user.passportNo">
+        <div class="form-group">
+            <label for="info-passportNumber">Номер паспорта:</label>
+            <input class="form-control" id="info-passportNumber" ng-model="user.passportNumber">
         </div>
-        <div>
-            e-mail: <input ng-model="user.email">
+        <div class="form-group">
+            <label for="info-email">e-mail:</label>
+            <input class="form-control" id="info-email" ng-model="user.email">
         </div>
-        <div>
-            Телефон: <input ng-model="user.phone">
-        </div>
-        <button type="button" ng-click="save()">Сохранить</button>
+        <button class="btn" type="button" ng-click="save()">Сохранить</button>
     </form>
 </div>

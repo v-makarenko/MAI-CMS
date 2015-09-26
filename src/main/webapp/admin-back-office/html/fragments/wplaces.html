@@ -1,0 +1,24 @@
+<div>
+    Фильтр для поиска
+    <button type="button" class="btn">Поиск</button>
+</div>
+<table class="table table-striped">
+    <thead>
+    <th>
+        №
+    </th>
+    <th>
+        Название
+    </th>
+    <th>
+        Количество работающих
+    </th>
+    </thead>
+    <tbody>
+    <tr ng-repeat="wplace in wplaces">
+        <td>{{$index}}</td>
+        <td>{{wplace.name}}</td>
+        <td>{{wplace.peopleCount}}</td>
+    </tr>
+    </tbody>
+</table>

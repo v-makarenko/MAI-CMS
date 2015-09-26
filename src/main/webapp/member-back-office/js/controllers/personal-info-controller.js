@@ -25,9 +25,7 @@ angular.module('app').controller('PersonalInfoController', ['$scope', 'UserServi
             );
         };
 
-
         $scope.getCurrentUser();
-
     }
 ]);
 
