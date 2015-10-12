@@ -4,6 +4,7 @@ import ru.vmakarenko.dao.EmailDao;
 import ru.vmakarenko.dao.SettingsDao;
 import ru.vmakarenko.dto.common.EmailMessageDto;
 import ru.vmakarenko.entities.messages.EmailMessage;
+import ru.vmakarenko.entities.users.User;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Schedule;
@@ -27,6 +28,8 @@ public class EmailService {
     private MapperService mapperService;
     @Inject
     private UserService userService;
+    @Inject
+    private PasswordService passwordService;
     // TODO get setting saved
     @Inject
     private SettingsDao settingsDao;
@@ -36,7 +39,7 @@ public class EmailService {
     @PostConstruct
     public void postConstruct(){
         // TODO make centralized key store
-        email = settingsDao.get("mail.my.address");
+        email = settingsDao.get("mail.my.email");
         username = settingsDao.get("mail.my.username");
         pass = settingsDao.get("mail.my.password");
         Properties properties = System.getProperties();
@@ -54,7 +57,7 @@ public class EmailService {
         properties.put("mail.smtp.port", settingsDao.get("mail.my.port"));
         properties.put("mail.smtp.user", settingsDao.get("mail.my.username"));
         properties.put("mail.smtp.password", settingsDao.get("mail.my.password"));
-        mailSession = Session.getDefaultInstance(properties, new Authenticator() {
+        mailSession = Session.getInstance(properties, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(settingsDao.get("mail.my.username"),
@@ -67,7 +70,7 @@ public class EmailService {
 
     public void sendMailToAll(EmailMessageDto message){
         // TODO send really to all, now to me
-        message.setTo("vladimir@makarenko.io");
+//        message.getToList().add(message.get);
         addToSendQueue(message);
     }
 
@@ -76,27 +79,40 @@ public class EmailService {
 
     }
 
-//    @Schedule(hour = "*", minute = "*", second = "*/10")
+    public void sendPassword(User user, String pass){
+        EmailMessageDto dto = new EmailMessageDto();
+        dto.setTopic("Новый пароль");
+        dto.setText("Здравствуйте, :surname :name!\n\nВаш новый пароль: :password"
+                .replace(":name", user.getName())
+                .replace(":surname", user.getSurname())
+                .replace(":password", pass));
+        dto.setTopic("Новый пароль");
+        dto.getToList().add(user.getEmail());
+        sendMailToAll(dto);
+    }
+
+    @Schedule(hour = "*", minute = "*", second = "*/10")
     public void sendAll(){
         List<EmailMessage> emailList = emailDao.findNotSent();
         for(EmailMessage item : emailList) {
-            try {
-                Message msg = new MimeMessage(mailSession);
-                msg.setSubject(item.getSubject());
-                msg.setSentDate(new Date());
-                msg.setFrom(new InternetAddress(email));
+            for (User user : item.getToList()) {
+                try {
+                    Message msg = new MimeMessage(mailSession);
+                    msg.setSubject(item.getSubject());
+                    msg.setSentDate(new Date());
+                    msg.setFrom(new InternetAddress(email));
                     msg.setRecipients(Message.RecipientType.TO,
-                            InternetAddress.parse(item.getTo(), false));
+                            InternetAddress.parse(user.getEmail(), false));
 
-                msg.setText(item.getText());
-                Transport.send(msg);
-                item.setSent(true);
-                emailDao.update(item);
-            } catch (Exception e) {
-                // TODO норм логгер
-                e.printStackTrace();
+                    msg.setText(item.getText());
+                    Transport.send(msg);
+                    item.setSentStatus(true);
+                    emailDao.update(item);
+                } catch (Exception e) {
+                    // TODO норм логгер
+                    e.printStackTrace();
+                }
             }
-
         }
     }
 

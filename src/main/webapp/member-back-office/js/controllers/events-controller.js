@@ -3,8 +3,8 @@
  */
 
 
-angular.module('app').controller('EventsController', ['$scope', '$modal', 'EventsService',
-    function ($scope, $modal, EventsService) {
+angular.module('app').controller('EventsController', ['$scope', 'EventsService', '$modal',
+    function ($scope, EventsService, $modal) {
         $scope.getAll = function () {
             EventsService.getAll().success(function (data) {
                 if (data.status == "OK") {
@@ -13,7 +13,7 @@ angular.module('app').controller('EventsController', ['$scope', '$modal', 'Event
             })
         };
 
-        $scope.delete = function (index) {
+        $scope.changePresence = function(presenceId, eventId){
             $scope.userEditInstance = $modal.open({
                 templateUrl: '/common/html/modals/confirm-modal.html',
                 controller: 'ConfirmModalController',
@@ -22,22 +22,24 @@ angular.module('app').controller('EventsController', ['$scope', '$modal', 'Event
                     data: function () {
                         return {
                             methodOnSuccess: function () {
-                                EventsService.delete($scope.events[index].id);
-
                             },
-                            alertHead: 'Подтверждение',
-                            alertText: 'Вы хотите удалить событие?'
+                            alertHead: 'Подтверждение участия',
+                            alertText: presenceId ? 'Вы действительно будете участвовать?': 'Вы действительно не хотите участвовать?'
                         }
                     }
-
                 }
             });
             $scope.userEditInstance.result.then(function () {
-                $scope.getAll();
+                EventsService.setPresence(presenceId, eventId).success(function(data){
+                    if(data.status=='OK'){
+                        $scope.getAll();
+                    }
+                });
             }, function () {
             });
-
         };
+
+        $scope.presence = [{id: 1, name: 'Я участвую'}, {id:2, name: 'Я не участвую'}];
 
         $scope.getAll();
 

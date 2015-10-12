@@ -44,12 +44,20 @@ public class UserResource {
                 .build();
     }
 
-    @Path("update")
+    @Path("createUser")
     @POST
-    public Response update(UserDto userDto){
-        userService.update(userDto);
+    public Response createUser(UserDto userDto){
+        userService.create(userDto);
         return Response
                 .ok(RestResponse.createOk())
+                .build();
+    }
+
+    @Path("checkEmail")
+    @GET
+    public Response checkEmail(String email){
+        return Response
+                .ok(RestResponse.createOk().data(userService.checkEmail(email)))
                 .build();
     }
 }

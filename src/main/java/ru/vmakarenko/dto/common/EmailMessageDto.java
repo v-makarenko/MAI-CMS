@@ -1,16 +1,19 @@
 package ru.vmakarenko.dto.common;
 
 import ru.vmakarenko.entities.DomainEntity;
+import ru.vmakarenko.entities.users.User;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by VMakarenko on 7/15/2015.
  */
 public class EmailMessageDto extends DomainEntity{
-    private String to;
+    private List<String> toList = new ArrayList<>();
     private Boolean sent = false;
     private String text;
     private String topic;
@@ -22,14 +25,6 @@ public class EmailMessageDto extends DomainEntity{
 
     public void setSent(Boolean sent) {
         this.sent = sent;
-    }
-
-    public String getTo() {
-        return to;
-    }
-
-    public void setTo(String to) {
-        this.to = to;
     }
 
     public String getText() {
@@ -46,5 +41,13 @@ public class EmailMessageDto extends DomainEntity{
 
     public void setTopic(String topic) {
         this.topic = topic;
+    }
+
+    public List<String> getToList() {
+        return toList;
+    }
+
+    public void setToList(List<String> toList) {
+        this.toList = toList;
     }
 }

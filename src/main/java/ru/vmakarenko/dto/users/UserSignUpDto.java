@@ -8,6 +8,7 @@ import ru.vmakarenko.dto.common.CommonDto;
 public class UserSignUpDto extends CommonDto {
     private String name;
     private String surname;
+    private String patronymic;
     private String phone;
     private String email;
     private String password;
@@ -59,5 +60,13 @@ public class UserSignUpDto extends CommonDto {
 
     public void setPassword2(String password2) {
         this.password2 = password2;
+    }
+
+    public String getPatronymic() {
+        return patronymic;
+    }
+
+    public void setPatronymic(String patronymic) {
+        this.patronymic = patronymic;
     }
 }

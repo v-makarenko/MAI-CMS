@@ -14,19 +14,19 @@ public class SettingsDao {
     @PersistenceContext
     protected EntityManager em;
 
-    public String get(String key){
-        List rl = em.createNativeQuery("SELECT s.value from APP_SETTINGS s where key = :key").setParameter("key", key).getResultList();
+    public String get(String name){
+        List rl = em.createNativeQuery("SELECT s.value from APP_SETTINGS s where name = :name").setParameter("name", name).getResultList();
         if(rl.size()==0){
-            throw new IllegalArgumentException("Error key send for the parameter: " + key);
+            throw new IllegalArgumentException("Error key send for the parameter: " + name);
         }else{
             return (String)rl.get(0);
         }
     }
 
-    public void set(String key, String value){
-        em.createNativeQuery("INSERT INTO APP_SETTINGS (id, key, value) values (:id, :key, :value)")
+    public void set(String name, String value){
+        em.createNativeQuery("INSERT INTO APP_SETTINGS (id, name, value) values (:id, :name, :value)")
                 .setParameter("id", UUID.randomUUID())
-                .setParameter("key", key)
+                .setParameter("name", name)
                 .setParameter("value", value)
                 .executeUpdate();
     }

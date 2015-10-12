@@ -87,7 +87,8 @@ public class GenericDao<T> {
      * @param t объект для вставки
      */
     public T insert(T t) {
-        return em.merge(t);
+        em.persist(t);
+        return t;
     }
 
     /**

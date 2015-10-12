@@ -13,6 +13,6 @@ import java.util.List;
 public class EmailDao extends GenericDao<EmailMessage> {
 
     public List<EmailMessage> findNotSent() {
-        return em.createQuery("select M from EmailMessage M where M.sent = false", EmailMessage.class).getResultList();
+        return em.createQuery("select M from EmailMessage M where M.sentStatus = false", EmailMessage.class).getResultList();
     }
 }

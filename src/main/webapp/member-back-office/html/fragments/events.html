@@ -1,5 +1,10 @@
-<div>
-<!--<div ng-repeat="item in list">-->
-    <div></div>
-<!--</div>-->
+<div class="fixed-width-mid">
+<div ng-repeat="event in events">
+    <div><a href="#/event/{{event.id}}">{{event.name}}</a>&nbsp
+            <select class="form-control" ng-model="event.isPresent" ng-options="p.id as p.name for p in presence"
+                    ng-change="changePresence(event.id, p.id)">
+            </select>
+
+    </div>
+</div>
 </div>

@@ -1,40 +1,50 @@
 package ru.vmakarenko.entities.messages;
 
 import ru.vmakarenko.entities.DomainEntity;
+import ru.vmakarenko.entities.users.User;
 
 import javax.persistence.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by VMakarenko on 7/15/2015.
  */
 @Entity
-@Table(name = "email_messages")
+@Table(name = "external_messages")
 public class EmailMessage extends DomainEntity {
-    @Column(name = "TO_ADDR")
-    private String to;
-    @Column(name = "IS_SENT")
-    private Boolean sent;
-    @Column(name = "MSG_TEXT")
+    @ManyToMany
+    @JoinTable(name = "external_message_receivers",
+            joinColumns = @JoinColumn(name = "message_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User> toList;
+    @Column(name = "sent_status")
+    private Boolean sentStatus = false;
+    @Column(name = "send_time")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date sentTime;
+    @Column(name = "TEXT")
     private String text;
     // TODO rename in db
-    @Column(name = "MSG_TITLE")
+    @Column(name = "topic")
     private String subject;
 
 
-    public Boolean getSent() {
-        return sent;
+    public Boolean getSentStatus() {
+        return sentStatus;
     }
 
-    public void setSent(Boolean sent) {
-        this.sent = sent;
+    public void setSentStatus(Boolean sent) {
+        this.sentStatus = sent;
     }
 
-    public String getTo() {
-        return to;
+    public List<User> getToList() {
+        return toList;
     }
 
-    public void setTo(String to) {
-        this.to = to;
+    public void setToList(List<User> toList) {
+        this.toList = toList;
     }
 
     public String getText() {
@@ -51,5 +61,13 @@ public class EmailMessage extends DomainEntity {
 
     public void setSubject(String subject) {
         this.subject = subject;
+    }
+
+    public Date getSentTime() {
+        return sentTime;
+    }
+
+    public void setSentTime(Date sentTime) {
+        this.sentTime = sentTime;
     }
 }

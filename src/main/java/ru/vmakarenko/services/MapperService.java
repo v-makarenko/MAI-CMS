@@ -5,6 +5,7 @@ import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.MappingContext;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 import ru.vmakarenko.common.UserType;
+import ru.vmakarenko.dao.UserDao;
 import ru.vmakarenko.dto.common.EmailMessageDto;
 import ru.vmakarenko.dto.common.EmailTemplateDto;
 import ru.vmakarenko.dto.common.MessageDto;
@@ -16,6 +17,7 @@ import ru.vmakarenko.entities.users.User;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,6 +30,9 @@ public class MapperService {
 
     private MapperFactory mapperFactory;
 
+    @Inject
+    private UserDao userDao;
+
     @PostConstruct
     public void init() {
         mapperFactory = new DefaultMapperFactory.Builder().build();
@@ -38,18 +43,46 @@ public class MapperService {
                 .customize(new CustomMapper<User, UserDto>() {
                     @Override
                     public void mapAtoB(User user, UserDto userDto, MappingContext context) {
+                        if (user.getUserType() == null) {
+                            user.setUserType(UserType.MEMBER);
+                        }
+
                         userDto.setUserType(user.getUserType().name());
                     }
 
                     @Override
                     public void mapBtoA(UserDto userDto, User user, MappingContext context) {
-                        user.setUserType(UserType.valueOf(userDto.getUserType().toUpperCase()));
+                        if (userDto.getUserType() == null) {
+                            user.setUserType(UserType.MEMBER);
+                        } else {
+                            user.setUserType(UserType.valueOf(userDto.getUserType().toUpperCase()));
+                        }
                     }
                 })
                 .byDefault().register();
 
 
         mapperFactory.classMap(EmailMessage.class, EmailMessageDto.class)
+                .customize(new CustomMapper<EmailMessage, EmailMessageDto>() {
+                               @Override
+                               public void mapBtoA(EmailMessageDto emailMessageDto, EmailMessage emailMessage, MappingContext context) {
+                                   super.mapBtoA(emailMessageDto, emailMessage, context);
+                                   emailMessage.setToList(emailMessageDto
+                                           .getToList()
+                                           .stream().map(userDao::getByEmail)
+                                           .collect(Collectors.toList()));
+                               }
+
+                               @Override
+                               public void mapAtoB(EmailMessage emailMessage, EmailMessageDto emailMessageDto, MappingContext context) {
+                                   super.mapAtoB(emailMessage, emailMessageDto, context);
+                                   emailMessageDto.setToList(emailMessage
+                                           .getToList().stream()
+                                           .map(User::getEmail)
+                                           .collect(Collectors.toList()));
+                               }
+                           }
+                )
                 .byDefault().register();
 
 

@@ -3,7 +3,7 @@
  */
 
 
-angular.module('app').controller('DeleteModalController',
+angular.module('app').controller('ConfirmModalController',
     function ($scope, $modalInstance, data) {
         $scope.alertHead = data.alertHead;
         $scope.alertText = data.alertText;

@@ -20,7 +20,7 @@ public class EmailDistributionService {
 
     public void distribute(){
         EmailMessageDto messageDto = new EmailMessageDto();
-        messageDto.setTo("vladimir@makarenko.io");
+        messageDto.getToList().add("vladimir@makarenko.io");
         messageDto.setText("Sample text \n\nSample text");
         emailService.sendMailToAll(messageDto);
     }
@@ -29,7 +29,7 @@ public class EmailDistributionService {
         EmailTemplate template = emailTemplateDao.find(id);
         EmailMessageDto messageDto = new EmailMessageDto();
         messageDto.setTopic(messageDto.getTopic());
-        messageDto.setTo("vladimir@makarenko.io");
+        messageDto.getToList().add("vladimir@makarenko.io");
         messageDto.setText(template.getText().replaceAll(":email", "vladimir@makarenko.io"));
         emailService.sendMailToAll(messageDto);
     }

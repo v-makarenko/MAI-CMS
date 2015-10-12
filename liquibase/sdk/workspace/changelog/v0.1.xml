@@ -402,4 +402,70 @@
             'test', 'test@test.ru', 'member');
         </sql>
     </changeSet>
+    <changeSet id="201510081135" author="vmakarenko">
+        <comment>
+            Add app settings and settings for email
+        </comment>
+        <sql>
+            CREATE TABLE APP_SETTINGS (
+            id uuid PRIMARY KEY,
+            name TEXT,
+            value TEXT
+            );
+
+            INSERT INTO APP_SETTINGS (id, name, value) VALUES ('ef1b43f1-918c-4728-8175-aa263f3b6fc6', 'mail.my.host', '127.0.0.1');
+            INSERT INTO APP_SETTINGS (id, name, value) VALUES ('ef1b43f1-918c-4728-8175-aa263f3b6fc7', 'mail.my.port', '5432');
+            INSERT INTO APP_SETTINGS (id, name, value) VALUES ('ef1b43f1-918c-4728-8175-aa263f3b6fc8', 'mail.my.username', 'conf.mai');
+            INSERT INTO APP_SETTINGS (id, name, value) VALUES ('ef1b43f1-918c-4728-8175-aa263f3b6fc9', 'mail.my.password', '2z4ds11od');
+            INSERT INTO APP_SETTINGS (id, name, value) VALUES ('ef1b43f1-918c-4728-8175-aa263f3b6fd0', 'mail.my.email', 'conf.mai@yandex.ru');
+        </sql>
+    </changeSet>
+    <changeSet id="201510121041" author="vmakarenko">
+        <comment>
+            Add universities
+        </comment>
+        <sql>
+            CREATE TABLE universities (
+            id uuid PRIMARY KEY,
+            long_name TEXT,
+            short_name TEXT
+            );
+        </sql>
+    </changeSet>
+    <changeSet id="201510122317" author="vmakarenko">
+        <comment>
+            fix ext.msg
+        </comment>
+        <sql>
+            ALTER TABLE external_message_receivers DROP CONSTRAINT external_message_receivers_pk;
+            ALTER TABLE external_message_receivers ADD PRIMARY KEY (message_id, user_id);
+            ALTER TABLE external_message_receivers DROP COLUMN id;
+        </sql>
+    </changeSet>
+    <changeSet id="201510122325" author="vmakarenko">
+        <comment>
+            update mail settings
+        </comment>
+        <sql>
+            UPDATE APP_SETTINGS set value='smtp.yandex.ru' where name='mail.my.host';
+            UPDATE APP_SETTINGS set value='465' where name='mail.my.port';
+
+        </sql>
+    </changeSet>
+    <changeSet id="201510122326" author="vmakarenko">
+        <comment>
+            update mail settings
+        </comment>
+        <sql>
+            UPDATE APP_SETTINGS set value='conf.mai@yandex.ru' where name='mail.my.username';
+        </sql>
+    </changeSet>
+    <changeSet id="201510122345" author="vmakarenko">
+        <comment>
+            update mail settings
+        </comment>
+        <sql>
+            UPDATE APP_SETTINGS set value='7y80A5sQ' where name='mail.my.password';
+        </sql>
+    </changeSet>
 </databaseChangeLog>

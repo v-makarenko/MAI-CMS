@@ -4,36 +4,49 @@
 </head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="common/css/common.css">
 <script src="/common/js/lib/jquery/jquery-1.11.2.js"></script>
 <script src="/common/js/lib/angular/angular.min.js"></script>
 <script src="/common/js/lib/angular/angular-route.min.js"></script>
 <script src="/common/js/lib/bootstrap/bootstrap.js"></script>
+
 <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.2.js"></script>
 <script src="http://underscorejs.org/underscore.js"></script>
 <script src="http://momentjs.com/downloads/moment.js"></script>
 <!-- users js -->
 
+
+<script src="/main-page/js/app.js"></script>
+<script src="/main-page/js/controllers/archive-controller.js"></script>
+<script src="/main-page/js/controllers/main-page-controller.js"></script>
+<script src="/main-page/js/controllers/sign-up-controller.js"></script>
+<script src="/main-page/js/controllers/login-modal-controller.js"></script>
+<script src="member-back-office/js/controllers/events-controller.js"></script>
+
+<script src="/common/js/services/auth-service.js"></script>
+
+
 <script type="application/javascript">
-    function login(email, password){
+    function login(email, password) {
         $.ajax({
             type: "POST",
             contentType: "application/json",
             url: '/api/auth/login',
-            data:  JSON.stringify({
+            data: JSON.stringify({
                 email: email,
                 password: password
             }),
             dataType: "json"
 
-        }).done(function(data){
-            if(data.status == "OK"){
-                if(data.data.userType == 'MEMBER'){
+        }).done(function (data) {
+            if (data.status == "OK") {
+                if (data.data.userType == 'MEMBER') {
                     window.location.href = '/member-back-office.html';
                 }
-                if(data.data.userType == 'ADMIN'){
+                if (data.data.userType == 'ADMIN') {
                     window.location.href = '/admin-back-office.html';
                 }
-            }else{
+            } else {
                 alert('Неверный пароль!');
             }
         });
@@ -44,29 +57,34 @@
 <title>Ежегодные конференции МАИ</title>
 
 <body>
-<div>
-    Вход:<br>
-    <input id="email" placeholder="Ваша почта"><br>
-    <input id="password" placeholder="Ваш пароль" type="password"><br>
-    <button type="button" value="Тест юзер" onclick="$('#email').val('test@test.ru'); $('#password').val('test');">Тест Юзер</button><br>
-    <button type="button" value="Тест админ" onclick="$('#email').val('admin@test.ru'); $('#password').val('admin');">Тест Админ</button><br>
-    <button type="button" value="Вход" onclick="login($('#email').val(), $('#password').val())">Вход</button>
+<div ng-app="app" class="main-header">
+    <div class="main-title">
+        <div>{{main.title}}</div>
+        <div>
+            <a ng-click="openLoginModal()">Вход</a>
+            <a href="#/signUp">Регистрация</a>
+        </div>
+    </div>
+    <div>
+        <div class="no-float">
+            <ul class="nav nav-tabs">
+                <li ng-class="curTab=='messages' ? 'active' : ''">
+                    <a href="#/aboutCurrentEvent">О конференции</a>
+                </li>
+                <li ng-class="curTab=='events' ? 'active' : ''">
+                    <a href="#/aboutUs">О нас</a>
+                </li>
+                <li ng-class="curTab=='psettings' ? 'active' : ''">
+                    <a href="#/archive">Архив</a>
+                </li>
+            </ul>
 
+            <div ng-view>
+            </div>
+        </div>
+    </div>
 </div>
-<div>
-    Классная страничка, на которой ничего нет
-</div>
-<div>
-    <h2>
-        Раздел 1
-    </h2>
-    Такой-то текст такой-то текст
-</div>
-<div>
-    <h2>
-        Раздел 2
-    </h2>
-    Такой-то текст такой-то текст
-</div>
+
+
 </body>
 </html>

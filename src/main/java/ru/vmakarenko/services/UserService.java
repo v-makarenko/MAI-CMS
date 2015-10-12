@@ -6,11 +6,13 @@ import ru.vmakarenko.dto.users.AccessAuthDto;
 import ru.vmakarenko.dto.users.UserDto;
 import ru.vmakarenko.dto.users.UserSignUpDto;
 import ru.vmakarenko.entities.users.User;
+import ru.vmakarenko.enums.EmailCheckResult;
 import ru.vmakarenko.util.Util;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import java.util.regex.Pattern;
 
 /**
  * Created by VMakarenko on 4/25/2015.
@@ -22,18 +24,25 @@ public class UserService {
 
     @Inject
     private MapperService mapperService;
+    @Inject
+    private PasswordService passwordService;
+    @Inject
+    private EmailService emailService;
 
     public UserDto getByEmailAndPassword(String email, String password) {
         return mapperService.map(userDao.getByEmailAndPassword(email, password), UserDto.class);
     }
 
-    public RestResponse create(UserSignUpDto user){
-        if(!user.getPassword().equals(user.getPassword2())){
-            return RestResponse.createError(RestResponse.ErrorCodes.PASSWORD_NOT_MATCH);
-        } else {
-            userDao.insert(mapperService.map(user, User.class));
-            return RestResponse.createOk();
-        }
+    public UserDto getByEmail(String email) {
+        return mapperService.map(userDao.getByEmail(email), UserDto.class);
+    }
+
+    public void create(UserDto userDto) {
+        String password = passwordService.generatePassword();
+        userDto.setPassword(password);
+        User user = mapperService.map(userDto, User.class);
+        emailService.sendPassword(user, password);
+        userDao.insert(user);
     }
 
     public UserDto getCurrentUser(HttpServletRequest request) {
@@ -42,11 +51,25 @@ public class UserService {
                 , UserDto.class);
     }
 
-    public void update(UserDto userDto){
+    public void update(UserDto userDto) {
         userDao.update(mapperService.map(userDto, User.class));
     }
 
     public Object getAll() {
         return mapperService.map(userDao.findAll(), UserDto.class);
     }
+
+    public EmailCheckResult checkEmail(String email) {
+        String EMAIL_PATTERN =
+                "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" +
+                        "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        if (Pattern.compile(EMAIL_PATTERN).matcher(email).matches()) {
+            return EmailCheckResult.INVALID_EMAIL;
+        } else if (userDao.getByEmail(email) == null) {
+            return EmailCheckResult.DUPLICATE_EMAIL;
+        } else {
+            return EmailCheckResult.OK;
+        }
+    }
+
 }

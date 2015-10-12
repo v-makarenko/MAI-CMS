@@ -5,6 +5,7 @@ import ru.vmakarenko.common.RestResponse;
 import ru.vmakarenko.common.TokenService;
 import ru.vmakarenko.dto.users.AccessAuthDto;
 import ru.vmakarenko.dto.users.UserAuthDto;
+import ru.vmakarenko.dto.users.UserDto;
 import ru.vmakarenko.dto.users.UserSignUpDto;
 import ru.vmakarenko.services.AuthService;
 import ru.vmakarenko.services.UserService;
@@ -37,7 +38,7 @@ public class AuthResource {
             String path = "/";
             String domain = "";
             String comment = "";
-            int maxAge = 60*60*24;
+            int maxAge = 60 * 60 * 24;
             boolean secure = false;
             NewCookie cookie1 = new NewCookie(AccessAuthDto.PARAM_AUTH_TOKEN, responseDto.getToken(), path, domain, comment, maxAge, secure);
             NewCookie cookie2 = new NewCookie(AccessAuthDto.PARAM_AUTH_EMAIL, responseDto.getEmail(), path, domain, comment, maxAge, secure);
@@ -60,7 +61,7 @@ public class AuthResource {
     @GET
     @Path("isAuthenticated")
     public Response isAuthenticated(@Context HttpServletRequest request) {
-        if(authService.isAuthenticated(request)) {
+        if (authService.isAuthenticated(request)) {
             return Response.ok(RestResponse.createOk()).build();
         } else {
             return Response.ok(RestResponse
@@ -77,8 +78,9 @@ public class AuthResource {
 
     @POST
     @Path("signUp")
-    public Response signUp(UserSignUpDto dto) {
-        return Response.ok(userService.create(dto)).build();
+    public Response signUp(UserDto dto) {
+        userService.create(dto);
+        return Response.ok().build();
     }
 
 }
