@@ -3,17 +3,17 @@
  */
 
 
-angular.module('app').controller('LoginModalController', ['$scope', '$location', 'AuthService',
-    function ($scope, $location, AuthService) {
+angular.module('app').controller('LoginModalController', ['$scope', '$location', '$modal', 'AuthService',
+    function ($scope, $location, $modal, AuthService) {
         $scope.user = {};
         $scope.login = function () {
             AuthService.login($scope.user).success(function(data){
                 if(data.status == 'OK'){
-                    if(data.data.type == 'MEMBER') {
-                        $location.path('/member-back-office.html');
+                    if(data.data.userType == 'MEMBER') {
+                        window.location.href = '/member-back-office.html';
                     }
-                    if(data.data.type == 'ADMIN' || data.data.type == 'SECRETARY') {
-                        $location.path('/admin-back-office.html');
+                    if(data.data.userType == 'ADMIN' || data.data.userType == 'SECRETARY') {
+                        window.location.href = '/admin-back-office.html';
                     }
                     $scope.errorMsg = null;
                 }else{
@@ -22,19 +22,13 @@ angular.module('app').controller('LoginModalController', ['$scope', '$location',
                 }
             })
         };
-        $scope.restorePassword = function () {
-            AuthService.restorePassword().success(function(data){
-                if(data.status == 'OK') {
-                    $scope.successMsg = data.data.msg;
-                    $scope.errorMsg = null;
-                }else{
-                    $scope.errorMsg = data.errMsg;
-                    $scope.successMsg = null;
-                }
+
+        $scope.restorePassword = function(){
+            $scope.loginModal = $modal.open({
+                templateUrl: '/main-page/html/modals/restore-pwd-modal.html',
+                controller: 'RestorePwdModalController'
             });
         }
-
-
     }
 ]);
 

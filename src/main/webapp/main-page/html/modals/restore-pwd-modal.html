@@ -1,0 +1,22 @@
+<div>
+    <div class="modal-header">
+        Введите e-mail, который Вы указали при регистрации
+    </div>
+    <div class="modal-body">
+        <form name="restorePwdForm">
+            <div class="form-group">
+                <label for="info-email">e-mail:</label>
+                <input class="form-control" id="info-email" ng-model="email">
+            </div>
+            <div class="success" ng-show="successShow">
+                Письмо с новым паролем отправлено на Ваш почтовый ящик.
+            </div>
+            <div class="error" ng-show="restorePwdForm.$pristine && notRegisteredShow">
+                Пользователей с таким email не зарегистрировано.
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="restorePassword()">Восстановить</button>
+    </div>
+</div>

@@ -413,11 +413,16 @@
             value TEXT
             );
 
-            INSERT INTO APP_SETTINGS (id, name, value) VALUES ('ef1b43f1-918c-4728-8175-aa263f3b6fc6', 'mail.my.host', '127.0.0.1');
-            INSERT INTO APP_SETTINGS (id, name, value) VALUES ('ef1b43f1-918c-4728-8175-aa263f3b6fc7', 'mail.my.port', '5432');
-            INSERT INTO APP_SETTINGS (id, name, value) VALUES ('ef1b43f1-918c-4728-8175-aa263f3b6fc8', 'mail.my.username', 'conf.mai');
-            INSERT INTO APP_SETTINGS (id, name, value) VALUES ('ef1b43f1-918c-4728-8175-aa263f3b6fc9', 'mail.my.password', '2z4ds11od');
-            INSERT INTO APP_SETTINGS (id, name, value) VALUES ('ef1b43f1-918c-4728-8175-aa263f3b6fd0', 'mail.my.email', 'conf.mai@yandex.ru');
+            INSERT INTO APP_SETTINGS (id, name, value) VALUES ('ef1b43f1-918c-4728-8175-aa263f3b6fc6', 'mail.my.host',
+            '127.0.0.1');
+            INSERT INTO APP_SETTINGS (id, name, value) VALUES ('ef1b43f1-918c-4728-8175-aa263f3b6fc7', 'mail.my.port',
+            '5432');
+            INSERT INTO APP_SETTINGS (id, name, value) VALUES ('ef1b43f1-918c-4728-8175-aa263f3b6fc8',
+            'mail.my.username', 'conf.mai');
+            INSERT INTO APP_SETTINGS (id, name, value) VALUES ('ef1b43f1-918c-4728-8175-aa263f3b6fc9',
+            'mail.my.password', '2z4ds11od');
+            INSERT INTO APP_SETTINGS (id, name, value) VALUES ('ef1b43f1-918c-4728-8175-aa263f3b6fd0', 'mail.my.email',
+            'conf.mai@yandex.ru');
         </sql>
     </changeSet>
     <changeSet id="201510121041" author="vmakarenko">
@@ -466,6 +471,23 @@
         </comment>
         <sql>
             UPDATE APP_SETTINGS set value='7y80A5sQ' where name='mail.my.password';
+        </sql>
+    </changeSet>
+    <changeSet id="201510131008" author="vmakarenko">
+        <comment>
+            set email unique
+        </comment>
+        <sql>
+            alter table users add UNIQUE (email);
+        </sql>
+    </changeSet>
+    <changeSet id="201510131159" author="vmakarenko">
+        <comment>
+            add admin user
+        </comment>
+        <sql>
+            INSERT into USERS (id, surname, name, email, password_hash, user_type)
+            VALUES ('47f02df6-93e3-493b-b72f-2c4e6206359d','Северина','Наталья','admin@admin.ru','adm12','ADMIN');
         </sql>
     </changeSet>
 </databaseChangeLog>

@@ -47,9 +47,9 @@ angular.module("app").service('AuthService',
 
         this.getCurrentUser = function(){
             return $http.get(
-                   url + 'getCurrentUser'
+                url + 'getCurrentUser'
             );
-        }
-    }
+        };
+
 )
 ;

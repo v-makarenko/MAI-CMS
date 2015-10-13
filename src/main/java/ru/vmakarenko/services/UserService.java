@@ -7,6 +7,7 @@ import ru.vmakarenko.dto.users.UserDto;
 import ru.vmakarenko.dto.users.UserSignUpDto;
 import ru.vmakarenko.entities.users.User;
 import ru.vmakarenko.enums.EmailCheckResult;
+import ru.vmakarenko.exceptions.MaiWebappException;
 import ru.vmakarenko.util.Util;
 
 import javax.ejb.Stateless;
@@ -38,11 +39,20 @@ public class UserService {
     }
 
     public void create(UserDto userDto) {
-        String password = passwordService.generatePassword();
-        userDto.setPassword(password);
         User user = mapperService.map(userDto, User.class);
-        emailService.sendPassword(user, password);
         userDao.insert(user);
+        generatePassword(user.getEmail());
+    }
+
+    public void generatePassword(String email) {
+        String password = passwordService.generatePassword();
+        User user = userDao.getByEmail(email);
+        if(user == null){
+            throw new MaiWebappException("Пользователь с email :email не найден!".replace(":email", email));
+        }
+        user.setPasswordHash(password);
+        userDao.update(user);
+        emailService.sendPassword(user, password);
     }
 
     public UserDto getCurrentUser(HttpServletRequest request) {

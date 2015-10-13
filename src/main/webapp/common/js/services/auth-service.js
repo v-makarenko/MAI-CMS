@@ -27,7 +27,11 @@ angular.module("app").service('AuthService',
             return $http.get(
                    url + 'getCurrentUser'
             );
-        }
+        };
+
+        this.restorePassword = function(email){
+            return $http.post(url + 'restorePassword', email);
+        };
+
     }
-)
-;
+);

@@ -3,10 +3,10 @@
  */
 
 
-angular.module('app').controller('PersonalInfoController', ['$scope', 'UserService',
-    function ($scope, UserService) {
+angular.module('app').controller('PersonalInfoController', ['$scope', 'UsersService',
+    function ($scope, UsersService) {
         $scope.getCurrentUser = function () {
-            UserService.getCurrentUser().success(function(data){
+            UsersService.getCurrentUser().success(function(data){
                 if(data.status = 'OK'){
                     $scope.user = data.data;
                 }
@@ -14,7 +14,7 @@ angular.module('app').controller('PersonalInfoController', ['$scope', 'UserServi
         };
 
         $scope.save = function() {
-            UserService.save($scope.user).success(
+            UsersService.save($scope.user).success(
                 function(data){
                     if(data.status == 'OK'){
                         alert('OK');

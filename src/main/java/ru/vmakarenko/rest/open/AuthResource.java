@@ -83,4 +83,11 @@ public class AuthResource {
         return Response.ok().build();
     }
 
+    @POST
+    @Path("restorePassword")
+    public Response restorePassword(String email){
+        userService.generatePassword(email);
+        return Response.ok(RestResponse.createOk()).build();
+    }
+
 }
