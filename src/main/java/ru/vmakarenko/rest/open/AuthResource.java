@@ -1,4 +1,4 @@
-package ru.vmakarenko.rest;
+package ru.vmakarenko.rest.open;
 
 
 import ru.vmakarenko.common.RestResponse;

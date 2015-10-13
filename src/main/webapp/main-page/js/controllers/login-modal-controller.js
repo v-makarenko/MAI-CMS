@@ -7,7 +7,7 @@ angular.module('app').controller('LoginModalController', ['$scope', '$location',
     function ($scope, $location, AuthService) {
         $scope.user = {};
         $scope.login = function () {
-            AuthService.login(user).success(function(data){
+            AuthService.login($scope.user).success(function(data){
                 if(data.status == 'OK'){
                     if(data.data.type == 'MEMBER') {
                         $location.path('/member-back-office.html');

@@ -14,13 +14,13 @@ angular.module('app').controller('MainPageController', ['$scope', '$modal','Even
         $scope.loadAll = function(){
             // тут надо загрузить Фотоархив и нашу команду
             // TODO fix only archived photos
-            EventsService.loadAll().success(function(data){
+            EventsService.getAllPublic().success(function(data){
                 if(data.status == 'OK'){
                     $scope.archiveEvents = data.data;
                 }
             });
         };
-        $scope.loadAll();
+        //$scope.loadAll();
 
     }
 ]);

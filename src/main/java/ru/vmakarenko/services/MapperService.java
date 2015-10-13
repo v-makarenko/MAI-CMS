@@ -48,6 +48,7 @@ public class MapperService {
                         }
 
                         userDto.setUserType(user.getUserType().name());
+
                     }
 
                     @Override
@@ -57,6 +58,9 @@ public class MapperService {
                         } else {
                             user.setUserType(UserType.valueOf(userDto.getUserType().toUpperCase()));
                         }
+
+                        //TODO
+                        user.setPasswordHash(userDto.getPassword());
                     }
                 })
                 .byDefault().register();

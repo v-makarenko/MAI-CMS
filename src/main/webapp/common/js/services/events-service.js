@@ -8,6 +8,9 @@ angular.module("app").service('EventsService',
         this.getAll = function(){
             return $http.get(url);
         };
+        this.getAllPublic = function(){
+            return $http.get("api/events/");
+        };
 
         this.get = function(id){
             return $http.get(url + id);

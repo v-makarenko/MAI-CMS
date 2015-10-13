@@ -5,13 +5,9 @@ angular.module("app").service('AuthService',
     function ($http) {
         var url = "api/auth/";
 
-        this.login = function (username, password) {
+        this.login = function (user) {
 
-            return $http.post(url + "login",
-                {
-                    username: username,
-                    password: password
-                }
+            return $http.post(url + "login", user
             )
 
         };
@@ -24,7 +20,7 @@ angular.module("app").service('AuthService',
         };
 
         this.signUp = function (newUser) {
-            $http.post(url + 'signUp', newUser)
+            return $http.post(url + 'signUp', newUser)
         };
 
         this.getCurrentUser = function(){
