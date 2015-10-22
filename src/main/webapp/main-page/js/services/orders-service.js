@@ -1,6 +1,6 @@
 angular.module("app").service('OrdersService',
     function OrdersService($http, $q) {
-        var url = '/api/private/orders/';
+        var url = 'api/private/orders/';
 
         this.getOrders = function () {
             return $http.post(url + 'getAll', {})

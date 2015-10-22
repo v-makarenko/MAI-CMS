@@ -15,7 +15,7 @@ angular.module('app').controller('UsersController',
 
         $scope.editUser = function(id) {
             $scope.userEditInstance = $modal.open({
-                templateUrl: '/admin-back-office/html/modals/edit-user-modal.html',
+                templateUrl: 'admin-back-office/html/modals/edit-user-modal.html',
                 controller: 'UserEditModalController'
                 //size: size,
                 //resolve: {

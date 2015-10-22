@@ -7,7 +7,7 @@ angular.module('app').controller('MainPageController', ['$scope', '$modal','Even
     function ($scope, $modal, EventsService) {
         $scope.openLoginModal = function(){
             $scope.loginModal = $modal.open({
-                templateUrl: '/main-page/html/modals/login-modal.html',
+                templateUrl: 'main-page/html/modals/login-modal.html',
                 controller: 'LoginModalController'
             });
         };

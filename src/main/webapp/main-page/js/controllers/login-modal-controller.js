@@ -10,10 +10,10 @@ angular.module('app').controller('LoginModalController', ['$scope', '$location',
             AuthService.login($scope.user).success(function(data){
                 if(data.status == 'OK'){
                     if(data.data.userType == 'MEMBER') {
-                        window.location.href = '/member-back-office.html';
+                        window.location.href = 'member-back-office.html';
                     }
                     if(data.data.userType == 'ADMIN' || data.data.userType == 'SECRETARY') {
-                        window.location.href = '/admin-back-office.html';
+                        window.location.href = 'admin-back-office.html';
                     }
                     $scope.errorMsg = null;
                 }else{
@@ -25,7 +25,7 @@ angular.module('app').controller('LoginModalController', ['$scope', '$location',
 
         $scope.restorePassword = function(){
             $scope.loginModal = $modal.open({
-                templateUrl: '/main-page/html/modals/restore-pwd-modal.html',
+                templateUrl: 'main-page/html/modals/restore-pwd-modal.html',
                 controller: 'RestorePwdModalController'
             });
         }

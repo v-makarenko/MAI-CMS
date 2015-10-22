@@ -15,7 +15,7 @@ angular.module('app').controller('EventsController', ['$scope', '$modal', 'Event
 
         $scope.delete = function (index) {
             $scope.userEditInstance = $modal.open({
-                templateUrl: '/common/html/modals/confirm-modal.html',
+                templateUrl: 'common/html/modals/confirm-modal.html',
                 controller: 'ConfirmModalController',
                 //size: size,
                 resolve: {

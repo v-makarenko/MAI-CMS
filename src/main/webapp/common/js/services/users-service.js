@@ -6,7 +6,7 @@ angular.module("app").service('UsersService',
         var url = "api/private/user/";
 
         this.save = function(user){
-            return $http.post(url + 'update', user)
+            return $http.put(url, user)
         };
 
         this.getCurrentUser = function(){

@@ -15,7 +15,7 @@ angular.module('app').controller('EventsController', ['$scope', 'EventsService',
 
         $scope.changePresence = function(presenceId, eventId){
             $scope.userEditInstance = $modal.open({
-                templateUrl: '/common/html/modals/confirm-modal.html',
+                templateUrl: 'common/html/modals/confirm-modal.html',
                 controller: 'ConfirmModalController',
                 //size: size,
                 resolve: {

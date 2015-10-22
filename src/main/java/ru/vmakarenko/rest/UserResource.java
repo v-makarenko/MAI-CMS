@@ -53,6 +53,14 @@ public class UserResource {
                 .build();
     }
 
+    @PUT
+    public Response update(UserDto userDto){
+        userService.update(userDto);
+        return Response
+                .ok(RestResponse.createOk())
+                .build();
+    }
+
     @Path("checkEmail")
     @GET
     public Response checkEmail(String email){

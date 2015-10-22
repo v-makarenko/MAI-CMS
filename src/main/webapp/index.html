@@ -5,27 +5,27 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="common/css/common.css">
-<script src="/common/js/lib/jquery/jquery-1.11.2.js"></script>
-<script src="/common/js/lib/angular/angular.min.js"></script>
-<script src="/common/js/lib/angular/angular-route.min.js"></script>
-<script src="/common/js/lib/bootstrap/bootstrap.js"></script>
+<script src="common/js/lib/jquery/jquery-1.11.2.js"></script>
+<script src="common/js/lib/angular/angular.min.js"></script>
+<script src="common/js/lib/angular/angular-route.min.js"></script>
+<script src="common/js/lib/bootstrap/bootstrap.js"></script>
 
-<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.2.js"></script>
+<script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.2.js"></script>
 <script src="http://underscorejs.org/underscore.js"></script>
 <script src="http://momentjs.com/downloads/moment.js"></script>
 <!-- users js -->
 
 
-<script src="/main-page/js/app.js"></script>
-<script src="/main-page/js/controllers/archive-controller.js"></script>
-<script src="/main-page/js/controllers/main-page-controller.js"></script>
-<script src="/main-page/js/controllers/sign-up-controller.js"></script>
-<script src="/main-page/js/controllers/login-modal-controller.js"></script>
-<script src="/main-page/js/controllers/restore-pwd-modal-controller.js"></script>
+<script src="main-page/js/app.js"></script>
+<script src="main-page/js/controllers/archive-controller.js"></script>
+<script src="main-page/js/controllers/main-page-controller.js"></script>
+<script src="main-page/js/controllers/sign-up-controller.js"></script>
+<script src="main-page/js/controllers/login-modal-controller.js"></script>
+<script src="main-page/js/controllers/restore-pwd-modal-controller.js"></script>
 <script src="member-back-office/js/controllers/events-controller.js"></script>
 
-<script src="/common/js/services/auth-service.js"></script>
-<script src="/common/js/services/events-service.js"></script>
+<script src="common/js/services/auth-service.js"></script>
+<script src="common/js/services/events-service.js"></script>
 
 
 <script type="application/javascript">
@@ -33,7 +33,7 @@
         $.ajax({
             type: "POST",
             contentType: "application/json",
-            url: '/api/auth/login',
+            url: 'api/auth/login',
             data: JSON.stringify({
                 email: email,
                 password: password
@@ -43,10 +43,10 @@
         }).done(function (data) {
             if (data.status == "OK") {
                 if (data.data.userType == 'MEMBER') {
-                    window.location.href = '/member-back-office.html';
+                    window.location.href = 'member-back-office.html';
                 }
                 if (data.data.userType == 'ADMIN') {
-                    window.location.href = '/admin-back-office.html';
+                    window.location.href = 'admin-back-office.html';
                 }
             } else {
                 alert('Неверный пароль!');

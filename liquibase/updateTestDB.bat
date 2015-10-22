@@ -1,0 +1,2 @@
+%~dp0\liquibase.bat --url=jdbc:postgresql://146.185.243.78:5432/maicms --driver=org.postgresql.Driver --username=maicms --password="maicms" --changeLogFile=sdk/workspace/changelog/cumulative.xml update
+pause;

@@ -7,35 +7,35 @@ angular.module('app', [
     function ($routeProvider) {
         $routeProvider.
             when('/home', {
-                templateUrl: '/member-back-office/html/fragments/home.html',
+                templateUrl: 'member-back-office/html/fragments/home.html',
                 controller: 'HomeController'
             }).
             when('/pinfo', {
-                templateUrl: '/member-back-office/html/fragments/pinfo.html',
+                templateUrl: 'member-back-office/html/fragments/pinfo.html',
                 controller: 'PersonalInfoController'
             }).
             when('/psettings', {
-                templateUrl: '/member-back-office/html/fragments/psettings.html',
+                templateUrl: 'member-back-office/html/fragments/psettings.html',
                 controller: 'PersonalSettingsController'
             }).
             when('/events', {
-                templateUrl: '/member-back-office/html/fragments/events.html',
+                templateUrl: 'member-back-office/html/fragments/events.html',
                 controller: 'EventsController'
             }).
             when('/event/:id', {
-                templateUrl: '/member-back-office/html/fragments/event.html',
+                templateUrl: 'member-back-office/html/fragments/event.html',
                 controller: 'EventController'
             }).
             when('/messages', {
-                templateUrl: '/member-back-office/html/fragments/messages.html',
+                templateUrl: 'member-back-office/html/fragments/messages.html',
                 controller: 'MessagesController'
             }).
             when('/distribMail', {
-                templateUrl: '/member-back-office/html/fragments/distrib-mail.html',
+                templateUrl: 'member-back-office/html/fragments/distrib-mail.html',
                 controller: 'EmailDistrController'
             }).
             when('/emailTemplates', {
-                templateUrl: '/member-back-office/html/fragments/email-templates.html',
+                templateUrl: 'member-back-office/html/fragments/email-templates.html',
                 controller: 'EmailTemplatesController'
             }).
             otherwise({
