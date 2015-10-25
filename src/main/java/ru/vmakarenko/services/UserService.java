@@ -3,6 +3,7 @@ package ru.vmakarenko.services;
 import ru.vmakarenko.common.RestResponse;
 import ru.vmakarenko.dao.UserDao;
 import ru.vmakarenko.dto.users.AccessAuthDto;
+import ru.vmakarenko.dto.users.ChangePasswordDto;
 import ru.vmakarenko.dto.users.UserDto;
 import ru.vmakarenko.dto.users.UserSignUpDto;
 import ru.vmakarenko.entities.users.User;
@@ -82,4 +83,9 @@ public class UserService {
         }
     }
 
+    public void changePassword(ChangePasswordDto dto) {
+        User user = userDao.find(dto.getUserId());
+        user.setPasswordHash(dto.getPassword());
+        userDao.update(user);
+    }
 }

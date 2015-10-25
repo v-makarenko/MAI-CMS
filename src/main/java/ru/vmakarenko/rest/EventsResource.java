@@ -4,6 +4,7 @@ package ru.vmakarenko.rest;
 import ru.vmakarenko.common.RestResponse;
 import ru.vmakarenko.dto.common.MessageDto;
 import ru.vmakarenko.dto.events.EventDto;
+import ru.vmakarenko.dto.events.PresenceDto;
 import ru.vmakarenko.services.EventsService;
 import ru.vmakarenko.services.MessageService;
 
@@ -53,6 +54,16 @@ public class EventsResource {
                 .ok(RestResponse.createOk())
                 .build();
     }
+
+    @POST
+    @Path("/setPresence")
+    public Response setPresence(PresenceDto dto){
+        service.setPresence(dto);
+        return Response
+                .ok(RestResponse.createOk())
+                .build();
+    }
+
     @PUT
     public Response update(EventDto dto){
         service.save(dto);

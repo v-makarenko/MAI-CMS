@@ -25,5 +25,21 @@
             <input class="form-control" id="info-email" ng-model="user.email">
         </div>
         <button class="btn" type="button" ng-click="save()">Сохранить</button>
+
+<hr/>
+        <accordion>
+            <accordion-group heading="Смена пароля">
+                                <div class="form-group">
+                    <label for="pass-pass1">Новый пароль:</label>
+                    <input class="form-control" id="pass-pass1" ng-model="pass.pass1">
+                </div>
+
+                <div class="form-group">
+                    <label for="pass-pass2">Повторите пароль:</label>
+                    <input class="form-control" id="pass-pass2" ng-model="pass.pass2">
+                </div>
+                <button class="btn" type="button" ng-click="changePassword()">Поменять пароль</button>
+            </accordion-group>
+        </accordion>
     </form>
 </div>

@@ -9,7 +9,9 @@ import ru.vmakarenko.dao.UserDao;
 import ru.vmakarenko.dto.common.EmailMessageDto;
 import ru.vmakarenko.dto.common.EmailTemplateDto;
 import ru.vmakarenko.dto.common.MessageDto;
+import ru.vmakarenko.dto.events.EventDto;
 import ru.vmakarenko.dto.users.UserDto;
+import ru.vmakarenko.entities.events.Event;
 import ru.vmakarenko.entities.messages.EmailMessage;
 import ru.vmakarenko.entities.messages.EmailTemplate;
 import ru.vmakarenko.entities.messages.InnerMessage;
@@ -88,7 +90,6 @@ public class MapperService {
                            }
                 )
                 .byDefault().register();
-
 
         mapperFactory.classMap(EmailTemplate.class, EmailTemplateDto.class)
                 .byDefault().register();

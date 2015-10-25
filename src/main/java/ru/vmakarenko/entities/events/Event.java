@@ -1,9 +1,12 @@
 package ru.vmakarenko.entities.events;
 
 import ru.vmakarenko.entities.DomainEntity;
+import ru.vmakarenko.entities.users.User;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by VMakarenko on 7/15/2015.
@@ -15,28 +18,47 @@ public class Event extends DomainEntity {
     private String name;
 
     @Column(name = "create_date")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
 
     @Column(name = "event_type")
     private String eventType;
 
     @Column(name = "start_date")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date startDate;
 
     @Column(name = "end_date")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date endDate;
 
     @Column(name = "application_start_date")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date applicationStartDate;
 
     @Column(name = "application_end_date")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date applicationEndDate;
 
     @Column(name = "payment_start_date")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date paymentStartDate;
 
     @Column(name = "payment_end_date")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date paymentEndDate;
+
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "info_rec_end_date")
+    private Date infoRecEndDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "print_end_date")
+    private Date printEndDate;
+
+    @ManyToMany
+    @JoinTable(name="users_events", joinColumns = @JoinColumn(name = "users_id"), inverseJoinColumns = @JoinColumn(name="events_id"))
+    private List<User> userList;
 
     public String getName() {
         return name;
@@ -108,5 +130,33 @@ public class Event extends DomainEntity {
 
     public void setPaymentEndDate(Date paymentEndDate) {
         this.paymentEndDate = paymentEndDate;
+    }
+
+    public Date getInfoRecEndDate() {
+        return infoRecEndDate;
+    }
+
+    public void setInfoRecEndDate(Date infoRecEndDate) {
+        this.infoRecEndDate = infoRecEndDate;
+    }
+
+    public Date getPrintEndDate() {
+        return printEndDate;
+    }
+
+    public void setPrintEndDate(Date printEndDate) {
+        this.printEndDate = printEndDate;
+    }
+
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
+    }
+
+    public boolean isParticipating(UUID userId){
+        return userList.stream().anyMatch(user -> user.getId().equals(userId));
     }
 }

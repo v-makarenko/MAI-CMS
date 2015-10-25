@@ -20,6 +20,10 @@ public class EventDto extends DomainEntity {
     private Date applicationEndDate;
     private Date paymentStartDate;
     private Date paymentEndDate;
+    private Date infoRecEndDate;
+    private Date printEndDate;
+
+    private Boolean present;
 
     public String getName() {
         return name;
@@ -91,5 +95,29 @@ public class EventDto extends DomainEntity {
 
     public void setPaymentEndDate(Date paymentEndDate) {
         this.paymentEndDate = paymentEndDate;
+    }
+
+    public Date getInfoRecEndDate() {
+        return infoRecEndDate;
+    }
+
+    public void setInfoRecEndDate(Date infoRecEndDate) {
+        this.infoRecEndDate = infoRecEndDate;
+    }
+
+    public Date getPrintEndDate() {
+        return printEndDate;
+    }
+
+    public void setPrintEndDate(Date printEndDate) {
+        this.printEndDate = printEndDate;
+    }
+
+    public Boolean getPresent() {
+        return present;
+    }
+
+    public void setPresent(Boolean present) {
+        this.present = present;
     }
 }

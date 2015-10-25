@@ -496,4 +496,14 @@
             UPDATE APP_SETTINGS set value='587' where name='mail.my.port';
         </sql>
     </changeSet>
+    <changeSet id="2015101251655" author="vmakarenko">
+        <comment>
+            add datas for event
+        </comment>
+        <sql>
+            ALTER TABLE events
+            ADD info_rec_end_date date,
+            ADD print_end_date date;
+        </sql>
+    </changeSet>
 </databaseChangeLog>

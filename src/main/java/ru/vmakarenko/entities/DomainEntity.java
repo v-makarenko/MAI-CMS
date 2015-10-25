@@ -23,6 +23,27 @@ public class DomainEntity {
         this.id = id;
     }
 
+    public <E extends DomainEntity> E id(UUID id) {
+        this.id = id;
+        return (E)this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DomainEntity that = (DomainEntity) o;
+
+        return !(id != null ? !id.equals(that.id) : that.id != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+
     @PrePersist
     public void prePersist(){
         id = UUID.randomUUID();

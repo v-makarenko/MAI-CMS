@@ -21,7 +21,37 @@
                         <input class="form-control" id="event-start-date" type="date"
                                format="dd/mm/yyyy"
                                date-time ng-model="currentEvent.startDate">
-                        <!--<input class="form-control" type="text" id="event-start-date" ng-model="currentEvent.startDate"/>-->
+                        </div>
+
+
+                    <div class="form-group">
+                        <label for="application-end-date">
+                            Окончание приема новых участников
+                        </label>
+                        <input class="form-control" id="application-end-date" type="date"
+                               date-time ng-model="currentEvent.applicationEndDate">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="info-rec-end-date">
+                            Окончание приема материалов
+                        </label>
+                        <input class="form-control" id="info-rec-end-date" type="date"
+                               date-time ng-model="currentEvent.infoRecEndDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="payment-end-date">
+                            Окончание ожидания оплаты
+                        </label>
+                        <input class="form-control" id="payment-end-date" type="date"
+                               date-time ng-model="currentEvent.paymentEndDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="print-end-date">
+                            Срок подготовки материалов для печати
+                        </label>
+                        <input class="form-control" id="print-end-date" type="date"
+                               date-time ng-model="currentEvent.printEndDate">
                     </div>
                     <div class="form-group">
                         <label for="event-end-date">
@@ -34,26 +64,21 @@
                 </form>
             </div>
         </accordion-group>
-        <accordion-group heading="Шаблоны рассылаемых сообщений">
-            <div class="vertical-tabs">
-                <tabset vertical="true" >
-                    <tab ng-repeat="template in currentEvent.templates"
-                         heading="template.name">
-                        <textarea ng-model="template.text"></textarea>
+        <!--<accordion-group heading="Шаблоны рассылаемых сообщений">-->
+            <!--<div class="vertical-tabs">-->
+                <!--<tabset vertical="true" >-->
+                    <!--<tab ng-repeat="template in currentEvent.templates"-->
+                         <!--heading="template.name">-->
+                        <!--<textarea ng-model="template.text"></textarea>-->
 
-                    </tab>
-                    <tab heading="(+)Новый шаблон">Vertical content 2</tab>
-                </tabset>
-            </div>
-        </accordion-group>
+                    <!--</tab>-->
+                    <!--<tab heading="(+)Новый шаблон">Vertical content 2</tab>-->
+                <!--</tabset>-->
+            <!--</div>-->
+        <!--</accordion-group>-->
         <accordion-group heading="Даты рассылки сообщений">
             <div>
 
-            </div>
-        </accordion-group>
-        <accordion-group heading="Статистика">
-            <div>
-                В данной конференции примет участие: {{currentEvent.peopleCount}} человек.
             </div>
         </accordion-group>
     </accordion>

@@ -3,10 +3,7 @@ package ru.vmakarenko.rest;
 
 import ru.vmakarenko.common.RestResponse;
 import ru.vmakarenko.common.TokenService;
-import ru.vmakarenko.dto.users.AccessAuthDto;
-import ru.vmakarenko.dto.users.UserAuthDto;
-import ru.vmakarenko.dto.users.UserDto;
-import ru.vmakarenko.dto.users.UserSignUpDto;
+import ru.vmakarenko.dto.users.*;
 import ru.vmakarenko.services.AuthService;
 import ru.vmakarenko.services.UserService;
 import ru.vmakarenko.util.Util;
@@ -66,6 +63,15 @@ public class UserResource {
     public Response checkEmail(String email){
         return Response
                 .ok(RestResponse.createOk().data(userService.checkEmail(email)))
+                .build();
+    }
+
+    @Path("changePassword")
+    @POST
+    public Response changePassword(ChangePasswordDto dto){
+        userService.changePassword(dto);
+        return Response
+                .ok(RestResponse.createOk())
                 .build();
     }
 }

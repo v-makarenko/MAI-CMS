@@ -5,28 +5,35 @@ angular.module("app").service('EventsService',
     function ($http) {
         var url = "api/private/events/";
 
-        this.getAll = function(){
+        this.getAll = function () {
             return $http.get(url);
         };
-        this.getAllPublic = function(){
+        this.getAllPublic = function () {
             return $http.get("api/events/");
         };
 
-        this.get = function(id){
+        this.get = function (id) {
             return $http.get(url + id);
         };
 
-        this.delete = function(id){
+        this.delete = function (id) {
             return $http.delete(url + id);
         };
 
-        this.save = function(event){
-            if(event.id) {
+        this.save = function (event) {
+            if (event.id) {
                 return $http.post(url, event);
-            } else{
+            } else {
                 return $http.put(url, event);
             }
         };
+
+        this.setPresence = function (userId, eventId) {
+            return $http.post(url + 'setPresence', {
+                userId: userId,
+                eventId: eventId
+            });
+        }
 
     }
 )

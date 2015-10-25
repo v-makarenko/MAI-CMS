@@ -16,6 +16,10 @@ angular.module("app").service('UsersService',
         this.getAllUsers = function(){
             return $http.get(url + 'getAll');
         };
+
+        this.changePassword = function(pass1, userId){
+            return $http.post(url + 'changePassword', {userId: userId, password:pass1});
+        }
     }
 )
 ;

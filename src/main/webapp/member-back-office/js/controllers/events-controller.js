@@ -39,7 +39,7 @@ angular.module('app').controller('EventsController', ['$scope', 'EventsService',
             });
         };
 
-        $scope.presence = [{id: 1, name: 'Я участвую'}, {id:2, name: 'Я не участвую'}];
+        $scope.presence = [{id: true, name: 'Я участвую'}, {id:false, name: 'Я не участвую'}];
 
         $scope.getAll();
 
