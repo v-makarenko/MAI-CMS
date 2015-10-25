@@ -34,7 +34,7 @@ angular.module('app', [ 'ui.bootstrap', 'datePicker',
 
         var callback = function() {
             if (!$rootScope.authenticated) {
-                window.location.href = '../index.html';
+                window.location.href = 'index.html';
             }
         };
 

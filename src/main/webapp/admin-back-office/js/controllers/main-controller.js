@@ -13,7 +13,7 @@ angular.module('app').controller('MainController',
         $rootScope.$on('events.exit', function () {
             AuthService.logout().success(function () {
                     $rootScope.isAuthenticated = false;
-                    $location.path('/login');
+                    $location.path('#/login');
                 }
             )
         });

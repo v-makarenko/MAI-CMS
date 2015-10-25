@@ -391,15 +391,12 @@
             'admin', 'admin@test.ru', 'member');
         </sql>
     </changeSet>
-    <changeSet id="201509200852" author="vmakarenko">
+    <changeSet id="201509200850" author="vmakarenko">
         <comment>
-            ADd test user 2
+           fix member case
         </comment>
         <sql>
-            INSERT INTO USERS ( id, name, surname, passport_series,
-            passport_number, password_hash, email, user_type) VALUES
-            ('00000000-0000-0000-0000-000000000001', 'Пользователь', 'Пользователь', '0000', '000001',
-            'test', 'test@test.ru', 'member');
+            UPDATE USERS set USER_TYPE = 'MEMBER' where USER_TYPE ='member';
         </sql>
     </changeSet>
     <changeSet id="201510081135" author="vmakarenko">
@@ -488,6 +485,15 @@
         <sql>
             INSERT into USERS (id, surname, name, email, password_hash, user_type)
             VALUES ('47f02df6-93e3-493b-b72f-2c4e6206359d','Северина','Наталья','admin@admin.ru','adm12','ADMIN');
+        </sql>
+    </changeSet>
+
+    <changeSet id="2015101251237" author="vmakarenko">
+        <comment>
+            update mail settings
+        </comment>
+        <sql>
+            UPDATE APP_SETTINGS set value='587' where name='mail.my.port';
         </sql>
     </changeSet>
 </databaseChangeLog>

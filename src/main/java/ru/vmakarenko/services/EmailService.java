@@ -57,6 +57,9 @@ public class EmailService {
         properties.put("mail.smtp.port", settingsDao.get("mail.my.port"));
         properties.put("mail.smtp.user", settingsDao.get("mail.my.username"));
         properties.put("mail.smtp.password", settingsDao.get("mail.my.password"));
+
+        properties.put("mail.smtp.connectiontimeout", "10000");
+        properties.put("mail.smtp.timeout", "10000");
         mailSession = Session.getInstance(properties, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -64,19 +67,17 @@ public class EmailService {
                         settingsDao.get("mail.my.password"));
             }
         });
+        mailSession.setDebug(true);
     }
 
     private String email, username, pass;
 
     public void sendMailToAll(EmailMessageDto message){
-        // TODO send really to all, now to me
-//        message.getToList().add(message.get);
         addToSendQueue(message);
     }
 
     private void addToSendQueue(EmailMessageDto message){
         emailDao.insert(mapperService.map(message, EmailMessage.class));
-
     }
 
     public void sendPassword(User user, String pass){
@@ -91,29 +92,36 @@ public class EmailService {
         sendMailToAll(dto);
     }
 
-    @Schedule(hour = "*", minute = "*", second = "*/10")
+    @Schedule(hour = "*", minute = "*", second = "*/30")
     public void sendAll(){
+        System.out.println("okay i start");
         List<EmailMessage> emailList = emailDao.findNotSent();
+        System.out.println("1");
         for(EmailMessage item : emailList) {
+            System.out.println("1.5");
             for (User user : item.getToList()) {
                 try {
-                    Message msg = new MimeMessage(mailSession);
-                    msg.setSubject(item.getSubject());
+                    System.out.println("2");
+                    MimeMessage msg = new MimeMessage(mailSession);
+                    msg.setSubject(item.getSubject(), "utf-8");
                     msg.setSentDate(new Date());
                     msg.setFrom(new InternetAddress(email));
                     msg.setRecipients(Message.RecipientType.TO,
                             InternetAddress.parse(user.getEmail(), false));
-
-                    msg.setText(item.getText());
+                    System.out.println("3");
+                    msg.setText(item.getText(), "utf-8");
                     Transport.send(msg);
                     item.setSentStatus(true);
+                    System.out.println("4");
                     emailDao.update(item);
+                    System.out.println("5");
                 } catch (Exception e) {
                     // TODO норм логгер
                     e.printStackTrace();
                 }
             }
         }
+        System.out.println("okay i'm done");
     }
 
 }
