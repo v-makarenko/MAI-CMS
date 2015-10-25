@@ -25,7 +25,14 @@ public class AuthService {
         return tokenService.check(
                 Util.getCookieValueFromRequest(AccessAuthDto.PARAM_AUTH_TOKEN, request),
                 Util.getCookieValueFromRequest(AccessAuthDto.PARAM_AUTH_EMAIL, request)
-                );
+        );
+    }
+
+    public UserDto getCurrentUser(HttpServletRequest request){
+        if(isAuthenticated(request)) {
+            return userService.getByEmail(Util.getCookieValueFromRequest(AccessAuthDto.PARAM_AUTH_EMAIL, request));
+        }
+        return new UserDto();
     }
 
     public AccessAuthDto login(UserAuthDto dto) {

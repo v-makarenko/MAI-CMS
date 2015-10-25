@@ -71,6 +71,18 @@ public class AuthResource {
     }
 
     @GET
+    @Path("getCurrentUser")
+    public Response getCurrentUser(@Context HttpServletRequest request) {
+        if (authService.isAuthenticated(request)) {
+            return Response.ok(RestResponse.createOk().data(authService.getCurrentUser(request))).build();
+        } else {
+            return Response.ok(RestResponse
+                    .createError(RestResponse.ErrorCodes.NOT_AUTHENTICATED))
+                    .build();
+        }
+    }
+
+    @GET
     @Path("getRoles")
     public Response getRoles() {
         return Response.ok().build();

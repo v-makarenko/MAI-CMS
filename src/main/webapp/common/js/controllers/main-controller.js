@@ -5,7 +5,12 @@
 
 angular.module('app').controller('MainController', ['$scope','$rootScope','$location', 'AuthService',
     function ($scope, $rootScope, $location, AuthService) {
-        $scope.currentUser = $rootScope.currentUser = {name: 'Иван', surname:'Иванов'};
+        $rootScope.$on('user.loaded', function(){
+            $scope.currentUser = $rootScope.currentUser;
+        });
+
+        $scope.currentUser = $rootScope.currentUser;
+
         $scope.toHome = function(){
             $location.path('/home');
         };
@@ -33,7 +38,7 @@ angular.module('app').controller('MainController', ['$scope','$rootScope','$loca
 
         $scope.exit = function(){
             AuthService.logout().success(function(){
-                window.location.href = '../index.html';
+                window.location.href = 'index.html';
             });
         };
 
