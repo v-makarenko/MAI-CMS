@@ -94,34 +94,26 @@ public class EmailService {
 
     @Schedule(hour = "*", minute = "*", second = "*/30")
     public void sendAll(){
-        System.out.println("okay i start");
         List<EmailMessage> emailList = emailDao.findNotSent();
-        System.out.println("1");
         for(EmailMessage item : emailList) {
-            System.out.println("1.5");
             for (User user : item.getToList()) {
                 try {
-                    System.out.println("2");
                     MimeMessage msg = new MimeMessage(mailSession);
                     msg.setSubject(item.getSubject(), "utf-8");
                     msg.setSentDate(new Date());
                     msg.setFrom(new InternetAddress(email));
                     msg.setRecipients(Message.RecipientType.TO,
                             InternetAddress.parse(user.getEmail(), false));
-                    System.out.println("3");
                     msg.setText(item.getText(), "utf-8");
                     Transport.send(msg);
                     item.setSentStatus(true);
-                    System.out.println("4");
                     emailDao.update(item);
-                    System.out.println("5");
                 } catch (Exception e) {
                     // TODO норм логгер
                     e.printStackTrace();
                 }
             }
         }
-        System.out.println("okay i'm done");
     }
 
 }

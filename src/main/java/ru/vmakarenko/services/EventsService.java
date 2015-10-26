@@ -13,6 +13,7 @@ import ru.vmakarenko.entities.users.User;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -34,7 +35,7 @@ public class EventsService {
         return mapperService.map(dao.find(id), EventDto.class);
     }
 
-    public void save(EventDto dto){
+    public void save(EventDto dto) {
         dao.update(mapperService.map(dto, Event.class));
     }
 
@@ -44,7 +45,7 @@ public class EventsService {
 
     public List<EventDto> getAll() {
         List<Event> eventList = dao.findAll();
-        List<EventDto> dtoList =  mapperService.map(eventList, EventDto.class);
+        List<EventDto> dtoList = mapperService.map(eventList, EventDto.class);
         User user = usersDao.getByEmail(currentService.getEmail());
 
         dtoList.forEach(eventDto -> {
@@ -57,7 +58,11 @@ public class EventsService {
     public void setPresence(PresenceDto dto) {
         User user = usersDao.find(dto.getUserId());
         Event event = dao.find(dto.getEventId());
-        event.getUserList().add(user);
+        if (dto.isPresent()) {
+            event.getUserList().add(user);
+        } else if (event.getUserList().contains(user)) {
+            event.getUserList().remove(user);
+        }
         dao.update(event);
     }
 }

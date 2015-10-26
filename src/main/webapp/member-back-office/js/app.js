@@ -42,21 +42,8 @@ angular.module('app', [
                 redirectTo: '/home'
             });
     }])
-    .run(function ($rootScope, $location, AuthService) {
-        AuthService.isAuthenticated().success(function (result) {
-            $rootScope.authenticated = result.status == 'OK';
-
-            var callback = function() {
-                if (!$rootScope.authenticated) {
-                    window.location.href = 'index.html';
-                }
-            };
-
-            $rootScope.$on('$routeChangeStart', function (event, next, current) {
-                callback();
-            });
-
-            callback();
-
-        });
-    });
+    .run(
+        function ($rootScope, $location, AuthService) {
+            return runAuth($rootScope, $location, AuthService);
+        }
+    );

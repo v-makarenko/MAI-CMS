@@ -28,8 +28,9 @@ angular.module("app").service('EventsService',
             }
         };
 
-        this.setPresence = function (userId, eventId) {
+        this.setPresence = function (present, userId, eventId) {
             return $http.post(url + 'setPresence', {
+                present: present,
                 userId: userId,
                 eventId: eventId
             });

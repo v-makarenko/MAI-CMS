@@ -506,4 +506,15 @@
             ADD print_end_date date;
         </sql>
     </changeSet>
+    <changeSet id="201510260054" author="vmakarenko">
+        <comment>
+            change users_events
+        </comment>
+        <sql>
+            alter table users_events drop constraint users_events_pk;
+            alter table users_events drop column id;
+            alter table users_events add primary key (users_id, events_id);
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>

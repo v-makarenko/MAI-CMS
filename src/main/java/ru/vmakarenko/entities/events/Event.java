@@ -57,7 +57,7 @@ public class Event extends DomainEntity {
     private Date printEndDate;
 
     @ManyToMany
-    @JoinTable(name="users_events", joinColumns = @JoinColumn(name = "users_id"), inverseJoinColumns = @JoinColumn(name="events_id"))
+    @JoinTable(name="users_events", joinColumns = @JoinColumn(name = "events_id"), inverseJoinColumns = @JoinColumn(name="users_id"))
     private List<User> userList;
 
     public String getName() {
