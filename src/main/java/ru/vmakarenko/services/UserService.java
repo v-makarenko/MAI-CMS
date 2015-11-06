@@ -14,6 +14,7 @@ import ru.vmakarenko.util.Util;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 /**
@@ -87,5 +88,9 @@ public class UserService {
         User user = userDao.find(dto.getUserId());
         user.setPasswordHash(dto.getPassword());
         userDao.update(user);
+    }
+
+    public UserDto find(UUID id) {
+        return mapperService.map(userDao.find(id), UserDto.class);
     }
 }

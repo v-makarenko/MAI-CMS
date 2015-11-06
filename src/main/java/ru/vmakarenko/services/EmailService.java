@@ -67,7 +67,7 @@ public class EmailService {
                         settingsDao.get("mail.my.password"));
             }
         });
-        mailSession.setDebug(true);
+        mailSession.setDebug(false);
     }
 
     private String email, username, pass;

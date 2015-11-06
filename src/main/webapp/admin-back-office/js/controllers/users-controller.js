@@ -16,14 +16,17 @@ angular.module('app').controller('UsersController',
         $scope.editUser = function(id) {
             $scope.userEditInstance = $modal.open({
                 templateUrl: 'admin-back-office/html/modals/edit-user-modal.html',
-                controller: 'UserEditModalController'
+                controller: 'UserEditModalController',
                 //size: size,
-                //resolve: {
-                //    items: function () {
-                //        return $scope.items;
-                //    }
-                //}
+                resolve: {
+                    id: function() {return id;}
+                }
             });
+            $scope.userEditInstance.result.then(function () {
+                $scope.getAll();
+            }, function () {
+            });
+
         };
 
 

@@ -14,6 +14,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
+import java.util.UUID;
 
 /**
  * Created by vmakarenko on 22.04.2015.
@@ -30,6 +31,13 @@ public class UserResource {
     public Response getCurrent(@Context HttpServletRequest request){
         return Response
                 .ok(RestResponse.createOk().data(userService.getCurrentUser(request)))
+                .build();
+    }
+    @Path("{id}")
+    @GET
+    public Response getCurrent(@PathParam("id") UUID id){
+        return Response
+                .ok(RestResponse.createOk().data(userService.find(id)))
                 .build();
     }
 

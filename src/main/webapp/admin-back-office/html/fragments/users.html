@@ -16,7 +16,7 @@
     </thead>
     <tbody>
     <tr ng-repeat="user in users" ng-click="editUser(user.id)">
-        <td>{{$index}}</td>
+        <td>{{$index+1}}</td>
         <td>{{user.surname}} {{user.name}}</td>
         <td>{{user.dateOfBirth}}</td>
     </tr>

@@ -13,6 +13,10 @@ angular.module("app").service('UsersService',
             return $http.get(url + 'getCurrent');
         };
 
+        this.find = function(id){
+            return $http.get(url + id);
+        };
+
         this.getAllUsers = function(){
             return $http.get(url + 'getAll');
         };
