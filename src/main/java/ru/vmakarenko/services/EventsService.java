@@ -13,6 +13,7 @@ import ru.vmakarenko.entities.users.User;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.swing.*;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -21,6 +22,7 @@ import java.util.UUID;
  * Created by VMakarenko on 4/25/2015.
  */
 @Stateless
+@Transactional(Transactional.TxType.REQUIRES_NEW)
 public class EventsService {
     @Inject
     private EventsDao dao;

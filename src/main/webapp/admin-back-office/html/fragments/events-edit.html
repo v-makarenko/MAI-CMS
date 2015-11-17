@@ -8,9 +8,31 @@
         </label>
         <input class="form-control" type="text" id="event-name" ng-model="currentEvent.name"/>
     </div>
-
+    <div class="form-group">
+        <label for="short-event-name">
+            Краткое название события
+        </label>
+        <input class="form-control" type="text" id="short-event-name" ng-model="currentEvent.shortName"/>
+    </div>
 
     <accordion>
+
+        <accordion-group heading="Организаторы">
+            <div class="form-inline">
+                <span>Технический комитет: </span>
+                <input class="form-control" ng-model="currentTechPeopleItem.value"/>
+                <button class="btn btn-small" type="button" id="tech-people-add" ng-enabled="currentTechPeopleItem" ng-click="saveItem(currentEvent.techPeopleList, 'currentTechPeopleItem')">
+                        Сохранить
+                </button>
+            </div>
+            <div ng-repeat="item in currentEvent.techPeopleList" ng-click="currentTechPeopleItem = item">{{item.value}}
+            </div>
+            <div>
+                <span>Организации-организаторы: </span>
+            </div>
+
+
+        </accordion-group>
         <accordion-group heading="Настройка ключевых дат">
             <div>
                 <form>
@@ -18,63 +40,74 @@
                         <label for="event-start-date">
                             Начало события
                         </label>
-                        <input class="form-control" id="event-start-date" type="date"
-                               format="dd/mm/yyyy"
-                               date-time ng-model="currentEvent.startDate">
-                        </div>
+                        <ng-datepicker class="form-control" id="event-start-date"
+                                       ng-model="currentEvent.startDate" locale="ru" view-format="DD.MM.YYYY"
+                                       format="YYYY-MM-DD">
+                        </ng-datepicker>
+                    </div>
 
 
                     <div class="form-group">
                         <label for="application-end-date">
                             Окончание приема новых участников
                         </label>
-                        <input class="form-control" id="application-end-date" type="date"
-                               date-time ng-model="currentEvent.applicationEndDate">
+                        <ng-datepicker class="form-control" id="application-end-date"
+                                       ng-model="currentEvent.applicationEndDate" locale="ru" view-format="DD.MM.YYYY"
+                                       format="YYYY-MM-DD">
+                        </ng-datepicker>
                     </div>
 
                     <div class="form-group">
                         <label for="info-rec-end-date">
                             Окончание приема материалов
                         </label>
-                        <input class="form-control" id="info-rec-end-date" type="date"
-                               date-time ng-model="currentEvent.infoRecEndDate">
+                        <ng-datepicker class="form-control" id="info-rec-end-date"
+                                       ng-model="currentEvent.infoRecEndDate" locale="ru" view-format="DD.MM.YYYY"
+                                       format="YYYY-MM-DD">
+                        </ng-datepicker>
                     </div>
                     <div class="form-group">
                         <label for="payment-end-date">
                             Окончание ожидания оплаты
                         </label>
-                        <input class="form-control" id="payment-end-date" type="date"
-                               date-time ng-model="currentEvent.paymentEndDate">
+                        <ng-datepicker class="form-control" id="payment-end-date"
+                                       ng-model="currentEvent.paymentEndDate" locale="ru" view-format="DD.MM.YYYY"
+                                       format="YYYY-MM-DD">
+                        </ng-datepicker>
                     </div>
                     <div class="form-group">
                         <label for="print-end-date">
                             Срок подготовки материалов для печати
                         </label>
-                        <input class="form-control" id="print-end-date" type="date"
-                               date-time ng-model="currentEvent.printEndDate">
+                        <ng-datepicker lass="form-control" id="print-end-date"
+                                       ng-model="currentEvent.printEndDate" locale="ru" view-format="DD.MM.YYYY"
+                                       format="YYYY-MM-DD">
+                        </ng-datepicker>
                     </div>
                     <div class="form-group">
                         <label for="event-end-date">
                             Конец события
                         </label>
-                        <input class="form-control" id="event-end-date" type="date"
-                               date-time ng-model="currentEvent.endDate">
-                        <!--<input class="form-control" type="text" id="event-end-date" ng-model="currentEvent.endDate"/>-->
+
+                        <ng-datepicker class="form-control" id="event-end-date"
+                                       ng-model="currentEvent.endDate" locale="ru" view-format="DD.MM.YYYY"
+                                       format="YYYY-MM-DD">
+                        </ng-datepicker>
                     </div>
                 </form>
             </div>
         </accordion-group>
         <!--<accordion-group heading="Шаблоны рассылаемых сообщений">-->
-            <!--<div class="vertical-tabs">-->
-                <!--<tabset vertical="true" >-->
-                    <!--<tab ng-repeat="template in currentEvent.templates"-->
-                         <!--heading="template.name">-->
-                        <!--<textarea ng-model="template.text"></textarea>-->
+        <!--<div class="vertical-tabs">-->
+        <!--<tabset vertical="true" >-->
+        <!--<tab ng-repeat="template in currentEvent.templates"-->
+        <!--heading="template.name">-->
+        <!--<textarea ng-model="template.text"></textarea>-->
 
-                    <!--</tab>-->
-                    <!--<tab heading="(+)Новый шаблон">Vertical content 2</tab>-->
-                <!--</tabset>-->
-            <!--</div>-->
+        <!--</tab>-->
+        <!--<tab heading="(+)Новый шаблон">Vertical content 2</tab>-->
+        <!--</tabset>-->
+        <!--</div>-->
         <!--</accordion-group>-->
         <accordion-group heading="Даты рассылки сообщений">
             <div>

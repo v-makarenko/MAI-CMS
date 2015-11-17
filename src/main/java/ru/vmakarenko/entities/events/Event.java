@@ -1,9 +1,12 @@
 package ru.vmakarenko.entities.events;
 
 import ru.vmakarenko.entities.DomainEntity;
+import ru.vmakarenko.entities.common.SimpleStringValue;
+import ru.vmakarenko.entities.users.University;
 import ru.vmakarenko.entities.users.User;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -16,6 +19,9 @@ import java.util.UUID;
 public class Event extends DomainEntity {
     @Column(name = "name")
     private String name;
+
+    @Column(name = "short_name")
+    private String shortName;
 
     @Column(name = "create_date")
     @Temporal(TemporalType.TIMESTAMP)
@@ -56,9 +62,21 @@ public class Event extends DomainEntity {
     @Column(name = "print_end_date")
     private Date printEndDate;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="users_events", joinColumns = @JoinColumn(name = "events_id"), inverseJoinColumns = @JoinColumn(name="users_id"))
-    private List<User> userList;
+    private List<User> userList = new ArrayList<>();
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="events_sections", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name="section_id"))
+    private List<Section> sectionList = new ArrayList<>();
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="events_tech_people", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name="people_id"))
+    private List<SimpleStringValue> techPeopleList = new ArrayList<>();
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="events_org_orgs", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name="org_id"))
+    private List<University> orgOrganisationList = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -158,5 +176,37 @@ public class Event extends DomainEntity {
 
     public boolean isParticipating(UUID userId){
         return userList.stream().anyMatch(user -> user.getId().equals(userId));
+    }
+
+    public List<Section> getSectionList() {
+        return sectionList;
+    }
+
+    public void setSectionList(List<Section> sectionList) {
+        this.sectionList = sectionList;
+    }
+
+    public List<SimpleStringValue> getTechPeopleList() {
+        return techPeopleList;
+    }
+
+    public void setTechPeopleList(List<SimpleStringValue> techPeopleList) {
+        this.techPeopleList = techPeopleList;
+    }
+
+    public List<University> getOrgOrganisationList() {
+        return orgOrganisationList;
+    }
+
+    public void setOrgOrganisationList(List<University> orgOrganisationList) {
+        this.orgOrganisationList = orgOrganisationList;
+    }
+
+    public String getShortName() {
+        return shortName;
+    }
+
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
     }
 }

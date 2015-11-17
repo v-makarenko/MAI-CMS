@@ -4,7 +4,7 @@
     </div>
     <div>
         <div ng-repeat="event in events">
-            {{$index + 1}}. <a ng-href="#/events/{{event.id}}">{{event.name}}</a>
+            {{$index + 1}}. <a ng-href="#/events/{{event.id}}">{{event.name}}({{event.shortName}})</a>
             <button ng-click="delete($index)">(x)</button>
         </div>
     </div>

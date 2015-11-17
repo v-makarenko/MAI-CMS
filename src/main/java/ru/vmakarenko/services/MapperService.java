@@ -20,6 +20,7 @@ import ru.vmakarenko.entities.users.User;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,6 +29,7 @@ import java.util.stream.Collectors;
  * Created by VMakarenko on 4/25/2015.
  */
 @ApplicationScoped
+@Transactional(Transactional.TxType.SUPPORTS)
 public class MapperService {
 
     private MapperFactory mapperFactory;

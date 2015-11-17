@@ -1,17 +1,22 @@
 package ru.vmakarenko.dto.events;
 
+import ru.vmakarenko.dto.users.UserDto;
 import ru.vmakarenko.entities.DomainEntity;
+import ru.vmakarenko.entities.common.SimpleStringValue;
+import ru.vmakarenko.entities.events.Section;
+import ru.vmakarenko.entities.users.University;
+import ru.vmakarenko.entities.users.User;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by VMakarenko on 7/15/2015.
  */
 public class EventDto extends DomainEntity {
     private String name;
+    private String shortName;
     private Date createDate;
     private String eventType;
     private Date startDate;
@@ -24,6 +29,13 @@ public class EventDto extends DomainEntity {
     private Date printEndDate;
 
     private Boolean present;
+
+
+    private List<UserDto> userList;
+    private List<Section> sectionList;
+    private List<SimpleStringValue> techPeopleList;
+    private List<University> orgOrganisationList;
+
 
     public String getName() {
         return name;
@@ -119,5 +131,45 @@ public class EventDto extends DomainEntity {
 
     public void setPresent(Boolean present) {
         this.present = present;
+    }
+
+    public List<UserDto> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<UserDto> userList) {
+        this.userList = userList;
+    }
+
+    public List<Section> getSectionList() {
+        return sectionList;
+    }
+
+    public void setSectionList(List<Section> sectionList) {
+        this.sectionList = sectionList;
+    }
+
+    public List<SimpleStringValue> getTechPeopleList() {
+        return techPeopleList;
+    }
+
+    public void setTechPeopleList(List<SimpleStringValue> techPeopleList) {
+        this.techPeopleList = techPeopleList;
+    }
+
+    public List<University> getOrgOrganisationList() {
+        return orgOrganisationList;
+    }
+
+    public void setOrgOrganisationList(List<University> orgOrganisationList) {
+        this.orgOrganisationList = orgOrganisationList;
+    }
+
+    public String getShortName() {
+        return shortName;
+    }
+
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
     }
 }

@@ -4,6 +4,7 @@ package ru.vmakarenko.common;
  * Created by VMakarenko on 7/15/2015.
  */
 public class RestResponse {
+
     public static class ErrorCodes{
         public static final String NOT_AUTHENTICATED = "NOT_AUTH";
         public static final String PASSWORD_NOT_MATCH = "PWD_MTCH";
@@ -17,6 +18,7 @@ public class RestResponse {
     private String status;
     private String errMsg;
     private String errCode;
+    private String stackTrace;
     private Object data;
 
     public String getStatus() {
@@ -61,8 +63,21 @@ public class RestResponse {
         this.errCode = errCode;
     }
 
+    public String getStackTrace() {
+        return stackTrace;
+    }
+
+    public void setStackTrace(String stackTrace) {
+        this.stackTrace = stackTrace;
+    }
+
     public RestResponse errCode(String errCode) {
         this.errCode = errCode;
+        return this;
+    }
+
+    public RestResponse stackTrace(String stackTrace) {
+        this.stackTrace = stackTrace;
         return this;
     }
 

@@ -516,5 +516,40 @@
             alter table users_events add primary key (users_id, events_id);
         </sql>
     </changeSet>
+    <changeSet id="20151113943" author="vmakarenko">
+        <comment>
+            add simple string values for stuff and organisations for events. also add sections.
+        </comment>
+        <sql>
+            create table s_string_values(
+            id uuid primary key,
+            value text
+            );
+
+            create table events_tech_people(
+            event_id uuid REFERENCES events(id),
+            people_id uuid REFERENCES s_string_values(id)
+            );
+
+            create table events_org_orgs(
+            event_id uuid REFERENCES events(id),
+            org_id uuid REFERENCES universities(id)
+            );
+
+            create table events_sections(
+            event_id uuid REFERENCES events(id),
+            section_id uuid REFERENCES sections(id)
+            );
+
+        </sql>
+    </changeSet>
+    <changeSet id="20151111428" author="vmakarenko">
+        <comment>
+            add short name for event
+        </comment>
+        <sql>
+            alter table events add short_name text;
+        </sql>
+    </changeSet>
 
 </databaseChangeLog>

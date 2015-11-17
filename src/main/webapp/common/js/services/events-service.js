@@ -34,6 +34,10 @@ angular.module("app").service('EventsService',
                 userId: userId,
                 eventId: eventId
             });
+        };
+
+        this.techPeopleSave = function(item) {
+            return $http.post(url + 'techPeopleSave', item);
         }
 
     }

@@ -1,6 +1,6 @@
 <div class="fixed-width-mid">
 <div ng-repeat="event in events">
-    <div><a href="#/event/{{event.id}}">{{event.name}}</a>&nbsp
+    <div><a href="#/event/{{event.id}}">{{event.name}}({{event.shortName}})</a>&nbsp
             <select class="form-control" ng-model="event.present" ng-options="p.name for p in presence"
                     ng-change="changePresence(event.id)">
             </select>
