@@ -1,13 +1,57 @@
 <div>
     <div class="header-panel">
-        <a ng-href="#/events">Назад</a>&nbsp;<span class="h3">{{currentEvent.name}}</span>
+        <a ng-href="#/events">Все конференции > </a>&nbsp;<span class="h5">{{currentEvent.name}}</span>
     </div>
     <tabset>
         <tab heading="Информация">
             Информация
         </tab>
         <tab heading="Подача тезисов">
-            Подача тезисов
+            <div>
+                Ожидают подтверждения от соавторов
+                <table>
+                    <thead>
+                    <th>
+                        Название
+                    </th>
+                    <th>
+                        Авторы
+                    </th>
+                    <th>
+                        Секция
+                    </th>
+                    <th>
+                        Действия
+                    </th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in waitingForCoauthorsList">
+                            <td>
+                                {{item.name}}
+                            </td>
+                            <td>
+                                <div ng-repeat="coauthor in item.coauthors">
+                                    coauthor.snp
+                                </div>
+                            </td>
+                            <td>
+                                {{item.section.name}}
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                Ожидают подтверждения от Вас
+
+            </div>
+            <div>
+                Подтвержденные тезисы
+
+            </div>
         </tab>
         <tab heading="Финансы">
             Финансы

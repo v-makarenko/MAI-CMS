@@ -2,7 +2,7 @@ package ru.vmakarenko.entities.events;
 
 import ru.vmakarenko.entities.DomainEntity;
 import ru.vmakarenko.entities.common.SimpleStringValue;
-import ru.vmakarenko.entities.users.University;
+import ru.vmakarenko.entities.users.WorkingPlace;
 import ru.vmakarenko.entities.users.User;
 
 import javax.persistence.*;
@@ -76,7 +76,7 @@ public class Event extends DomainEntity {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="events_org_orgs", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name="org_id"))
-    private List<University> orgOrganisationList = new ArrayList<>();
+    private List<WorkingPlace> orgOrganisationList = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -194,11 +194,11 @@ public class Event extends DomainEntity {
         this.techPeopleList = techPeopleList;
     }
 
-    public List<University> getOrgOrganisationList() {
+    public List<WorkingPlace> getOrgOrganisationList() {
         return orgOrganisationList;
     }
 
-    public void setOrgOrganisationList(List<University> orgOrganisationList) {
+    public void setOrgOrganisationList(List<WorkingPlace> orgOrganisationList) {
         this.orgOrganisationList = orgOrganisationList;
     }
 

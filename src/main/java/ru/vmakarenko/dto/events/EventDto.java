@@ -4,10 +4,8 @@ import ru.vmakarenko.dto.users.UserDto;
 import ru.vmakarenko.entities.DomainEntity;
 import ru.vmakarenko.entities.common.SimpleStringValue;
 import ru.vmakarenko.entities.events.Section;
-import ru.vmakarenko.entities.users.University;
-import ru.vmakarenko.entities.users.User;
+import ru.vmakarenko.entities.users.WorkingPlace;
 
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
@@ -34,7 +32,7 @@ public class EventDto extends DomainEntity {
     private List<UserDto> userList;
     private List<Section> sectionList;
     private List<SimpleStringValue> techPeopleList;
-    private List<University> orgOrganisationList;
+    private List<WorkingPlace> orgOrganisationList;
 
 
     public String getName() {
@@ -157,11 +155,11 @@ public class EventDto extends DomainEntity {
         this.techPeopleList = techPeopleList;
     }
 
-    public List<University> getOrgOrganisationList() {
+    public List<WorkingPlace> getOrgOrganisationList() {
         return orgOrganisationList;
     }
 
-    public void setOrgOrganisationList(List<University> orgOrganisationList) {
+    public void setOrgOrganisationList(List<WorkingPlace> orgOrganisationList) {
         this.orgOrganisationList = orgOrganisationList;
     }
 

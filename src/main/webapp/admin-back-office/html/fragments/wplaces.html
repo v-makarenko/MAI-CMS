@@ -1,4 +1,5 @@
 <div>
+    <button type="button" class="btn" ng-click="editWP()">Добавить организацию</button>
     Фильтр для поиска
     <button type="button" class="btn">Поиск</button>
 </div>
@@ -11,13 +12,17 @@
         Название
     </th>
     <th>
+        Расположение
+    </th>
+    <th>
         Количество работающих
     </th>
     </thead>
     <tbody>
-    <tr ng-repeat="wplace in wplaces">
-        <td>{{$index}}</td>
-        <td>{{wplace.name}}</td>
+    <tr ng-repeat="wplace in wplaces" ng-click="editWP(wplace.id)">
+        <td>{{$index + 1}}</td>
+        <td>{{wplace.name}}({{wplace.shortName}})</td>
+        <td>{{wplace.country}}, {{wplace.city}}</td>
         <td>{{wplace.peopleCount}}</td>
     </tr>
     </tbody>

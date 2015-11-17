@@ -551,5 +551,14 @@
             alter table events add short_name text;
         </sql>
     </changeSet>
+    <changeSet id="201511171647" author="vmakarenko">
+        <comment>
+            add country and city for universities
+        </comment>
+        <sql>
+            alter table universities add city text;
+            alter table universities add country text;
+        </sql>
+    </changeSet>
 
 </databaseChangeLog>

@@ -34,7 +34,7 @@ public class User extends DomainEntity {
     private Date dateOfBirth;
     @JoinColumn(name = "working_place_id")
     @ManyToOne
-    private University workingPlace;
+    private WorkingPlace workingPlace;
 
     public String getName() {
         return name;
@@ -92,11 +92,11 @@ public class User extends DomainEntity {
         this.patronymic = patronymic;
     }
 
-    public University getWorkingPlace() {
+    public WorkingPlace getWorkingPlace() {
         return workingPlace;
     }
 
-    public void setWorkingPlace(University workingPlace) {
+    public void setWorkingPlace(WorkingPlace workingPlace) {
         this.workingPlace = workingPlace;
     }
 
