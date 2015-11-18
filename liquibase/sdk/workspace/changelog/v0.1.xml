@@ -560,5 +560,23 @@
             alter table universities add country text;
         </sql>
     </changeSet>
+    <changeSet id="201511171649" author="vmakarenko">
+        <comment>
+            add columns for sections
+        </comment>
+        <sql>
+            alter table sections add letter text;
+            alter table universities add event_id UUID references events(id);
+        </sql>
+    </changeSet>
+    <changeSet id="201511171650" author="vmakarenko">
+        <comment>
+            fix columns for sections
+        </comment>
+        <sql>
+            alter table universities drop column  event_id;
+            alter table sections add event_id UUID references events(id);
+        </sql>
+    </changeSet>
 
 </databaseChangeLog>

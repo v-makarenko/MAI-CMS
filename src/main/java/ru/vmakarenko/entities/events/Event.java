@@ -67,16 +67,15 @@ public class Event extends DomainEntity {
     private List<User> userList = new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name="events_sections", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name="section_id"))
-    private List<Section> sectionList = new ArrayList<>();
-
-    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="events_tech_people", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name="people_id"))
     private List<SimpleStringValue> techPeopleList = new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="events_org_orgs", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name="org_id"))
     private List<WorkingPlace> orgOrganisationList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Section> sectionList = new ArrayList<>();
 
     public String getName() {
         return name;

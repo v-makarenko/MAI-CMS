@@ -15,14 +15,15 @@
         <input class="form-control" type="text" id="short-event-name" ng-model="currentEvent.shortName"/>
     </div>
 
-    <accordion>
+    <accordion ng-show="currentEvent.id">
 
         <accordion-group heading="Организаторы">
             <div class="form-inline">
                 <span>Технический комитет: </span>
                 <input class="form-control" ng-model="currentTechPeopleItem.value"/>
-                <button class="btn btn-small" type="button" id="tech-people-add" ng-enabled="currentTechPeopleItem" ng-click="saveItem(currentEvent.techPeopleList, 'currentTechPeopleItem')">
-                        Сохранить
+                <button class="btn btn-small" type="button" id="tech-people-add" ng-enabled="currentTechPeopleItem"
+                        ng-click="saveItem(currentEvent.techPeopleList, 'currentTechPeopleItem')">
+                    Сохранить
                 </button>
             </div>
             <div ng-repeat="item in currentEvent.techPeopleList" ng-click="currentTechPeopleItem = item">{{item.value}}
@@ -114,8 +115,51 @@
 
             </div>
         </accordion-group>
-    </accordion>
-    <div>
-        <button ng-click="save()" class="btn">Сохранить</button>
-    </div>
+        <accordion-group heading="Секции">
+            <br>
+            <button type="button" ng-click="addSection()" class="btn">Добавить</button>
+            <button type="button" ng-click="finishSectionsEditing(currentEvent.sectionList)" class="btn">Сохранить
+            </button>
+            <table class="table table-striped">
+                <thead>
+                <th>
+                    №
+                </th>
+                <th>
+                    Название
+                </th>
+                <th>
+                    Буква
+                </th>
+                <th>
+                    Удалить
+                </th>
+                </thead>
+                <tbody>
+                <tr ng-repeat="section in currentEvent.sectionList">
+                    <td ng-click="sectionClick(currentEvent.sectionList, section)">{{$index + 1}}</td>
+                    <td ng-click="sectionClick(currentEvent.sectionList, section)" ng-hide="section.editing">
+                        {{section.name}}
+                    </td>
+                    <td ng-click="sectionClick(currentEvent.sectionList, section)" ng-hide="section.editing">
+                        {{section.letter}}
+                    </td>
+                    <td ng-click="sectionClick(currentEvent.sectionList, section)" ng-show="section.editing"><input
+                            ng-model="section.name"/></td>
+                    <td ng-click="sectionClick(currentEvent.sectionList, section)" ng-show="section.editing"><input
+                            ng-model="section.letter" maxlength="1"/></td>
+
+                    <td>
+                        <button ng-click="deleteSection(section.id)">X</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+</div>
+</accordion-group>
+</accordion>
+<div>
+    <button ng-click="save()" class="btn">Сохранить</button>
+</div>
 </div>

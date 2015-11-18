@@ -37,8 +37,8 @@ public class EventsService {
         return mapperService.map(dao.find(id), EventDto.class);
     }
 
-    public void save(EventDto dto) {
-        dao.update(mapperService.map(dto, Event.class));
+    public Event save(EventDto dto) {
+        return dao.update(mapperService.map(dto, Event.class));
     }
 
     public void delete(UUID id) {
@@ -47,6 +47,7 @@ public class EventsService {
 
     public List<EventDto> getAll() {
         List<Event> eventList = dao.findAll();
+        eventList.stream().forEach(event -> event.getSectionList().size());
         List<EventDto> dtoList = mapperService.map(eventList, EventDto.class);
         User user = usersDao.getByEmail(currentService.getEmail());
 

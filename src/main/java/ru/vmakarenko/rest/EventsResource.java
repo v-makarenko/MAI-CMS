@@ -49,9 +49,9 @@ public class EventsResource {
 
     @POST
     public Response save(EventDto dto){
-        service.save(dto);
         return Response
-                .ok(RestResponse.createOk())
+                .ok(RestResponse.createOk()
+                        .data(service.save(dto)))
                 .build();
     }
 
@@ -66,9 +66,9 @@ public class EventsResource {
 
     @PUT
     public Response update(EventDto dto){
-        service.save(dto);
+
         return Response
-                .ok(RestResponse.createOk())
+                .ok(RestResponse.createOk().data(service.save(dto)))
                 .build();
     }
 

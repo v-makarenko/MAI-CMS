@@ -1,5 +1,6 @@
 package ru.vmakarenko.dto.events;
 
+import ru.vmakarenko.dto.common.SectionDto;
 import ru.vmakarenko.dto.users.UserDto;
 import ru.vmakarenko.entities.DomainEntity;
 import ru.vmakarenko.entities.common.SimpleStringValue;
@@ -30,7 +31,7 @@ public class EventDto extends DomainEntity {
 
 
     private List<UserDto> userList;
-    private List<Section> sectionList;
+    private List<SectionDto> sectionList;
     private List<SimpleStringValue> techPeopleList;
     private List<WorkingPlace> orgOrganisationList;
 
@@ -139,11 +140,11 @@ public class EventDto extends DomainEntity {
         this.userList = userList;
     }
 
-    public List<Section> getSectionList() {
+    public List<SectionDto> getSectionList() {
         return sectionList;
     }
 
-    public void setSectionList(List<Section> sectionList) {
+    public void setSectionList(List<SectionDto> sectionList) {
         this.sectionList = sectionList;
     }
 
@@ -170,4 +171,5 @@ public class EventDto extends DomainEntity {
     public void setShortName(String shortName) {
         this.shortName = shortName;
     }
+
 }

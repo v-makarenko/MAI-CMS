@@ -1,0 +1,27 @@
+<div>
+    <button type="button" class="btn" ng-click="editWP()">Добавить секцию</button>
+    Фильтр для поиска
+    <button type="button" class="btn">Поиск</button>
+</div>
+<table class="table table-striped">
+    <thead>
+    <th>
+        №
+    </th>
+    <th>
+        Название
+    </th>
+    <th>
+        Буква
+    </th>
+    </thead>
+    <tbody>
+    <tr ng-repeat="section in sections" ng-click="editWP(wplace.id)">
+        <td>{{$index + 1}}</td>
+        <td ng-hide="section.editing">{{section.name}}</td>
+        <td ng-hide="section.editing">{{section.letter}}</td>
+        <td ng-show="section.editing"><input ng-model="section.name"/></td>
+        <td ng-show="section.editing"><input ng-model="section.letter"/></td>
+    </tr>
+    </tbody>
+</table>

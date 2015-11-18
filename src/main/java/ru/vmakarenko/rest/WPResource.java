@@ -43,9 +43,8 @@ public class WPResource {
                 .build();
     }
 
-    @Path("createUser")
     @POST
-    public Response createUser(WorkingPlaceDto wp){
+    public Response create(WorkingPlaceDto wp){
         wpService.create(wp);
         return Response
                 .ok(RestResponse.createOk())
