@@ -14,6 +14,8 @@ public class UserDto extends CommonDto {
     private String email;
     private String password;
     private String userType;
+    private String snpShort;
+    private String snpLong;
 
     public String getPassportSeries() {
         return passportSeries;
@@ -77,5 +79,21 @@ public class UserDto extends CommonDto {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public String getSnpShort() {
+        return snpShort;
+    }
+
+    public void setSnpShort(String snpShort) {
+        this.snpShort = snpShort;
+    }
+
+    public String getSnpLong() {
+        return snpLong;
+    }
+
+    public void setSnpLong(String snpLong) {
+        this.snpLong = snpLong;
     }
 }

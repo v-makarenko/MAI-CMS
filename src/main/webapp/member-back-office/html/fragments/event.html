@@ -2,60 +2,34 @@
     <div class="header-panel">
         <a ng-href="#/events">Все конференции > </a>&nbsp;<span class="h5">{{currentEvent.name}}</span>
     </div>
-    <tabset>
-        <tab heading="Информация">
-            Информация
-        </tab>
-        <tab heading="Подача тезисов">
-            <div>
-                Ожидают подтверждения от соавторов
-                <table>
-                    <thead>
-                    <th>
-                        Название
-                    </th>
-                    <th>
-                        Авторы
-                    </th>
-                    <th>
-                        Секция
-                    </th>
-                    <th>
-                        Действия
-                    </th>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="item in waitingForCoauthorsList">
-                            <td>
-                                {{item.name}}
-                            </td>
-                            <td>
-                                <div ng-repeat="coauthor in item.coauthors">
-                                    coauthor.snp
-                                </div>
-                            </td>
-                            <td>
-                                {{item.section.name}}
-                            </td>
-                            <td>
-                                &nbsp;
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div>
-                Ожидают подтверждения от Вас
+    <div class="fixed-width-mid">
+        <tabset>
+            <tab heading="Информация">
+                Информация
+            </tab>
+            <tab heading="Подача тезисов">
+                <div>
+                    <button class="btn" type="button" ng-click="openEditThesisModal()">Добавить тезис</button>
+                </div>
+                <div class="logic-area">
+                    Ожидают подтверждения от соавторов
+                    <span thesises-list list="waitingForCoauthorConfirmationList" mode="waitForCA"></span>
+                </div>
+                <div class="logic-area">
+                    Ожидают подтверждения от Вас
+                    <thesises-list list="waitingForYourConfirmationList" mode="waitForYou"></thesises-list>
 
-            </div>
-            <div>
-                Подтвержденные тезисы
+                </div>
+                <div class="logic-area">
+                    Подтвержденные тезисы
+                    <thesises-list list="confirmedList" mode="confirmed"></thesises-list>
 
-            </div>
-        </tab>
-        <tab heading="Финансы">
-            Финансы
-        </tab>
+                </div>
+            </tab>
+            <tab heading="Финансы">
+                Финансы
+            </tab>
 
-    </tabset>
+        </tabset>
+    </div>
 </div>

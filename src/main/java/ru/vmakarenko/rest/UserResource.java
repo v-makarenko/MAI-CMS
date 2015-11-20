@@ -28,14 +28,15 @@ public class UserResource {
 
     @Path("getCurrent")
     @GET
-    public Response getCurrent(@Context HttpServletRequest request){
+    public Response getCurrent(@Context HttpServletRequest request) {
         return Response
                 .ok(RestResponse.createOk().data(userService.getCurrentUser(request)))
                 .build();
     }
+
     @Path("{id}")
     @GET
-    public Response getCurrent(@PathParam("id") UUID id){
+    public Response getCurrent(@PathParam("id") UUID id) {
         return Response
                 .ok(RestResponse.createOk().data(userService.find(id)))
                 .build();
@@ -43,7 +44,7 @@ public class UserResource {
 
     @Path("getAll")
     @GET
-    public Response getAll(){
+    public Response getAll() {
         return Response
                 .ok(RestResponse.createOk().data(userService.getAll()))
                 .build();
@@ -51,7 +52,7 @@ public class UserResource {
 
     @Path("createUser")
     @POST
-    public Response createUser(UserDto userDto){
+    public Response createUser(UserDto userDto) {
         userService.create(userDto);
         return Response
                 .ok(RestResponse.createOk())
@@ -59,7 +60,7 @@ public class UserResource {
     }
 
     @PUT
-    public Response update(UserDto userDto){
+    public Response update(UserDto userDto) {
         userService.update(userDto);
         return Response
                 .ok(RestResponse.createOk())
@@ -68,7 +69,7 @@ public class UserResource {
 
     @Path("checkEmail")
     @GET
-    public Response checkEmail(String email){
+    public Response checkEmail(String email) {
         return Response
                 .ok(RestResponse.createOk().data(userService.checkEmail(email)))
                 .build();
@@ -76,10 +77,16 @@ public class UserResource {
 
     @Path("changePassword")
     @POST
-    public Response changePassword(ChangePasswordDto dto){
+    public Response changePassword(ChangePasswordDto dto) {
         userService.changePassword(dto);
         return Response
                 .ok(RestResponse.createOk())
                 .build();
+    }
+
+    @GET
+    @Path("confRegistered")
+    public Response getAllConfRegistered(@QueryParam("eventId") UUID eventId) {
+       return Response.ok(RestResponse.createOk().data(userService.getAllConfRegistered(eventId))).build();
     }
 }

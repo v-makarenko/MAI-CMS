@@ -578,5 +578,41 @@
             alter table sections add event_id UUID references events(id);
         </sql>
     </changeSet>
+    <changeSet id="201511182105" author="vmakarenko">
+        <comment>
+            add coauthors for entries
+        </comment>
+        <sql>
+            drop table coauthors;
+            create table thesises (
+            id uuid primary key,
+            name text,
+            section_id uuid references sections(id),
+            user_id uuid references users(id),
+            event_id uuid references events(id)
+            );
+
+            create table coauthors (
+            id uuid primary key,
+            name text,
+            surname text,
+            patronymic text,
+            user_id uuid references users(id),
+            email text,
+            thesis_id uuid references thesises(id),
+            confirmed boolean
+            );
+
+
+        </sql>
+    </changeSet>
+    <changeSet id="201511201540" author="vmakarenko">
+        <comment>
+            add dtype
+        </comment>
+        <sql>
+            alter table coauthors add column dtype varchar(3);
+        </sql>
+    </changeSet>
 
 </databaseChangeLog>

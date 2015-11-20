@@ -10,10 +10,14 @@ import ru.vmakarenko.dto.common.EmailMessageDto;
 import ru.vmakarenko.dto.common.EmailTemplateDto;
 import ru.vmakarenko.dto.common.MessageDto;
 import ru.vmakarenko.dto.common.SectionDto;
+import ru.vmakarenko.dto.events.CoauthorDto;
 import ru.vmakarenko.dto.events.EventDto;
+import ru.vmakarenko.dto.events.ThesisDto;
 import ru.vmakarenko.dto.users.UserDto;
 import ru.vmakarenko.entities.events.Event;
 import ru.vmakarenko.entities.events.Section;
+import ru.vmakarenko.entities.events.thesis.Coauthor;
+import ru.vmakarenko.entities.events.thesis.Thesis;
 import ru.vmakarenko.entities.messages.EmailMessage;
 import ru.vmakarenko.entities.messages.EmailTemplate;
 import ru.vmakarenko.entities.messages.InnerMessage;
@@ -54,7 +58,8 @@ public class MapperService {
                         }
 
                         userDto.setUserType(user.getUserType().name());
-
+                        userDto.setSnpLong(user.getSurname() + " " + user.getName() + " " + user.getPatronymic());
+                        userDto.setSnpLong(user.getSurname() + " " + user.getName().substring(0,1) + "." + user.getPatronymic().substring(0,1)+".");
                     }
 
                     @Override
@@ -114,6 +119,13 @@ public class MapperService {
 
         mapperFactory.classMap(Section.class, SectionDto.class)
                 .fieldAToB("event.id", "eventId")
+                .byDefault().register();
+
+        mapperFactory.classMap(Coauthor.class, CoauthorDto.class)
+                .byDefault().register();
+        mapperFactory.classMap(Thesis.class, ThesisDto.class)
+                .fieldAToB("section.id", "sectionId")
+                .fieldAToB("section.name", "sectionName ")
                 .byDefault().register();
 
     }

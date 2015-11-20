@@ -1,0 +1,53 @@
+<div>
+    <div class="modal-header">
+        Добавление соавтора
+    </div>
+    <div class="modal-body">
+        <div>
+            <input type="radio" value='registered' ng-model="coauthorMode">Соавтор уже зарегистрирован</input>
+        </div>
+        <div>
+            <input type="radio" value='later' ng-model="coauthorMode"/>Соавтор зарегистрируется позже</input>
+        </div>
+        <div>
+            <input type="radio" value='notRegistered' ng-model="coauthorMode"/>Соавтор не будет регистрироваться</input>
+        </div>
+        <div>
+            <div class="form-group" ng-show="coauthorMode == 'registered'">
+                <label>Выберите пользователя:</label>
+                <select class="form-control" ng-model="newCoauthor.userId" ng-options="user.id as user.snpLong for user in users"></select>
+            </div>
+            <div ng-show="coauthorMode == 'later'">
+                <div class="form-group">
+                    <label>e-mail</label>
+                    <input  class="form-control" type="text" ng-model="newCoauthor.email"/>
+                </div>
+            </div>
+            <div ng-show="coauthorMode == 'notRegistered'">
+                <div>
+                    <div class="form-group">
+                        <label>Фамилия</label>
+                        <input class="form-control" type="text" ng-model="newCoauthor.surname"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Имя</label>
+                        <input class="form-control" type="text" ng-model="newCoauthor.name"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Отчество</label>
+                        <input class="form-control" type="text" ng-model="newCoauthor.patronymic"/>
+                    </div>
+                    <div class="form-group">
+                        <label>e-mail</label>
+                        <input class="form-control" type="text" ng-model="newCoauthor.email"/>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">Да</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Нет</button>
+    </div>
+</div>

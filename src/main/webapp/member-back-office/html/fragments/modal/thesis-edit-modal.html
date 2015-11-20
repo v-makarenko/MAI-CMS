@@ -1,0 +1,58 @@
+<div>
+    <div class="modal-header">
+        Редактирование и подача тезисов
+    </div>
+    <div class="modal-body">
+        <form>
+
+            <div class="form-group">
+                <label for="thesisName">Название:</label>
+                <input class="form-control" id="thesisName" ng-model="currentThesis.name">
+            </div>
+            <div class="form-group">
+                <label>Секция:</label>
+                <select class="form-control" ng-options="section.id as section.name for section in sections"
+                        ng-model="currentThesis.sectionId"></select>
+            </div>
+            <div class="form-group">
+                <label for="thesiiFile">Файл:</label>
+                <input  class="form-control" type="file" id="thesiiFile" ng-model="currentThesis.file">
+            </div>
+            <div class="form-group">
+                <label for="coauthors">Соавторы:</label>
+                <button type="button" ng-click="addCoauthor()">Добавить соавтора</button>
+                <table id="coauthors">
+                    <thead>
+                    <th>
+                        №
+                    </th>
+                    <th>
+                        ФИО
+                    </th>
+                    <th>
+                        Тип
+                    </th>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="coauthor in coauthors">
+                        <td>
+                            {{$index+1}}.
+                        </td>
+                        <td>
+                            {{coauthor.snp}}
+                        </td>
+                        <td>
+                            TODO
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">Да</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Нет</button>
+    </div>
+</div>

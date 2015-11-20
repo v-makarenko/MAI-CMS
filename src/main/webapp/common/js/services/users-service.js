@@ -23,6 +23,10 @@ angular.module("app").service('UsersService',
 
         this.changePassword = function(pass1, userId){
             return $http.post(url + 'changePassword', {userId: userId, password:pass1});
+        };
+
+        this.getAllConfRegistered = function(eventId){
+            return $http.get(url + 'confRegistered', {params: { eventId : eventId}});
         }
     }
 )

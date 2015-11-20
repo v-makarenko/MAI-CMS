@@ -13,8 +13,8 @@ angular.module("app").service('SectionsService',
             return $http.get(url + id);
         };
 
-        this.getAll = function(){
-            return $http.get(url + 'getAll');
+        this.getAll = function(eventId){
+            return $http.get(url + 'getAll', {params:{eventId: eventId}});
         };
         this.delete = function(id){
             return $http.delete(url + '?id=' + id );
