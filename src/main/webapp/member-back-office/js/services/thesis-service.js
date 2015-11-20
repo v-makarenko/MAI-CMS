@@ -21,6 +21,10 @@ angular.module("app").service('ThesisService',
 
         this.save = function (thesis) {
             return $http.post(url, thesis);
+        };
+
+        this.delete = function (id) {
+            return $http.delete(url + '?id=' + id);
         }
 
     }

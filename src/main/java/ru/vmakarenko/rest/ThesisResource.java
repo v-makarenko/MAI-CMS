@@ -58,6 +58,14 @@ public class ThesisResource {
                 .build();
     }
 
+    @DELETE
+    public Response delete(@QueryParam("id") UUID id){
+        service.delete(id);
+        return Response
+                .ok(RestResponse.createOk())
+                .build();
+    }
+
     @PUT
     @Deprecated
     public Response update(ThesisDto thesisDto){

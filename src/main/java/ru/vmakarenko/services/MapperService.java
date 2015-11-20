@@ -58,8 +58,9 @@ public class MapperService {
                         }
 
                         userDto.setUserType(user.getUserType().name());
-                        userDto.setSnpLong(user.getSurname() + " " + user.getName() + " " + user.getPatronymic());
-                        userDto.setSnpLong(user.getSurname() + " " + user.getName().substring(0,1) + "." + user.getPatronymic().substring(0,1)+".");
+                        userDto.setSnpLong(user.getSurname() + " " + (user.getName() != null ? user.getName() : "") + " " + (user.getPatronymic()!=null?user.getPatronymic() : ""));
+                        userDto.setSnpLong(user.getSurname() + " " + (user.getName()!=null?(user.getName().substring(0,1)
+                                + ".") :"")+ (user.getPatronymic() != null ? (user.getPatronymic().substring(0,1)+".") :""));
                     }
 
                     @Override
@@ -125,7 +126,7 @@ public class MapperService {
                 .byDefault().register();
         mapperFactory.classMap(Thesis.class, ThesisDto.class)
                 .fieldAToB("section.id", "sectionId")
-                .fieldAToB("section.name", "sectionName ")
+                .fieldAToB("section.name", "sectionName")
                 .byDefault().register();
 
     }

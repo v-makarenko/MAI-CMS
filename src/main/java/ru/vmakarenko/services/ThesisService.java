@@ -71,4 +71,8 @@ public class ThesisService {
                 .filter(item -> false)
                 .collect(Collectors.toList()), ThesisDto.class);
     }
+
+    public void delete(UUID id) {
+        dao.trueDelete(id);
+    }
 }
