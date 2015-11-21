@@ -7,7 +7,13 @@ angular.module("app").directive('thesisesList', ['$rootScope', 'ThesisService',
         templateUrl: 'member-back-office/html/fragments/directives/thesises-list.html',
         link: function (scope, element, attrs) {
             scope.deleteItem = function(id){
-                ThesisService.delete(id);
+                ThesisService.delete(id).success(function(data){
+                    $rootScope.$broadcast('event.thesisesList.refresh');
+                });
+            };
+
+            scope.editItem = function(id){
+                $rootScope.$broadcast('event.thesisesList.edit', id);
             }
         },
         scope: {

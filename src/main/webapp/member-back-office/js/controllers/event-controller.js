@@ -11,13 +11,13 @@ angular.module('app').controller('EventController', ['$scope', '$rootScope', '$r
             }
         });
 
-        $rootScope.$on('user.loaded', function () {
+        $scope.refreshLists = function(){
             ThesisService.getConfirmed($routeParams.id, $rootScope.currentUser.id)
-            .success(function (data) {
-                if (data.status == 'OK') {
-                    $scope.confirmedList = data.data;
-                }
-            });
+                .success(function (data) {
+                    if (data.status == 'OK') {
+                        $scope.confirmedList = data.data;
+                    }
+                });
             ThesisService.getWaitingForYourConfirmation($routeParams.id, $rootScope.currentUser.id).success(function (data) {
                 if (data.status == 'OK') {
                     $scope.waitingForYourConfirmationList = data.data;
@@ -28,20 +28,44 @@ angular.module('app').controller('EventController', ['$scope', '$rootScope', '$r
                     $scope.waitingForCoauthorConfirmationList = data.data;
                 }
             });
-        });
+        };
 
-        $scope.openEditThesisModal = function (index) {
+        $rootScope.$on('event.thesisesList.refresh', function () {
+                $scope.refreshLists();
+            }
+        );
+
+        $rootScope.$on('user.loaded', function () {
+                $rootScope.$broadcast('event.thesisesList.refresh');
+            }
+        );
+
+        $rootScope.$on('event.thesisesList.edit', function(event, data){
             $scope.thesisEditInstance = $modal.open({
                 templateUrl: 'member-back-office/html/fragments/modal/thesis-edit-modal.html',
                 controller: 'EditThesisModalController',
                 //size: size,
                 resolve: {
                     id: function () {
-                        return $routeParams.id;
+                        return data;
                     }
 
                 }
             });
+            $scope.thesisEditInstance.result.then(function () {
+                $rootScope.$broadcast('event.thesisesList.refresh');
+            }, function () {
+            });
+        });
+
+        if($rootScope.currentUser && $rootScope.currentUser.id){
+            $rootScope.$broadcast('event.thesisesList.refresh');
+        }
+
+
+
+        $scope.openEditThesisModal = function (index) {
+            $scope.$emit('event.thesisesList.modal')
         }
 
     }

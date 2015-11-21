@@ -3,20 +3,18 @@
  */
 
 
-angular.module('app').controller('EditThesisModalController', ['$scope', '$rootScope', '$routeParams', '$modal','$modalInstance','ThesisService', 'SectionsService',
-    function ($scope, $rootScope, $routeParams, $modal, $modalInstance, ThesisService, SectionsService) {
+angular.module('app').controller('EditThesisModalController', ['$scope', '$rootScope', '$routeParams', '$modal','$modalInstance','ThesisService', 'SectionsService', 'id',
+    function ($scope, $rootScope, $routeParams, $modal, $modalInstance, ThesisService, SectionsService, id) {
         $scope.eventId = $routeParams.id;
 
-        $scope.currentThesis = {
-            eventId: $scope.eventId
-        };
+        $scope.currentThesis = {};
 
         $scope.ok = function(){
             $scope.currentThesis.userId = $rootScope.currentUser.id;
-            ThesisService.save($scope.currentThesis).success(function(data){
-
+            $scope.currentThesis.eventId=  $scope.eventId;
+            ThesisService.save($scope.currentThesis).success(function(){
+                $modalInstance.close();
             });
-            $modalInstance.close();
         };
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel');
@@ -41,6 +39,14 @@ angular.module('app').controller('EditThesisModalController', ['$scope', '$rootS
                 $scope.sections = data.data;
             }
         });
+
+        if(id){
+            ThesisService.find(id).success(function(data){
+                if(data.status == 'OK'){
+                    $scope.currentThesis = data.data;
+                }
+            })
+        }
 
     }
 ]);

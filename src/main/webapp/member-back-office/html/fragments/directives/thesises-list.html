@@ -16,7 +16,7 @@
     <tbody>
     <tr ng-repeat="item in list">
         <td>
-            {{item.name}}
+            <a href ng-click="editItem(item.id)">{{item.name}}</a>
         </td>
         <td>
             <div ng-repeat="coauthor in item.coauthors">

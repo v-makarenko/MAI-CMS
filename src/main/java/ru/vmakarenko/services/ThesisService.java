@@ -75,4 +75,7 @@ public class ThesisService {
     public void delete(UUID id) {
         dao.trueDelete(id);
     }
+    public ThesisDto find(UUID id) {
+        return mapperService.map(dao.find(id), ThesisDto.class);
+    }
 }

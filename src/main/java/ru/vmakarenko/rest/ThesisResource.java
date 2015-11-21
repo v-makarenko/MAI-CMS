@@ -28,7 +28,7 @@ public class ThesisResource {
 
     @Path("waitingForYourConfirmation")
     @GET
-    public Response getWaitingForYourConfirmation(@QueryParam("eventId") UUID eventId, @QueryParam("userId") UUID userId){
+    public Response getWaitingForYourConfirmation(@QueryParam("eventId") UUID eventId, @QueryParam("userId") UUID userId) {
         return Response
                 .ok(RestResponse.createOk().data(service.getWaitingConfirmationFromYou(eventId, userId)))
                 .build();
@@ -36,7 +36,7 @@ public class ThesisResource {
 
     @Path("waitingForCoauthorConfirmation")
     @GET
-    public Response getWaitingForCoauthorConfirmation(@QueryParam("eventId") UUID eventId, @QueryParam("userId") UUID userId){
+    public Response getWaitingForCoauthorConfirmation(@QueryParam("eventId") UUID eventId, @QueryParam("userId") UUID userId) {
         return Response
                 .ok(RestResponse.createOk().data(service.getWaitingConfirmationFromCoauthors(eventId, userId)))
                 .build();
@@ -44,14 +44,14 @@ public class ThesisResource {
 
     @Path("confirmed")
     @GET
-    public Response getConfirmed(@QueryParam("eventId") UUID eventId, @QueryParam("userId") UUID userId){
+    public Response getConfirmed(@QueryParam("eventId") UUID eventId, @QueryParam("userId") UUID userId) {
         return Response
                 .ok(RestResponse.createOk().data(service.getConfirmed(eventId, userId)))
                 .build();
     }
 
     @POST
-    public Response create(ThesisDto thesisDto){
+    public Response create(ThesisDto thesisDto) {
         service.create(thesisDto);
         return Response
                 .ok(RestResponse.createOk())
@@ -59,16 +59,24 @@ public class ThesisResource {
     }
 
     @DELETE
-    public Response delete(@QueryParam("id") UUID id){
+    public Response delete(@QueryParam("id") UUID id) {
         service.delete(id);
         return Response
                 .ok(RestResponse.createOk())
                 .build();
     }
 
+    @GET
+    public Response find(@QueryParam("id") UUID id) {
+
+        return Response
+                .ok(RestResponse.createOk().data(service.find(id)))
+                .build();
+    }
+
     @PUT
     @Deprecated
-    public Response update(ThesisDto thesisDto){
+    public Response update(ThesisDto thesisDto) {
         service.update(thesisDto);
         return Response
                 .ok(RestResponse.createOk())

@@ -25,6 +25,11 @@ angular.module("app").service('ThesisService',
 
         this.delete = function (id) {
             return $http.delete(url + '?id=' + id);
+        };
+
+
+        this.find = function (id) {
+            return $http.get(url + '?id=' + id);
         }
 
     }
