@@ -9,7 +9,7 @@ angular.module('app').controller('SignUpController',
         $scope.save = function () {
             AuthService.signUp($scope.newUser)
                 .success(function () {
-                    alert('Вы зарегистрировались! Теперь можете войти.');
+                    alert('Вы зарегистрировались в системе! Вы получите пароль на почту в течение минуты.');
                     $location.path('#/aboutCurrentEvent')
                 });
         };
