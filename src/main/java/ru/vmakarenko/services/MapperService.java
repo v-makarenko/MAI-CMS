@@ -4,6 +4,7 @@ import ma.glasnost.orika.CustomMapper;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.MappingContext;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
+import ma.glasnost.orika.metadata.Type;
 import ru.vmakarenko.common.UserType;
 import ru.vmakarenko.dao.UserDao;
 import ru.vmakarenko.dto.common.EmailMessageDto;
@@ -16,8 +17,7 @@ import ru.vmakarenko.dto.events.ThesisDto;
 import ru.vmakarenko.dto.users.UserDto;
 import ru.vmakarenko.entities.events.Event;
 import ru.vmakarenko.entities.events.Section;
-import ru.vmakarenko.entities.events.thesis.Coauthor;
-import ru.vmakarenko.entities.events.thesis.Thesis;
+import ru.vmakarenko.entities.events.thesis.*;
 import ru.vmakarenko.entities.messages.EmailMessage;
 import ru.vmakarenko.entities.messages.EmailTemplate;
 import ru.vmakarenko.entities.messages.InnerMessage;
@@ -27,6 +27,7 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -58,9 +59,9 @@ public class MapperService {
                         }
 
                         userDto.setUserType(user.getUserType().name());
-                        userDto.setSnpLong(user.getSurname() + " " + (user.getName() != null ? user.getName() : "") + " " + (user.getPatronymic()!=null?user.getPatronymic() : ""));
-                        userDto.setSnpLong(user.getSurname() + " " + (user.getName()!=null?(user.getName().substring(0,1)
-                                + ".") :"")+ (user.getPatronymic() != null ? (user.getPatronymic().substring(0,1)+".") :""));
+                        userDto.setSnpLong(user.getSurname() + " " + (user.getName() != null ? user.getName() : "") + " " + (user.getPatronymic() != null ? user.getPatronymic() : ""));
+                        userDto.setSnpShort(user.getSurname() + " " + (user.getName() != null ? (user.getName().substring(0, 1)
+                                + ".") : "") + (user.getPatronymic() != null ? (user.getPatronymic().substring(0, 1) + ".") : ""));
                     }
 
                     @Override
@@ -123,11 +124,53 @@ public class MapperService {
                 .byDefault().register();
 
         mapperFactory.classMap(Coauthor.class, CoauthorDto.class)
-                .byDefault().register();
+                .customize(
+                        new CustomMapper<Coauthor, CoauthorDto>() {
+                            @Override
+                            public void mapAtoB(Coauthor coauthor, CoauthorDto coauthorDto, MappingContext context) {
+                                if (coauthor instanceof CoauthorUser) {
+                                    CoauthorUser caUser = (CoauthorUser) coauthor;
+                                    coauthorDto.setUserId(caUser.getUser().getId());
+                                    coauthorDto.setSurname(caUser.getUser().getSurname());
+                                    coauthorDto.setName(caUser.getUser().getName());
+                                    coauthorDto.setSnpLong(caUser.getUser().getSurname() + " " + (caUser.getUser().getName() != null ?
+                                            caUser.getUser().getName() : "") + " " + (caUser.getUser().getPatronymic() != null ?
+                                            caUser.getUser().getPatronymic() : ""));
+                                    coauthorDto.setSnpShort(caUser.getUser().getSurname() + " " + (caUser.getUser().getName() != null
+                                            ? (caUser.getUser().getName().substring(0, 1)
+                                            + ".") : "") + (caUser.getUser().getPatronymic() != null ?
+                                            ((caUser).getUser().getPatronymic().substring(0, 1) + ".") : ""));
+                                }
+                                if (coauthor instanceof CoauthorSNP) {
+                                    CoauthorSNP caSnp = (CoauthorSNP) coauthor;
+                                    coauthorDto.setSurname(caSnp.getSurname());
+                                    coauthorDto.setName(caSnp.getName());
+                                    coauthorDto.setPatronymic(caSnp.getPatronymic());
+                                    coauthorDto.setSnpLong(caSnp.getSurname() + " " + (caSnp.getName() != null ?
+                                            caSnp.getName() : "") + " " + (caSnp.getPatronymic() != null ?
+                                            caSnp.getPatronymic() : ""));
+                                    coauthorDto.setSnpShort(caSnp.getSurname() + " " + (caSnp.getName() != null
+                                            ? (caSnp.getName().substring(0, 1)
+                                            + ".") : "") + (caSnp.getPatronymic() != null ? (caSnp.getPatronymic().substring(0, 1) + ".") : ""));
+
+                                }
+                                if (coauthor instanceof CoauthorToBeRegistered) {
+                                    CoauthorToBeRegistered ctbr = (CoauthorToBeRegistered)coauthor;
+                                    coauthorDto.setEmail(ctbr.getEmail());
+                                }
+                            }
+                        }
+
+                )
+                .byDefault()
+                .register();
+
         mapperFactory.classMap(Thesis.class, ThesisDto.class)
                 .fieldAToB("section.id", "sectionId")
                 .fieldAToB("section.name", "sectionName")
-                .byDefault().register();
+                .byDefault()
+                .register();
+
 
     }
 

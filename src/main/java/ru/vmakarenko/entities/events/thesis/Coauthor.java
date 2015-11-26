@@ -17,6 +17,8 @@ public class Coauthor extends DomainEntity {
     private Thesis thesis;
     @Column(name="confirmed")
     private boolean confirmed;
+    @Column(name="dtype", insertable = false ,updatable = false)
+    private String dtype;
 
 
     public Thesis getThesis() {
@@ -33,6 +35,14 @@ public class Coauthor extends DomainEntity {
 
     public void setConfirmed(boolean confirmed) {
         this.confirmed = confirmed;
+    }
+
+    public String getDtype() {
+        return dtype;
+    }
+
+    public void setDtype(String dtype) {
+        this.dtype = dtype;
     }
 }
 

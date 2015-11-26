@@ -1,5 +1,6 @@
 package ru.vmakarenko.dto.events;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import ru.vmakarenko.dto.common.SectionDto;
 import ru.vmakarenko.entities.DomainEntity;
 import ru.vmakarenko.entities.events.Event;
@@ -14,6 +15,7 @@ import java.util.UUID;
 /**
  * Created by VMakarenko on 7/15/2015.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ThesisDto extends DomainEntity {
     private String name;
     private UUID sectionId;
@@ -21,6 +23,7 @@ public class ThesisDto extends DomainEntity {
     private List<CoauthorDto> coauthorsList;
     private UUID eventId;
     private UUID userId;
+    private UUID fileId;
 
 
     public String getName() {
@@ -70,6 +73,14 @@ public class ThesisDto extends DomainEntity {
 
     public void setUserId(UUID userId) {
         this.userId = userId;
+    }
+
+    public UUID getFileId() {
+        return fileId;
+    }
+
+    public void setFileId(UUID fileId) {
+        this.fileId = fileId;
     }
 }
 

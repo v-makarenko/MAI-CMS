@@ -99,9 +99,9 @@ public class UserService {
         return mapperService.map(userDao.find(id), UserDto.class);
     }
 
-    public List<User> getAllConfRegistered(UUID eventId) {
+    public List<UserDto> getAllConfRegistered(UUID eventId) {
         List<User> userList = eventsDao.find(eventId).getUserList();
         userList.size();
-        return userList;
+        return mapperService.map(userList, UserDto.class);
     }
 }

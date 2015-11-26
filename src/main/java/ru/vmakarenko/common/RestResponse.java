@@ -5,6 +5,8 @@ package ru.vmakarenko.common;
  */
 public class RestResponse {
 
+
+
     public static class ErrorCodes{
         public static final String NOT_AUTHENTICATED = "NOT_AUTH";
         public static final String PASSWORD_NOT_MATCH = "PWD_MTCH";

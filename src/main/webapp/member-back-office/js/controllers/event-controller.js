@@ -65,7 +65,7 @@ angular.module('app').controller('EventController', ['$scope', '$rootScope', '$r
 
 
         $scope.openEditThesisModal = function (index) {
-            $scope.$emit('event.thesisesList.modal')
+            $rootScope.$emit('event.thesisesList.edit')
         }
 
     }

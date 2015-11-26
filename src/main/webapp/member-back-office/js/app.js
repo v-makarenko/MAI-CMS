@@ -2,7 +2,7 @@
  * Created by VMakarenko on 7/17/2015.
  */
 angular.module('app', [
-    'ngRoute', 'ui.bootstrap'
+    'ngRoute', 'ui.bootstrap', 'angularFileUpload',
 ]).config(['$routeProvider',
     function ($routeProvider) {
         $routeProvider.

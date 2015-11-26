@@ -4,26 +4,26 @@
     </div>
     <div class="modal-body">
         <div>
-            <input type="radio" value='registered' ng-model="coauthorMode">Соавтор уже зарегистрирован</input>
+            <input type="radio" value='reg' ng-model="newCoauthor.dtype">Соавтор уже зарегистрирован</input>
         </div>
         <div>
-            <input type="radio" value='later' ng-model="coauthorMode"/>Соавтор зарегистрируется позже</input>
+            <input type="radio" value='tbr' ng-model="newCoauthor.dtype"/>Соавтор зарегистрируется позже</input>
         </div>
         <div>
-            <input type="radio" value='notRegistered' ng-model="coauthorMode"/>Соавтор не будет регистрироваться</input>
+            <input type="radio" value='snp' ng-model="newCoauthor.dtype"/>Соавтор не будет регистрироваться</input>
         </div>
         <div>
-            <div class="form-group" ng-show="coauthorMode == 'registered'">
+            <div class="form-group" ng-show="newCoauthor.dtype == 'reg'">
                 <label>Выберите пользователя:</label>
                 <select class="form-control" ng-model="newCoauthor.userId" ng-options="user.id as user.snpLong for user in users"></select>
             </div>
-            <div ng-show="coauthorMode == 'later'">
+            <div ng-show="newCoauthor.dtype == 'tbr'">
                 <div class="form-group">
                     <label>e-mail</label>
                     <input  class="form-control" type="text" ng-model="newCoauthor.email"/>
                 </div>
             </div>
-            <div ng-show="coauthorMode == 'notRegistered'">
+            <div ng-show="newCoauthor.dtype == 'snp'">
                 <div>
                     <div class="form-group">
                         <label>Фамилия</label>

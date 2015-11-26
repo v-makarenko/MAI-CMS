@@ -1,17 +1,14 @@
 package ru.vmakarenko.entities.events.thesis;
 
 import ru.vmakarenko.entities.DomainEntity;
-import ru.vmakarenko.entities.common.SimpleStringValue;
+import ru.vmakarenko.entities.common.files.FileEntry;
 import ru.vmakarenko.entities.events.Event;
 import ru.vmakarenko.entities.events.Section;
 import ru.vmakarenko.entities.users.User;
-import ru.vmakarenko.entities.users.WorkingPlace;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by VMakarenko on 7/15/2015.
@@ -24,8 +21,8 @@ public class Thesis extends DomainEntity {
     @ManyToOne
     @JoinColumn(name = "section_id")
     private Section section;
-    @OneToMany(mappedBy = "thesis")
-    private List<Coauthor> coauthorsList;
+    @OneToMany(mappedBy = "thesis", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<Coauthor> coauthorsList = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "event_id")
@@ -35,6 +32,8 @@ public class Thesis extends DomainEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @OneToOne
+    private FileEntry fileEntry;
 
     public String getName() {
         return name;

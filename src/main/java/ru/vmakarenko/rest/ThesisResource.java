@@ -30,7 +30,9 @@ public class ThesisResource {
     @GET
     public Response getWaitingForYourConfirmation(@QueryParam("eventId") UUID eventId, @QueryParam("userId") UUID userId) {
         return Response
-                .ok(RestResponse.createOk().data(service.getWaitingConfirmationFromYou(eventId, userId)))
+                .ok(RestResponse
+                        .createOk()
+                        .data(service.getWaitingConfirmationFromYou(eventId, userId)))
                 .build();
     }
 
@@ -38,7 +40,9 @@ public class ThesisResource {
     @GET
     public Response getWaitingForCoauthorConfirmation(@QueryParam("eventId") UUID eventId, @QueryParam("userId") UUID userId) {
         return Response
-                .ok(RestResponse.createOk().data(service.getWaitingConfirmationFromCoauthors(eventId, userId)))
+                .ok(RestResponse
+                        .createOk()
+                        .data(service.getWaitingConfirmationFromCoauthors(eventId, userId)))
                 .build();
     }
 
@@ -46,15 +50,18 @@ public class ThesisResource {
     @GET
     public Response getConfirmed(@QueryParam("eventId") UUID eventId, @QueryParam("userId") UUID userId) {
         return Response
-                .ok(RestResponse.createOk().data(service.getConfirmed(eventId, userId)))
+                .ok(RestResponse
+                        .createOk()
+                        .data(service.getConfirmed(eventId, userId)))
                 .build();
     }
 
     @POST
     public Response create(ThesisDto thesisDto) {
-        service.create(thesisDto);
         return Response
-                .ok(RestResponse.createOk())
+                .ok(RestResponse
+                        .createOk()
+                        .data(service.save(thesisDto)))
                 .build();
     }
 
@@ -62,7 +69,8 @@ public class ThesisResource {
     public Response delete(@QueryParam("id") UUID id) {
         service.delete(id);
         return Response
-                .ok(RestResponse.createOk())
+                .ok(RestResponse
+                        .createOk())
                 .build();
     }
 
@@ -70,16 +78,19 @@ public class ThesisResource {
     public Response find(@QueryParam("id") UUID id) {
 
         return Response
-                .ok(RestResponse.createOk().data(service.find(id)))
+                .ok(RestResponse
+                        .createOk()
+                        .data(service.find(id)))
                 .build();
     }
 
     @PUT
     @Deprecated
     public Response update(ThesisDto thesisDto) {
-        service.update(thesisDto);
         return Response
-                .ok(RestResponse.createOk())
+                .ok(RestResponse
+                        .createOk()
+                        .data(service.save(thesisDto)))
                 .build();
     }
 

@@ -5,7 +5,8 @@
 
 angular.module('app').controller('AddCoauthorModalController', ['$scope', '$routeParams', '$modal','$modalInstance','ThesisService', 'SectionsService', 'UsersService',
     function ($scope, $routeParams, $modal, $modalInstance, ThesisService, SectionsService, UsersService) {
-        $scope.users = [{id: 1, surname: 'dsagds'}];
+        $scope.newCoauthor = {dtype:'reg'};
+        $scope.users = [];
         UsersService.getAllConfRegistered($routeParams.id).success(function(data){
             if(data.status==='OK'){
                 $scope.users = data.data;
@@ -13,13 +14,15 @@ angular.module('app').controller('AddCoauthorModalController', ['$scope', '$rout
         });
 
         $scope.ok = function(){
-            $modalInstance.close();
+            if($scope.newCoauthor.dtype == 'reg'){
+                var user =  _.find($scope.users, {id: $scope.newCoauthor.userId});
+                $scope.newCoauthor.snpShort = user.surname + ' ' + user.name;
+            }
+            $modalInstance.close($scope.newCoauthor);
         };
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel');
         };
-
-        $scope.coauthorMode = 'registered';
 
 
     }

@@ -1,5 +1,6 @@
 package ru.vmakarenko.dto.events;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import ru.vmakarenko.entities.DomainEntity;
 import ru.vmakarenko.entities.events.Event;
 import ru.vmakarenko.entities.events.Section;
@@ -12,6 +13,8 @@ import java.util.UUID;
 /**
  * Created by VMakarenko on 7/15/2015.
  */
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class CoauthorDto extends DomainEntity {
     private String name;
     private String surname;
@@ -19,6 +22,9 @@ public class CoauthorDto extends DomainEntity {
     private UUID userId;
     private String email;
     private UUID thesisId;
+    private String dtype;
+    private String snpLong;
+    private String snpShort;
 
     public String getName() {
         return name;
@@ -48,6 +54,22 @@ public class CoauthorDto extends DomainEntity {
         return userId;
     }
 
+    public String getSnpLong() {
+        return snpLong;
+    }
+
+    public void setSnpLong(String snpLong) {
+        this.snpLong = snpLong;
+    }
+
+    public String getSnpShort() {
+        return snpShort;
+    }
+
+    public void setSnpShort(String snpShort) {
+        this.snpShort = snpShort;
+    }
+
     public void setUserId(UUID userId) {
         this.userId = userId;
     }
@@ -66,6 +88,14 @@ public class CoauthorDto extends DomainEntity {
 
     public void setThesisId(UUID thesisId) {
         this.thesisId = thesisId;
+    }
+
+    public String getDtype() {
+        return dtype;
+    }
+
+    public void setDtype(String dtype) {
+        this.dtype = dtype;
     }
 }
 

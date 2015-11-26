@@ -15,44 +15,71 @@
                         ng-model="currentThesis.sectionId"></select>
             </div>
             <div class="form-group">
-                <label for="thesiiFile">Файл:</label>
-                <input  class="form-control" type="file" id="thesiiFile" ng-model="currentThesis.file">
-            </div>
-            <div class="form-group">
-                <label for="coauthors">Соавторы:</label>
-                <button type="button" ng-click="addCoauthor()">Добавить соавтора</button>
-                <table id="coauthors">
-                    <thead>
-                    <th>
-                        №
-                    </th>
-                    <th>
-                        ФИО
-                    </th>
-                    <th>
-                        Тип
-                    </th>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="coauthor in coauthors">
-                        <td>
-                            {{$index+1}}.
-                        </td>
-                        <td>
-                            {{coauthor.snp}}
-                        </td>
-                        <td>
-                            TODO
-                        </td>
-                    </tr>
+                <label for="thesisFile">Файл:</label>
 
-                    </tbody>
-                </table>
+                <input type="file" id="thesisFile"
+                    class="btn btn-primary btn-upload"
+                    nv-file-select
+                    url="/api/private/files"
+                    uploader="uploader" >Загрузить файл
+                </input>
+                <ul>
+                    <li ng-repeat="item in uploader.queue">
+                        Name: <span ng-bind="item.file.name"></span><br/>
+                        <button ng-click="item.upload()">upload</button>
+                    </li>
+                </ul>
+
             </div>
-        </form>
     </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-click="ok()">Да</button>
-        <button class="btn btn-warning" type="button" ng-click="cancel()">Нет</button>
+    <div class="form-group">
+        <label for="coauthors">Соавторы:</label>
+        <button type="button" ng-click="addCoauthor()">Добавить соавтора</button>
+        <table id="coauthors" class="table  table-striped">
+            <thead>
+            <th>
+                №
+            </th>
+            <th>
+                ФИО
+            </th>
+            <th>
+                Тип
+            </th>
+            <th>
+                Действия
+            </th>
+            </thead>
+            <tbody>
+            <tr ng-repeat="coauthor in currentThesis.coauthorsList">
+                <td>
+                    {{$index+1}}.
+                </td>
+                <td ng-show="coauthor.dtype == 'snp'">
+                    {{coauthor.surname}} {{coauthor.name}}
+                </td>
+                <td ng-show="coauthor.dtype == 'tbr'">
+                    email: {{coauthor.email}}
+                </td>
+                <td ng-show="coauthor.dtype == 'reg'">
+                    {{coauthor.snpShort}}
+                </td>
+                <td>
+                    {{coauthor.dtype == 'snp' ? 'Не будет регистр.' : coauthor.dtype == 'reg' ? 'Зарегистрирован' :
+                    'Зарегистрируется позже'}}
+                </td>
+                <td>
+                    <button type="button" class="btn" ng-click="deleteCoauthor(coauthor.id)">Х</button>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
     </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ok()">Да</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Нет</button>
+</div>
 </div>

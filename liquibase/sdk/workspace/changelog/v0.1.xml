@@ -393,7 +393,7 @@
     </changeSet>
     <changeSet id="201509200850" author="vmakarenko">
         <comment>
-           fix member case
+            fix member case
         </comment>
         <sql>
             UPDATE USERS set USER_TYPE = 'MEMBER' where USER_TYPE ='member';
@@ -574,7 +574,7 @@
             fix columns for sections
         </comment>
         <sql>
-            alter table universities drop column  event_id;
+            alter table universities drop column event_id;
             alter table sections add event_id UUID references events(id);
         </sql>
     </changeSet>
@@ -614,5 +614,49 @@
             alter table coauthors add column dtype varchar(3);
         </sql>
     </changeSet>
+    <changeSet id="201511241347" author="vmakarenko">
+        <comment>
+            add file entries
+        </comment>
+        <sql>
+            create table file_entries (
+            id uuid primary key,
+            filename text,
+            extension text,
+            path text
+            );
+        </sql>
+    </changeSet>
 
+    <changeSet id="201511250142" author="vmakarenko">
+        <comment>
+            alter file_entries
+        </comment>
+        <sql>
+            alter table file_entries drop column path;
+            alter table file_entries add content_id uuid;
+        </sql>
+    </changeSet>
+
+    <changeSet id="20151122238" author="vmakarenko">
+        <comment>
+            alter file_entries for thesises
+        </comment>
+        <sql>
+            alter table thesises add fileentry_id uuid references file_entries(id);
+        </sql>
+    </changeSet>
+    <changeSet id="201511261456" author="vmakarenko">
+        <comment>
+            alter file_content
+        </comment>
+        <sql>
+            create table file_content_entries (
+            id uuid primary key,
+            content bytea
+            );
+
+            ALTER  table file_entries  ADD  FOREIGN KEY(content_id) REFERENCES file_content_entries(id);
+        </sql>
+    </changeSet>
 </databaseChangeLog>
