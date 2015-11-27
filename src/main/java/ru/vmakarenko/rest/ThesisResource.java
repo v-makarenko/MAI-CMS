@@ -56,6 +56,16 @@ public class ThesisResource {
                 .build();
     }
 
+    @Path("getByEvent")
+    @GET
+    public Response getByEvent(@QueryParam("eventId") UUID eventId, @QueryParam("status") String status) {
+        return Response
+                .ok(RestResponse
+                        .createOk()
+                        .data(service.getByEvent(eventId, status)))
+                .build();
+    }
+
     @POST
     public Response create(ThesisDto thesisDto) {
         return Response

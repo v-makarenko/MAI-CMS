@@ -3,6 +3,7 @@ package ru.vmakarenko.rest;
 
 import ru.vmakarenko.common.RestResponse;
 import ru.vmakarenko.common.TokenService;
+import ru.vmakarenko.dao.filters.UserFilter;
 import ru.vmakarenko.dto.users.*;
 import ru.vmakarenko.services.AuthService;
 import ru.vmakarenko.services.UserService;
@@ -47,6 +48,14 @@ public class UserResource {
     public Response getAll() {
         return Response
                 .ok(RestResponse.createOk().data(userService.getAll()))
+                .build();
+    }
+
+    @Path("getFiltered")
+    @POST
+    public Response getFiltered(UserFilter filter) {
+        return Response
+                .ok(RestResponse.createOk().data(userService.getFiltered(filter)))
                 .build();
     }
 

@@ -2,14 +2,19 @@ package ru.vmakarenko.dao.filters;
 
 import ru.vmakarenko.dao.anno.FilterParam;
 
+import java.util.UUID;
+
 /**
  * Created by VMakarenko on 4/26/2015.
  */
 public class UserFilter extends BasicFilter {
-    @FilterParam
     private String username;
-    @FilterParam
     private String password;
+    private String name;
+    private String query;
+    private UUID eventId;
+    // TODO status
+
 
     public String getUsername() {
         return username;
@@ -34,5 +39,29 @@ public class UserFilter extends BasicFilter {
     public UserFilter password(String password) {
         this.password = password;
         return this;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getQuery() {
+        return query;
+    }
+
+    public void setQuery(String query) {
+        this.query = query;
+    }
+
+    public UUID getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(UUID eventId) {
+        this.eventId = eventId;
     }
 }

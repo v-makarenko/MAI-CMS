@@ -21,6 +21,10 @@ angular.module("app").service('UsersService',
             return $http.get(url + 'getAll');
         };
 
+        this.getFiltered = function(filter){
+            return $http.post(url + 'getFiltered', filter);
+        };
+
         this.changePassword = function(pass1, userId){
             return $http.post(url + 'changePassword', {userId: userId, password:pass1});
         };

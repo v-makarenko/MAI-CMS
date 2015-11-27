@@ -132,6 +132,12 @@ public class ThesisService {
                 .collect(Collectors.toList()), ThesisDto.class);
     }
 
+    public List<ThesisDto> getByEvent(UUID eventId, String status) {
+        return mapperService.map(dao.getByEventAndUser(eventId, null)
+                .stream()
+                .collect(Collectors.toList()), ThesisDto.class);
+    }
+
     public void delete(UUID id) {
         dao.trueDelete(id);
     }
@@ -139,4 +145,5 @@ public class ThesisService {
     public ThesisDto find(UUID id) {
         return mapperService.map(dao.find(id), ThesisDto.class);
     }
+
 }

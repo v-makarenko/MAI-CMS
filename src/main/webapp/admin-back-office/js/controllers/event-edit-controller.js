@@ -5,6 +5,8 @@
 
 angular.module('app').controller('EventEditController', ['$scope', '$routeParams', '$location', 'EventsService', 'SectionsService',
     function ($scope, $routeParams, $location, EventsService, SectionsService) {
+        $scope.eventId = $routeParams.id;
+
         $scope.loadEvent = function () {
             if ($routeParams.id === 'new') {
                 $scope.currentEvent = {};

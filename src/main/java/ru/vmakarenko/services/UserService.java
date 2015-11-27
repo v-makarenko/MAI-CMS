@@ -3,6 +3,7 @@ package ru.vmakarenko.services;
 import ru.vmakarenko.common.RestResponse;
 import ru.vmakarenko.dao.EventsDao;
 import ru.vmakarenko.dao.UserDao;
+import ru.vmakarenko.dao.filters.UserFilter;
 import ru.vmakarenko.dto.users.AccessAuthDto;
 import ru.vmakarenko.dto.users.ChangePasswordDto;
 import ru.vmakarenko.dto.users.UserDto;
@@ -103,5 +104,9 @@ public class UserService {
         List<User> userList = eventsDao.find(eventId).getUserList();
         userList.size();
         return mapperService.map(userList, UserDto.class);
+    }
+
+    public List<UserDto> getFiltered(UserFilter filter) {
+        return mapperService.map(userDao.getFiltered(filter), UserDto.class);
     }
 }

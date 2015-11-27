@@ -24,6 +24,11 @@ angular.module('app', ['ui.bootstrap','jkuri.datepicker',
                 controller: 'EventEditController'
             }).
 
+            when('/events/:id/details', {
+                templateUrl: 'admin-back-office/html/fragments/event-details.html',
+                controller: 'EventDetailsController'
+            }).
+
             otherwise({
                 redirectTo: '/users'
             });

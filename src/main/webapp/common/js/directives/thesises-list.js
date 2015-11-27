@@ -4,7 +4,7 @@
 angular.module("app").directive('thesisesList', ['$rootScope', 'ThesisService',
     function ($rootScope, ThesisService) {
     return {
-        templateUrl: 'member-back-office/html/fragments/directives/thesises-list.html',
+        templateUrl: 'common/html/fragments/directives/thesises-list.html',
         link: function (scope, element, attrs) {
             scope.deleteItem = function(id){
                 ThesisService.delete(id).success(function(data){
@@ -18,7 +18,6 @@ angular.module("app").directive('thesisesList', ['$rootScope', 'ThesisService',
         },
         scope: {
             list: '=list',
-            mode: '=mode'
         }
     }
 }]);

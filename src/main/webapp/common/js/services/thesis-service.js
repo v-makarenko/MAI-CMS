@@ -18,6 +18,9 @@ angular.module("app").service('ThesisService',
             return $http.get(url + 'waitingForCoauthorConfirmation', {params: {userId: userId, eventId: eventId}});
         };
 
+        this.getByEvent = function (eventId, status) {
+            return $http.get(url + 'getByEvent?eventId='+eventId + "&status=" + status);
+        };
 
         this.save = function (thesis) {
             return $http.post(url, thesis);

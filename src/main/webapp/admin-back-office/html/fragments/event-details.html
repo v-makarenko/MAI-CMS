@@ -1,0 +1,20 @@
+<div class="fixed-width-mid ">
+    <div>
+        <a href="#/events/{{eventId}}" class="btn">Назад</a>
+        <tabset>
+            <tab heading="Общая статистика">
+                Всего зарегистрировалось: {{usersList.length}} <br>
+                Подано тезисов: {{thesisesList.length}}
+
+            </tab>
+            <tab heading="Зарегистрированные участники">
+                <div users-list event-id="eventId" list="usersList">
+
+                </div>
+            </tab>
+            <tab heading="Поданные тезисы">
+                <thesises-list list="thesisesList" mode="admin"></thesises-list>
+            </tab>
+        </tabset>
+    </div>
+</div>
