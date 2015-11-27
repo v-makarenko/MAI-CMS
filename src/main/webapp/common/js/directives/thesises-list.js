@@ -12,12 +12,25 @@ angular.module("app").directive('thesisesList', ['$rootScope', 'ThesisService',
                 });
             };
 
+            scope.confirm = function(id){
+                ThesisService.confirm(id).success(function(data){
+                    $rootScope.$broadcast('event.thesisesList.refresh');
+                });
+            };
+
+            scope.deleteFromCA = function(id){
+                ThesisService.deleteFromCA(id).success(function(data){
+                    $rootScope.$broadcast('event.thesisesList.refresh');
+                });
+            };
+
             scope.editItem = function(id){
                 $rootScope.$broadcast('event.thesisesList.edit', id);
             }
         },
         scope: {
             list: '=list',
+            mode:'@mode'
         }
     }
 }]);

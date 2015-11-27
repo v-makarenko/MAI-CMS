@@ -61,7 +61,7 @@
                 <td ng-show="coauthor.dtype == 'tbr'">
                     email: {{coauthor.email}}
                 </td>
-                <td ng-show="coauthor.dtype == 'reg'">
+                <td ng-show="coauthor.dtype == 'reg'"  ng-class="coauthor.confirmed ? 'text-success' : 'text-danger'">
                     {{coauthor.snpShort}}
                 </td>
                 <td>

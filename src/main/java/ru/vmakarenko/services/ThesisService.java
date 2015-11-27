@@ -31,6 +31,8 @@ public class ThesisService {
     private UserDao userDao;
     @Inject
     private CurrentService currentService;
+    @Inject
+    private CoauthorDao coauthorDao;
 
     private Thesis fillThesis(ThesisDto dto) {
         Thesis thesis = new Thesis();
@@ -122,13 +124,23 @@ public class ThesisService {
                 .filter(item -> item.getCoauthorsList()
                         .stream()
                         .anyMatch(ca -> !ca.isConfirmed()))
+                .filter(item -> item.getCoauthorsList()
+                        .stream()
+                        .filter(ca -> !ca.isConfirmed() && ca instanceof CoauthorUser)
+                        .anyMatch(ca -> ((CoauthorUser) ca).getUser().getId().equals(userId)))
                 .collect(Collectors.toList()), ThesisDto.class);
     }
 
     public List<ThesisDto> getWaitingConfirmationFromCoauthors(UUID eventId, UUID userId) {
         return mapperService.map(dao.getByEventAndUser(eventId, userId)
                 .stream()
-                .filter(item -> false)
+                .filter(item -> item.getCoauthorsList()
+                        .stream()
+                        .anyMatch(ca -> !ca.isConfirmed()))
+                .filter(item -> item.getCoauthorsList()
+                        .stream()
+                        .filter(ca -> !ca.isConfirmed() && ca instanceof CoauthorUser)
+                        .noneMatch(ca -> ((CoauthorUser) ca).getUser().getId().equals(userId)))
                 .collect(Collectors.toList()), ThesisDto.class);
     }
 
@@ -146,4 +158,20 @@ public class ThesisService {
         return mapperService.map(dao.find(id), ThesisDto.class);
     }
 
+    public void deleteFromCA(UUID thesisId) {
+        User currentUser = userDao.getByEmail(currentService.getEmail());
+        coauthorDao.find(thesisId).getThesis()
+                .getCoauthorsList().removeIf(item -> item instanceof CoauthorUser
+                && ((CoauthorUser) item).getUser().getId().equals(currentUser.getId()));
+    }
+
+    public void confirm(UUID thesisId) {
+        User currentUser = userDao.getByEmail(currentService.getEmail());
+        Thesis thesis = dao.find(thesisId);
+        thesis.getCoauthorsList().stream().filter(coauthor -> coauthor instanceof CoauthorUser
+                && ((CoauthorUser) coauthor).getUser().getId().equals(currentUser.getId())).forEach(coauthor -> {
+            coauthor.setConfirmed(true);
+            coauthorDao.update(coauthor);
+        });
+    }
 }

@@ -1,6 +1,7 @@
 package ru.vmakarenko.entities.events.thesis;
 
 import ru.vmakarenko.entities.DomainEntity;
+import ru.vmakarenko.entities.users.User;
 
 import javax.persistence.*;
 
@@ -19,6 +20,18 @@ public class Coauthor extends DomainEntity {
     private boolean confirmed;
     @Column(name="dtype", insertable = false ,updatable = false)
     private String dtype;
+    @ManyToOne
+    @JoinColumn(name ="user_id")
+    private User user;
+    //TODO bad idea
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
 
     public Thesis getThesis() {

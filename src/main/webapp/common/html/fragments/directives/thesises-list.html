@@ -27,7 +27,9 @@
             {{item.sectionName}}
         </td>
         <td>
-            <button type="button" class="btn btn-warn" ng-click="deleteItem(item.id)" >X</button>
+            <button type="button" class="btn btn-warn" ng-click="deleteItem(item.id)" ng-show="mode == 'confirmed'">X</button>
+            <button type="button" class="btn btn-warn" ng-click="confirm(item.id)" ng-show="mode == 'waitForYou'">V</button>
+            <button type="button" class="btn btn-warn" ng-click="deleteFromCA(item.id)" ng-show="mode == 'waitForYou'">X</button>
         </td>
     </tr>
     </tbody>

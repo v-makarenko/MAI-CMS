@@ -25,6 +25,8 @@ public class CoauthorDto extends DomainEntity {
     private String dtype;
     private String snpLong;
     private String snpShort;
+    private boolean confirmed;
+
 
     public String getName() {
         return name;
@@ -96,6 +98,14 @@ public class CoauthorDto extends DomainEntity {
 
     public void setDtype(String dtype) {
         this.dtype = dtype;
+    }
+
+    public boolean isConfirmed() {
+        return confirmed;
+    }
+
+    public void setConfirmed(boolean confirmed) {
+        this.confirmed = confirmed;
     }
 }
 

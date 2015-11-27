@@ -84,6 +84,26 @@ public class ThesisResource {
                 .build();
     }
 
+    @POST
+    @Path("confirm")
+    public Response confirm(@QueryParam("id") UUID id) {
+        service.confirm(id);
+        return Response
+                .ok(RestResponse
+                        .createOk())
+                .build();
+    }
+
+    @DELETE
+    @Path("deleteFromCA")
+    public Response deleteFromCA(@QueryParam("id") UUID id) {
+        service.deleteFromCA(id);
+        return Response
+                .ok(RestResponse
+                        .createOk())
+                .build();
+    }
+
     @GET
     public Response find(@QueryParam("id") UUID id) {
 

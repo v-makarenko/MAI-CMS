@@ -15,12 +15,12 @@ import java.util.UUID;
 @Stateless
 public class ThesisDao extends GenericDao<Thesis> {
     public List<Thesis> getByEventAndUser(UUID eventId, UUID userId) {
-        String sql = "select t from Thesis t join t.event e join t.user u where 1=1 ";
+        String sql = "select t from Thesis t join t.event e join t.coauthorsList ca join ca.user cau where 1=1 ";
         if(eventId != null){
             sql+= " and e.id = :eventId";
         }
         if(userId != null){
-            sql+= " and u.id = :userId";
+            sql+= " and cau.id = :userId";
         }
         TypedQuery<Thesis> typedQuery  = em.createQuery(sql, Thesis.class);
         if(eventId != null){

@@ -6,7 +6,7 @@ angular.module("app").service('ThesisService',
         var url = "api/private/thesises/";
 
         this.getConfirmed = function (eventId, userId) {
-            return $http.get(url + 'confirmed?userId='+userId+"&eventId="+eventId);
+            return $http.get(url + 'confirmed?userId=' + userId + "&eventId=" + eventId);
         };
 
         this.getWaitingForYourConfirmation = function (eventId, userId) {
@@ -19,7 +19,7 @@ angular.module("app").service('ThesisService',
         };
 
         this.getByEvent = function (eventId, status) {
-            return $http.get(url + 'getByEvent?eventId='+eventId + "&status=" + status);
+            return $http.get(url + 'getByEvent?eventId=' + eventId + "&status=" + status);
         };
 
         this.save = function (thesis) {
@@ -31,9 +31,17 @@ angular.module("app").service('ThesisService',
         };
 
 
+        this.deleteFromCA = function (id) {
+            return $http.delete(url + 'deleteFromCA?id=' + id);
+        };
+
+        this.confirm = function (id) {
+            return $http.post(url + 'confirm?id=' + id);
+        };
+
         this.find = function (id) {
             return $http.get(url + '?id=' + id);
-        }
+        };
 
     }
 )
