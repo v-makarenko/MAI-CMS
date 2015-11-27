@@ -3,8 +3,8 @@
  */
 
 
-angular.module('app').controller('EditThesisModalController', ['$scope', '$rootScope', '$routeParams', '$modal', '$modalInstance', 'ThesisService', 'SectionsService', 'id', 'FileUploader',
-    function ($scope, $rootScope, $routeParams, $modal, $modalInstance, ThesisService, SectionsService, id, FileUploader) {
+angular.module('app').controller('EditThesisModalController', ['$scope', '$rootScope', '$routeParams', '$modal', '$modalInstance', 'ThesisService', 'SectionsService', 'id', 'FileUploader', 'CoauthorsService',
+    function ($scope, $rootScope, $routeParams, $modal, $modalInstance, ThesisService, SectionsService, id, FileUploader,CoauthorsService) {
         //ThesisService
         //    .save({})
         //    .success(function (data) {
@@ -53,9 +53,13 @@ angular.module('app').controller('EditThesisModalController', ['$scope', '$rootS
         };
 
         $scope.deleteCoauthor = function (id) {
-            ThesisService.delete(id).success(function (data) {
+            $scope.currentThesis.coauthorsList.splice(
+                _.indexOf($scope.currentThesis.coauthorsList,
+                    _.findWhere($scope.currentThesis.coauthorsList,
+                        {id: id})),1);
+            CoauthorsService.delete(id).success(function (data) {
                 if (data.status == 'OK') {
-                    $scope.currentThesis.coauthorsList.delete(_.indexOf($scope.currentThesis.coauthorsList, {id: id}));
+                    //$scope.currentThesis.coauthorsList.splice(_.indexOf(_.findWhere($scope.currentThesis.coauthorsList, {id: id})),1);
                 }
             })
         };
