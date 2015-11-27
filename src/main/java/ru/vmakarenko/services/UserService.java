@@ -1,7 +1,9 @@
 package ru.vmakarenko.services;
 
 import ru.vmakarenko.common.RestResponse;
+import ru.vmakarenko.dao.CoauthorDao;
 import ru.vmakarenko.dao.EventsDao;
+import ru.vmakarenko.dao.ThesisDao;
 import ru.vmakarenko.dao.UserDao;
 import ru.vmakarenko.dao.filters.UserFilter;
 import ru.vmakarenko.dto.users.AccessAuthDto;
@@ -9,6 +11,10 @@ import ru.vmakarenko.dto.users.ChangePasswordDto;
 import ru.vmakarenko.dto.users.UserDto;
 import ru.vmakarenko.dto.users.UserSignUpDto;
 import ru.vmakarenko.entities.events.Event;
+import ru.vmakarenko.entities.events.thesis.Coauthor;
+import ru.vmakarenko.entities.events.thesis.CoauthorToBeRegistered;
+import ru.vmakarenko.entities.events.thesis.CoauthorUser;
+import ru.vmakarenko.entities.events.thesis.Thesis;
 import ru.vmakarenko.entities.users.User;
 import ru.vmakarenko.enums.EmailCheckResult;
 import ru.vmakarenko.exceptions.MaiWebappException;
@@ -37,6 +43,8 @@ public class UserService {
     private EmailService emailService;
     @Inject
     private EventsDao eventsDao;
+    @Inject
+    private ThesisDao thesisDao;
 
     public UserDto getByEmailAndPassword(String email, String password) {
         return mapperService.map(userDao.getByEmailAndPassword(email, password), UserDto.class);
@@ -50,12 +58,24 @@ public class UserService {
         User user = mapperService.map(userDto, User.class);
         userDao.insert(user);
         generatePassword(user.getEmail());
+
+        userDao.insert(user);
+        for (Thesis thesis : thesisDao.findAll()) {
+            thesis.getCoauthorsList().removeIf(item -> item instanceof CoauthorToBeRegistered
+                    && ((CoauthorToBeRegistered) item).getEmail().equals(userDto.getEmail()));
+            CoauthorUser cau = new CoauthorUser();
+            cau.setUser(user);
+            cau.setConfirmed(false);
+            cau.setThesis(thesis);
+            thesis.getCoauthorsList().add(cau);
+        }
+
     }
 
     public void generatePassword(String email) {
         String password = passwordService.generatePassword();
         User user = userDao.getByEmail(email);
-        if(user == null){
+        if (user == null) {
             throw new MaiWebappException("Пользователь с email :email не найден!".replace(":email", email));
         }
         user.setPasswordHash(password);
