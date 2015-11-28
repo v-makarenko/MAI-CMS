@@ -9,6 +9,6 @@ import javax.ejb.Stateless;
  * Created by VMakarenko on 4/25/2015.
  */
 @Stateless
-public class WPDao extends GenericDao<WorkingPlace> {
+public class WorkingPlaceDao extends GenericDao<WorkingPlace> {
     
 }

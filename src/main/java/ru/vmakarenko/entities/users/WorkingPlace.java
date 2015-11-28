@@ -2,15 +2,14 @@ package ru.vmakarenko.entities.users;
 
 import ru.vmakarenko.entities.DomainEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by VMakarenko on 7/15/2015.
  */
 @Entity
-@Table(name="universities")
+@Table(name="working_places")
 public class WorkingPlace extends DomainEntity {
     @Column(name = "short_name")
     private String shortName;
@@ -20,6 +19,8 @@ public class WorkingPlace extends DomainEntity {
     private String city;
     @Column(name = "country")
     private String country;
+    @OneToMany(mappedBy = "workingPlace")
+    private List<User> employeeList;
 
     public String getShortName() {
         return shortName;
@@ -51,5 +52,13 @@ public class WorkingPlace extends DomainEntity {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public List<User> getEmployeeList() {
+        return employeeList;
+    }
+
+    public void setEmployeeList(List<User> employeeList) {
+        this.employeeList = employeeList;
     }
 }

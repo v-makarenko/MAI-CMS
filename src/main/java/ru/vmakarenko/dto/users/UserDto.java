@@ -2,6 +2,8 @@ package ru.vmakarenko.dto.users;
 
 import ru.vmakarenko.dto.common.CommonDto;
 
+import java.util.UUID;
+
 /**
  * Created by VMakarenko on 4/25/2015.
  */
@@ -16,6 +18,33 @@ public class UserDto extends CommonDto {
     private String userType;
     private String snpShort;
     private String snpLong;
+    private UUID wpId;
+    private String wpLongName;
+    private String wpShortName;
+
+    public UUID getWpId() {
+        return wpId;
+    }
+
+    public void setWpId(UUID wpId) {
+        this.wpId = wpId;
+    }
+
+    public String getWpLongName() {
+        return wpLongName;
+    }
+
+    public void setWpLongName(String wpLongName) {
+        this.wpLongName = wpLongName;
+    }
+
+    public String getWpShortName() {
+        return wpShortName;
+    }
+
+    public void setWpShortName(String wpShortName) {
+        this.wpShortName = wpShortName;
+    }
 
     public String getPassportSeries() {
         return passportSeries;

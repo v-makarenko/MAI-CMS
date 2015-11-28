@@ -7,10 +7,7 @@ import ma.glasnost.orika.impl.DefaultMapperFactory;
 import ma.glasnost.orika.metadata.Type;
 import ru.vmakarenko.common.UserType;
 import ru.vmakarenko.dao.UserDao;
-import ru.vmakarenko.dto.common.EmailMessageDto;
-import ru.vmakarenko.dto.common.EmailTemplateDto;
-import ru.vmakarenko.dto.common.MessageDto;
-import ru.vmakarenko.dto.common.SectionDto;
+import ru.vmakarenko.dto.common.*;
 import ru.vmakarenko.dto.events.CoauthorDto;
 import ru.vmakarenko.dto.events.EventDto;
 import ru.vmakarenko.dto.events.ThesisDto;
@@ -22,6 +19,7 @@ import ru.vmakarenko.entities.messages.EmailMessage;
 import ru.vmakarenko.entities.messages.EmailTemplate;
 import ru.vmakarenko.entities.messages.InnerMessage;
 import ru.vmakarenko.entities.users.User;
+import ru.vmakarenko.entities.users.WorkingPlace;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -76,6 +74,9 @@ public class MapperService {
                         user.setPasswordHash(userDto.getPassword());
                     }
                 })
+                .fieldAToB("workingPlace.id", "wpId")
+                .fieldAToB("workingPlace.shortName", "wpShortName")
+                .fieldAToB("workingPlace.name", "wpLongName")
                 .byDefault().register();
 
 
@@ -168,6 +169,16 @@ public class MapperService {
         mapperFactory.classMap(Thesis.class, ThesisDto.class)
                 .fieldAToB("section.id", "sectionId")
                 .fieldAToB("section.name", "sectionName")
+                .byDefault()
+                .register();
+
+        mapperFactory.classMap(WorkingPlace.class, WorkingPlaceDto.class)
+                .customize(new CustomMapper<WorkingPlace, WorkingPlaceDto>() {
+                    @Override
+                    public void mapAtoB(WorkingPlace workingPlace, WorkingPlaceDto workingPlaceDto, MappingContext context) {
+                        workingPlaceDto.setEmployeeCount(workingPlace.getEmployeeList().size());
+                    }
+                })
                 .byDefault()
                 .register();
 

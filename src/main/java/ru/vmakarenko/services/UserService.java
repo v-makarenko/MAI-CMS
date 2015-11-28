@@ -1,17 +1,10 @@
 package ru.vmakarenko.services;
 
-import ru.vmakarenko.common.RestResponse;
-import ru.vmakarenko.dao.CoauthorDao;
-import ru.vmakarenko.dao.EventsDao;
-import ru.vmakarenko.dao.ThesisDao;
-import ru.vmakarenko.dao.UserDao;
+import ru.vmakarenko.dao.*;
 import ru.vmakarenko.dao.filters.UserFilter;
 import ru.vmakarenko.dto.users.AccessAuthDto;
 import ru.vmakarenko.dto.users.ChangePasswordDto;
 import ru.vmakarenko.dto.users.UserDto;
-import ru.vmakarenko.dto.users.UserSignUpDto;
-import ru.vmakarenko.entities.events.Event;
-import ru.vmakarenko.entities.events.thesis.Coauthor;
 import ru.vmakarenko.entities.events.thesis.CoauthorToBeRegistered;
 import ru.vmakarenko.entities.events.thesis.CoauthorUser;
 import ru.vmakarenko.entities.events.thesis.Thesis;
@@ -45,6 +38,8 @@ public class UserService {
     private EventsDao eventsDao;
     @Inject
     private ThesisDao thesisDao;
+    @Inject
+    private WorkingPlaceDao workingPlaceDao;
 
     public UserDto getByEmailAndPassword(String email, String password) {
         return mapperService.map(userDao.getByEmailAndPassword(email, password), UserDto.class);
@@ -90,7 +85,9 @@ public class UserService {
     }
 
     public void update(UserDto userDto) {
-        userDao.update(mapperService.map(userDto, User.class));
+        User user = mapperService.map(userDto, User.class);
+        user.setWorkingPlace(workingPlaceDao.find(userDto.getWpId()));
+        userDao.update(user);
     }
 
     public Object getAll() {

@@ -2,11 +2,8 @@ package ru.vmakarenko.services;
 
 import ru.vmakarenko.dao.EventsDao;
 import ru.vmakarenko.dao.SectionDao;
-import ru.vmakarenko.dao.WPDao;
 import ru.vmakarenko.dto.common.SectionDto;
-import ru.vmakarenko.dto.common.WorkingPlaceDto;
 import ru.vmakarenko.entities.events.Section;
-import ru.vmakarenko.entities.users.WorkingPlace;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;

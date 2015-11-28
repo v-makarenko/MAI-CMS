@@ -17,6 +17,7 @@ public class WorkingPlaceDto extends DomainEntity {
     private String shortName;
     private String country;
     private String city;
+    private int employeeCount;
 
     public String getShortName() {
         return shortName;
@@ -48,5 +49,13 @@ public class WorkingPlaceDto extends DomainEntity {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public int getEmployeeCount() {
+        return employeeCount;
+    }
+
+    public void setEmployeeCount(int employeeCount) {
+        this.employeeCount = employeeCount;
     }
 }

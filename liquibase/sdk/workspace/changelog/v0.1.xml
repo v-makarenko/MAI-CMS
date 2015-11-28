@@ -659,4 +659,15 @@
             ALTER  table file_entries  ADD  FOREIGN KEY(content_id) REFERENCES file_content_entries(id);
         </sql>
     </changeSet>
+    <changeSet id="201511261918" author="vmakarenko">
+        <comment>
+            alter table rename working places
+        </comment>
+        <sql>
+            alter table users drop column working_place_id;
+            drop table working_places;
+            alter table universities rename to working_places;
+            alter table users add column working_place_id uuid references working_places(id);
+        </sql>
+    </changeSet>
 </databaseChangeLog>
