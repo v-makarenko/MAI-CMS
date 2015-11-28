@@ -60,13 +60,6 @@
 
 <body>
 <div ng-app="app" ng-controller="MainPageController" class="main-header">
-    <div class="main-title">
-        <div>{{main.title}}</div>
-        <div>
-            <a href=""  ng-click="openLoginModal()">Вход</a>
-            <a href="#/signUp">Регистрация</a>
-        </div>
-    </div>
     <div>
         <div class="no-float">
             <ul class="nav nav-tabs">
@@ -79,6 +72,14 @@
                 <li ng-class="curTab=='psettings' ? 'active' : ''">
                     <a href="#/archive">Архив</a>
                 </li>
+                <div class="pull-right header-right">
+                    <div>{{main.title}}</div>
+                    <div>
+                        <a class="btn btn-success" href="" ng-click="openLoginModal()">Вход</a>
+                        <a class="btn btn-warning" href="#/signUp">Регистрация</a>
+                    </div>
+                </div>
+
             </ul>
 
             <div ng-view>

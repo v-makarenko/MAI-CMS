@@ -44,21 +44,6 @@
 
 
 <div ng-app="app" ng-controller="MainController">
-    <!--<div id="header" class="header-row">-->
-    <!--<div>-->
-    <!--<img src="common/images/mai-logo.png" class="header-logo"/>-->
-    <!--</div>-->
-    <!--<div style="width: 600px">-->
-    <!--&nbsp;-->
-    <!--</div>-->
-    <!--<div id="img-div">-->
-    <!--<div id="img-circle" style="background-image: url('common/images/avatar.png')">-->
-    <!--</div>-->
-    <!--<div>-->
-    <!--{{currentUser.surname}} {{currentUser.name}}-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
     <div class="no-float header-stripe">
         <ul class="nav nav-tabs">
             <li ng-class="curTab=='messages' ? 'active' : ''">
@@ -73,7 +58,7 @@
             <li ng-class="curTab=='pinfo' ? 'active' : ''">
                 <a href="#/pinfo">Обо мне</a>
             </li>
-            <div class="pull-right" style="padding-top: 5px; padding-bottom: 5px">
+            <div class="pull-right header-right" >
                 <span>
                     <strong>
                         {{currentUser.surname}} {{currentUser.name}}

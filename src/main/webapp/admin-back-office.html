@@ -50,28 +50,7 @@
 
 
 <div ng-app="app" ng-controller="MainController">
-    <div id="header" class="header-row">
-        <div>
-            <img src="common/images/mai-logo.png" class="header-logo"/>
-        </div>
-        <div style="width: 600px">
 
-        </div>
-        <div id="img-div">
-            <div id="img-circle" style="background-image: url('common/images/avatar.png')">
-            </div>
-            <div>
-                {{currentUser.surname}} {{currentUser.name}}
-            </div>
-        </div>
-        <div ng-click="helpOn()" class="btn" tooltip="Нажмите сюда, чтобы получить помощь по странице">
-            <img src="common/images/help-icon.png" width="50px" height="50px"/>
-            Помощь
-        </div>
-        <div class="btn" ng-click="exit()">
-            Выход <img src="common/images/exit-icon.png" width="50px" height="50px"/>
-        </div>
-    </div>
     <div class="no-float">
         <ul class="nav nav-tabs">
             <li ng-class="curTab=='messages' ? 'active' : ''">
@@ -86,7 +65,25 @@
             <li ng-class="curTab=='wplaces' ? 'active' : ''">
                 <a href="#/workingPlaces">Организации</a>
             </li>
+            <div class="pull-right header-right" style="padding-top: 5px; padding-bottom: 5px">
+                <span>
+                    <strong>
+                        {{currentUser.surname}} {{currentUser.name}}
+                    </strong>
+                </span>
+
+                <div ng-click="helpOn()" class="btn btn-success"
+                     tooltip="Нажмите сюда, чтобы получить помощь по странице">
+                    <!--<img src="common/images/help-icon.png" width="50px" height="50px"/>-->
+                    Помощь
+                </div>
+                <div class="btn btn-danger" ng-click="exit()">
+                    Выход
+                    <!--<img src="common/images/exit-icon.png" width="50px" height="50px"/>-->
+                </div>
+            </div>
         </ul>
+
     </div>
     <div ng-view>
     </div>
