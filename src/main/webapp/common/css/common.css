@@ -1,6 +1,10 @@
 .header-row div{
     float:left;
 }
+.header-stripe{
+    background-color: #e6e6ff;
+}
+
 
 .no-float{
     float: none;
