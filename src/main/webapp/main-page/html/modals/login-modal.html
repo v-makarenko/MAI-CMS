@@ -13,9 +13,9 @@
                 <label for="info-pass">Пароль:</label>
                 <input class="form-control" id="info-pass" name="password" type="password" ng-model="user.password">
             </div>
-            <div>
-                {{error}}
-            </div>
+            <div class="text-danger"><strong>
+                {{errorMsg}}
+            </div></strong>
             <button class="link" type="button" ng-click="restorePassword()">Восстановить пароль</button>
 
         </div>

@@ -17,12 +17,15 @@ angular.module('app').controller('LoginModalController', ['$scope', '$location',
                     }
                     $scope.errorMsg = null;
                 }else{
-                    $scope.errorMsg = data.msg;
+                    $scope.errorMsg = 'Неверный логин или пароль!';
                     $scope.successMsg = null;
                 }
             })
         };
 
+        $scope.$watch('user.email+user.password', function(){
+            $scope.errorMsg = null;
+        });
         $scope.restorePassword = function(){
             $scope.loginModal = $modal.open({
                 templateUrl: 'main-page/html/modals/restore-pwd-modal.html',
