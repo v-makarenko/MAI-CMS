@@ -9,7 +9,7 @@ angular.module('app').controller('ConfirmModalController',
         $scope.alertText = data.alertText;
 
         $scope.ok = function(){
-            $modalInstance.close(data.methodOnSuccess());
+            $modalInstance.close(data.methodOnSuccess ? data.methodOnSuccess() : undefined);
         };
         $scope.cancel = function () {
             $modalInstance.dismiss('cancel');

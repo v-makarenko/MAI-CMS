@@ -85,7 +85,9 @@ public class UserService {
     }
 
     public void update(UserDto userDto) {
+        User originUser = userDao.find(userDto.getId());
         User user = mapperService.map(userDto, User.class);
+        user.setPasswordHash(originUser.getPasswordHash());
         user.setWorkingPlace(workingPlaceDao.find(userDto.getWpId()));
         userDao.update(user);
     }

@@ -17,13 +17,17 @@
     <th>
         Количество работающих
     </th>
+    <th>
+        Действия
+    </th>
     </thead>
     <tbody>
-    <tr ng-repeat="wplace in wplaces" ng-click="editWP(wplace.id)">
-        <td>{{$index + 1}}</td>
-        <td>{{wplace.name}}({{wplace.shortName}})</td>
-        <td>{{wplace.country}}, {{wplace.city}}</td>
-        <td>{{wplace.employeeCount}}</td>
+    <tr ng-repeat="wplace in wplaces" >
+        <td ng-click="editWP(wplace.id)">{{$index + 1}}</td>
+        <td ng-click="editWP(wplace.id)">{{wplace.name}}({{wplace.shortName}})</td>
+        <td ng-click="editWP(wplace.id)">{{wplace.country}}, {{wplace.city}}</td>
+        <td ng-click="editWP(wplace.id)">{{wplace.employeeCount}}</td>
+        <td><button type="button" ng-click="delete(wplace.id)">X</button><button type="button" ng-click="connect(wplace.id)">C</button></td>
     </tr>
     </tbody>
 </table>

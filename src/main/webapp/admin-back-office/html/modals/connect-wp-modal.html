@@ -1,0 +1,34 @@
+<div>
+    <div class="modal-header">
+        <span><h3 class="modal-title">Объединить организации</h3></span>
+
+    </div>
+    <div class="modal-body">
+        <form class="form">
+            <table class="table table-striped">
+                <thead>
+                <th>Оставить</th>
+                <th>Организация</th>
+                </thead>
+                <tbody>
+                <tr ng-repeat="wp in wpReduceList">
+                    <td>
+                        <div class="radio">
+                            <label><input type="radio" name="newOriginalWPIndex" value="{{$index}}" ng-model="data.newOriginalWPIndex"></label>
+                        </div>
+                    </td>
+                    <td>
+                        <select class="form-control" ng-options="wp.id as wp.name for wp in wpList"
+                                ng-model="wp.id"></select>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">Объединить</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Закрыть</button>
+    </div>
+</div>

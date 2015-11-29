@@ -13,9 +13,17 @@ angular.module("app").service('WPService',
             return $http.get(url + id);
         };
 
+        this.delete = function(id){
+            return $http.delete(url + id);
+        };
+
         this.getAll = function(){
             return $http.get(url + 'getAll');
         };
+
+        this.connect = function(list, origin){
+            return $http.post(url + 'connect', {wpReduceList:list, originId:origin});
+        }
 
     }
 )

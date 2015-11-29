@@ -3,6 +3,7 @@ package ru.vmakarenko.rest;
 
 import ru.vmakarenko.common.RestResponse;
 import ru.vmakarenko.dto.common.WorkingPlaceDto;
+import ru.vmakarenko.dto.helper.WPConnectDto;
 import ru.vmakarenko.dto.users.ChangePasswordDto;
 import ru.vmakarenko.dto.users.UserDto;
 import ru.vmakarenko.entities.users.WorkingPlace;
@@ -22,7 +23,7 @@ import java.util.UUID;
 @Path("/private/wplaces")
 @Consumes("application/json")
 @Produces("application/json")
-public class WPResource {
+public class WorkingPlaceResource {
     @Inject
     private WPService wpService;
 
@@ -54,6 +55,24 @@ public class WPResource {
     @PUT
     public Response update(WorkingPlaceDto wp){
         wpService.update(wp);
+        return Response
+                .ok(RestResponse.createOk())
+                .build();
+    }
+
+    @DELETE
+    @Path("{id}")
+    public Response delete(@PathParam("id") UUID id){
+        wpService.delete(id);
+        return Response
+                .ok(RestResponse.createOk())
+                .build();
+    }
+
+    @POST
+    @Path("connect")
+    public Response connect(WPConnectDto dto){
+        wpService.connect(dto);
         return Response
                 .ok(RestResponse.createOk())
                 .build();
