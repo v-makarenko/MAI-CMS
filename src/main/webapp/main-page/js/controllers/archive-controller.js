@@ -6,7 +6,7 @@
 angular.module('app').controller('ArchiveController', ['$scope','EventsService',
     function ($scope, EventsService) {
         $scope.loadEvents = function(){
-            EventsService.getAll().success(function(data){
+            EventsService.getArchive().success(function(data){
                 if(data.status == "OK"){
                     $scope.events = data.data;
                 }

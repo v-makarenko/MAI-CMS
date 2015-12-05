@@ -15,18 +15,28 @@ import java.util.UUID;
 /**
  * Created by vmakarenko on 22.04.2015.
  */
-@Path("/events")
+
+@Path("public/events")
 @Consumes("application/json")
 @Produces("application/json")
-public class EventsResource {
+public class PublicOpenResource {
+
     @Inject
     private EventsService service;
 
+    @GET
+    @Path("archive")
+    public Response getArchive(){
+        return Response
+                .ok(RestResponse.createOk().data(service.getPreviousList()))
+                .build();
+    }
 
     @GET
-    public Response getAll(){
+    @Path("current")
+    public Response getCurrent(){
         return Response
-                .ok(RestResponse.createOk().data(service.getAll()))
+                .ok(RestResponse.createOk().data(service.getCurrent()))
                 .build();
     }
 }

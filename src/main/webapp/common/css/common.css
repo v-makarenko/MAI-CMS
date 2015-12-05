@@ -1,40 +1,40 @@
-.header-row div{
-    float:left;
+.header-row div {
+    float: left;
 }
-.header-stripe{
+
+.header-stripe {
     background-color: #e6e6ff;
 }
 
-
-.no-float{
+.no-float {
     float: none;
 }
 
-.header-logo{
+.header-logo {
     width: 100px;
     height: 100px;
 }
 
-.header-row{
-    height:100px;
+.header-row {
+    height: 100px;
     margin-bottom: 20px;
     border-bottom: darkgrey 5px;
 }
 
-.fixed-width-mid{
-    width:600px;
+.fixed-width-mid {
+    width: 600px;
     margin: 0 auto;
     margin-top: 20px;
 }
 
-.exit-div{
+.exit-div {
     width: 100px;
     height: 50px;
     border-radius: 5px;
     background: blue;
 }
 
-#img-div #img-circle{
+#img-div #img-circle {
     float: none;
     border-radius: 100px;
     border: solid blueviolet 5px;
@@ -43,12 +43,12 @@
     background-size: 100% auto;
 }
 
-.vertical-tabs .nav-tabs{
-    width:150px;
+.vertical-tabs .nav-tabs {
+    width: 150px;
     float: left;
 }
 
-.logic-area{
+.logic-area {
     border: dotted 2px black;
     box-shadow: 3px 3px 0 #1f4677;
     border-radius: 5px;
@@ -57,7 +57,34 @@
     padding: 5px;
 }
 
-.header-right{
+.header-right {
     padding-top: 5px;
     padding-bottom: 5px;
+}
+
+.mai-logo-bckg {
+    background-image: url("../images/mai-logo-light.png");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: 80px;
+    background-repeat: repeat;
+
+}
+
+.full-height {
+    height: 100%;
+}
+
+.text-big {
+    font-size: 1.5em;
+}
+
+.event-type-name{
+    font-size: 1em;
+}
+
+.event-dates{
+    color: #575757;
+    font-size: 1.2em;
 }

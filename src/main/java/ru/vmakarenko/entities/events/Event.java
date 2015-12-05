@@ -1,6 +1,7 @@
 package ru.vmakarenko.entities.events;
 
 import ru.vmakarenko.entities.DomainEntity;
+import ru.vmakarenko.entities.FakeDeleteDomainEntity;
 import ru.vmakarenko.entities.common.SimpleStringValue;
 import ru.vmakarenko.entities.users.WorkingPlace;
 import ru.vmakarenko.entities.users.User;
@@ -16,7 +17,7 @@ import java.util.UUID;
  */
 @Entity
 @Table(name="events")
-public class Event extends DomainEntity {
+public class Event extends FakeDeleteDomainEntity {
     @Column(name = "name")
     private String name;
 

@@ -3,6 +3,7 @@ package ru.vmakarenko.dao.generic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.vmakarenko.dao.filters.CommonFilter;
+import ru.vmakarenko.entities.FakeDeleteDomainEntity;
 
 import javax.ejb.Stateless;
 import javax.enterprise.context.ApplicationScoped;
@@ -69,6 +70,22 @@ public class GenericDao<T> {
         }
 
     }
+    /**
+     * удалить объект из бд
+     *
+     * @param id id объекта
+     */
+    public boolean delete(UUID id) {
+        Object ref = this.em.getReference(getEntityClass(), id);
+        if (ref != null && ref instanceof FakeDeleteDomainEntity) {
+            ((FakeDeleteDomainEntity) ref).setActive(false);
+            em.merge(ref);
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 
     /**
      * Обновить объект в БД. Возможно, требует кастомной обработки
@@ -97,7 +114,7 @@ public class GenericDao<T> {
      * @return список найденных объектов
      */
     public List<T> findActive() {
-        return em.createQuery("Select entity FROM " + getEntityClass().getSimpleName() + " entity where entity.status like 'ACTIVE'").getResultList();
+        return em.createQuery("Select entity FROM " + getEntityClass().getSimpleName() + " entity where entity.active=true").getResultList();
     }
 
     /**

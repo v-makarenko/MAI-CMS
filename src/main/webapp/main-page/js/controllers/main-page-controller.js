@@ -20,6 +20,14 @@ angular.module('app').controller('MainPageController', ['$scope', '$modal','Even
                 }
             });
         };
+
+        EventsService.getCurrent().success(function(data){
+            if(data.status == 'OK'){
+                $scope.currentEvent = data.data;
+            }else{
+                $scope.currentEvent = null;
+            }
+        });
         //$scope.loadAll();
 
     }

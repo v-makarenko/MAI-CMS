@@ -1,3 +1,44 @@
-<div>
-    Здесь описание текущей конференции
+<div class="fixed-width-mid">
+    <h1>
+        Добро пожаловать!
+    </h1>
+
+    <div ng-hide="currentEvent" >
+        <p class="text-big">
+            В данный момент не проходит никаких конференций. Но вы можете зарегистрироваться в системе, чтобы получать
+            информацию и принимать участие в конференциях в будущем.
+        </p>
+    </div>
+
+    <div ng-show="currentEvent">
+        <h2>
+            {{currentEvent.name}} ({{currentEvent.shortName}})
+        </h2>
+        <p class="event-dates">
+            ({{currentEvent.startDate|date:'d.MM.yy'}}-{{currentEvent.endDate|date:'d.MM.yy'}})
+        </p>
+
+        <p class="event-type-name">
+            {{currentEvent.typeName}}
+        </p>
+
+        <p ng-repeat="p in descriptionParagraphs">
+            <h3 ng-show="p.title">{{p.title}}</h3>
+            {{p.description}}
+        </p>
+
+        <p>
+            <span class="title">Организаторы</span>
+        <ul>
+            <li ng-repeat="org in currentEvent.orgOrganisationList">
+                {{org.longName}}
+            </li>
+        </ul>
+        <button class="btn btn-success">
+            Принять участие!
+        </button>
+
+        </p>
+    </div>
+
 </div>

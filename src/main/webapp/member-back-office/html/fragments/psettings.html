@@ -1,15 +1,9 @@
 <div class="fixed-width-mid">
     <form>
-        <div class="checkbox">
+        <div class="checkbox" ng-repeat="settingsItem in settings">
             <label>
-                <input class="checkbox" type="checkbox"/>
-                Всегда переходить к последней конференции
-            </label>
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox"/>
-                Включить подсказки для каждой страницы
+                <input class="checkbox" type="checkbox" checked="settingsItem.value"/>
+                {{settingsItem.name}}
             </label>
         </div>
         <div>

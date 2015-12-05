@@ -656,7 +656,7 @@
             content bytea
             );
 
-            ALTER  table file_entries  ADD  FOREIGN KEY(content_id) REFERENCES file_content_entries(id);
+            ALTER table file_entries ADD FOREIGN KEY(content_id) REFERENCES file_content_entries(id);
         </sql>
     </changeSet>
     <changeSet id="201511261918" author="vmakarenko">
@@ -668,6 +668,37 @@
             drop table working_places;
             alter table universities rename to working_places;
             alter table users add column working_place_id uuid references working_places(id);
+        </sql>
+    </changeSet>
+    <changeSet id="201512011256" author="vmakarenko">
+        <comment>
+            fake delete for events
+        </comment>
+        <sql>
+            alter table events add active boolean;
+            update events set active = true;
+        </sql>
+    </changeSet>
+    <changeSet id="201512011314" author="vmakarenko">
+        <comment>
+            add user settings
+        </comment>
+        <sql>
+            create table user_settings(
+            id uuid primary key,
+            name text,
+            description text
+            );
+
+            insert into user_settings (id,name, description) values ('ef2b43f1-928c-4728-8175-aa263f3b6fd0','user.event.goToLast','Переходить к последней
+            доступной конференции');
+            insert into user_settings (id,name, description) values ('ef2b43f1-928c-4728-8175-aa263f3b6fd1','user.event.goToCurrent','Переходить к
+            проходящей в данный момент конференции');
+
+            create table user_settings_users(
+                user_settings_id uuid references user_settings(id),
+                user_id uuid references users(id)
+            );
         </sql>
     </changeSet>
 </databaseChangeLog>

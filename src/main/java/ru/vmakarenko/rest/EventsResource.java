@@ -40,6 +40,22 @@ public class EventsResource {
                 .build();
     }
 
+    @GET
+    @Path("next")
+    public Response getNext(){
+        return Response
+                .ok(RestResponse.createOk().data(service.getNextList()))
+                .build();
+    }
+
+    @GET
+    @Path("previous")
+    public Response getPrevious(){
+        return Response
+                .ok(RestResponse.createOk().data(service.getPreviousList()))
+                .build();
+    }
+
     @DELETE
     @Path("/{id}")
     public Response delete(@PathParam("id") UUID id){

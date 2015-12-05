@@ -42,11 +42,11 @@ public class EventsService {
     }
 
     public void delete(UUID id) {
-        dao.trueDelete(id);
+        dao.delete(id);
     }
 
     public List<EventDto> getAll() {
-        List<Event> eventList = dao.findAll();
+        List<Event> eventList = dao.findActive();
         eventList.stream().forEach(event -> event.getSectionList().size());
         List<EventDto> dtoList = mapperService.map(eventList, EventDto.class);
         User user = usersDao.getByEmail(currentService.getEmail());
@@ -56,6 +56,22 @@ public class EventsService {
             eventDto.setPresent(event.isParticipating(user.getId()));
         });
         return dtoList;
+    }
+
+    public List<EventDto> getPreviousList(){
+        List<Event> eventList = dao.getPrevious();
+        eventList.stream().forEach(event -> event.getSectionList().size());
+        return mapperService.map(eventList, EventDto.class);
+    }
+    public List<EventDto> getNextList(){
+        List<Event> eventList = dao.getNext();
+        eventList.stream().forEach(event -> event.getSectionList().size());
+        return mapperService.map(eventList, EventDto.class);
+    }
+
+
+    public EventDto getCurrent() {
+        return mapperService.map(dao.getCurrent(), EventDto.class);
     }
 
     public void setPresence(PresenceDto dto) {

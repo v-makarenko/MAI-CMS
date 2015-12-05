@@ -2,8 +2,8 @@
 <head>
     <meta charset="utf-8">
 </head>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="./common/css/lib/bootstrap/bootstrap.min.css">
+<link rel="stylesheet" href="./common/css/lib/bootstrap/bootstrap-theme.min.css">
 <link rel="stylesheet" href="common/css/common.css">
 <script src="common/js/lib/jquery/jquery-1.11.2.js"></script>
 <script src="common/js/lib/angular/angular.min.js"></script>
@@ -59,9 +59,9 @@
 <title>Ежегодные конференции МАИ</title>
 
 <body>
-<div ng-app="app" ng-controller="MainPageController" class="main-header">
-    <div>
-        <div class="no-float">
+<div ng-app="app" ng-controller="MainPageController" class="main-header full-height">
+    <div class="full-height">
+        <div class="no-float full-height">
             <ul class="nav nav-tabs">
                 <li ng-class="curTab=='messages' ? 'active' : ''">
                     <a href="#/aboutCurrentEvent">О конференции</a>
@@ -82,7 +82,7 @@
 
             </ul>
 
-            <div ng-view>
+            <div class="mai-logo-bckg full-height" ng-view>
             </div>
         </div>
     </div>
