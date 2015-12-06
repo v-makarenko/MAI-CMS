@@ -1,5 +1,6 @@
 package ru.vmakarenko.entities.users;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import ru.vmakarenko.entities.DomainEntity;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.util.List;
  */
 @Entity
 @Table(name="working_places")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class WorkingPlace extends DomainEntity {
     @Column(name = "short_name")
     private String shortName;

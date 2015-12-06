@@ -3,9 +3,12 @@
  */
 
 
-angular.module('app').controller('EventEditController', ['$scope', '$routeParams', '$location', 'EventsService', 'SectionsService',
-    function ($scope, $routeParams, $location, EventsService, SectionsService) {
+angular.module('app').controller('EventEditController', ['$scope', '$routeParams', '$location', 'EventsService', 'SectionsService', 'WPService',
+    function ($scope, $routeParams, $location, EventsService, SectionsService, WPService) {
         $scope.eventId = $routeParams.id;
+        $scope.organisationList = [{id:1, name:'fdsfds'}];
+        $scope.data = {};
+
 
         $scope.loadEvent = function () {
             if ($routeParams.id === 'new') {
@@ -90,10 +93,30 @@ angular.module('app').controller('EventEditController', ['$scope', '$routeParams
             });
         };
 
+        $scope.addOrgToList = function(){
+            if(!$scope.currentEvent.orgOrganisationList){
+                $scope.currentEvent.orgOrganisationList = [];
+            }
+            var duplicates = _.filter($scope.currentEvent.orgOrganisationList, {id:$scope.data.currentOrgOrganisationId});
+            if(!duplicates || duplicates.length != 0){
+                return ;
+            }
+          $scope.currentEvent.orgOrganisationList.push(_.filter($scope.organisationList, {id:$scope.data.currentOrgOrganisationId})[0])
+        };
+
+
+        WPService.getAllPublic().success(function(data){
+            if(data.status == 'OK'){
+                $scope.organisationList = data.data;
+            }
+        });
+
+
 
         $scope.currentTechPeopleItem = {};
 
         $scope.loadEvent();
+
 
     }
 ]);

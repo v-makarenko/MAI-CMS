@@ -1,12 +1,11 @@
 package ru.vmakarenko.dto.events;
 
 import ru.vmakarenko.dto.common.SectionDto;
+import ru.vmakarenko.dto.common.WorkingPlaceDto;
 import ru.vmakarenko.dto.users.UserDto;
+import ru.vmakarenko.dto.users.UserNoPassDto;
 import ru.vmakarenko.entities.DomainEntity;
 import ru.vmakarenko.entities.common.SimpleStringValue;
-import ru.vmakarenko.entities.events.Section;
-import ru.vmakarenko.entities.users.WorkingPlace;
-
 import java.util.Date;
 import java.util.List;
 
@@ -30,10 +29,10 @@ public class EventDto extends DomainEntity {
     private Boolean present;
 
 
-    private List<UserDto> userList;
+    private List<UserNoPassDto> userList;
     private List<SectionDto> sectionList;
     private List<SimpleStringValue> techPeopleList;
-    private List<WorkingPlace> orgOrganisationList;
+    private List<WorkingPlaceDto> orgOrganisationList;
 
 
     public String getName() {
@@ -132,11 +131,11 @@ public class EventDto extends DomainEntity {
         this.present = present;
     }
 
-    public List<UserDto> getUserList() {
+    public List<UserNoPassDto> getUserList() {
         return userList;
     }
 
-    public void setUserList(List<UserDto> userList) {
+    public void setUserList(List<UserNoPassDto> userList) {
         this.userList = userList;
     }
 
@@ -156,11 +155,11 @@ public class EventDto extends DomainEntity {
         this.techPeopleList = techPeopleList;
     }
 
-    public List<WorkingPlace> getOrgOrganisationList() {
+    public List<WorkingPlaceDto> getOrgOrganisationList() {
         return orgOrganisationList;
     }
 
-    public void setOrgOrganisationList(List<WorkingPlace> orgOrganisationList) {
+    public void setOrgOrganisationList(List<WorkingPlaceDto> orgOrganisationList) {
         this.orgOrganisationList = orgOrganisationList;
     }
 

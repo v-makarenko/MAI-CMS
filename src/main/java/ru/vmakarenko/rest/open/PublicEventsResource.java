@@ -19,7 +19,7 @@ import java.util.UUID;
 @Path("public/events")
 @Consumes("application/json")
 @Produces("application/json")
-public class PublicOpenResource {
+public class PublicEventsResource {
 
     @Inject
     private EventsService service;

@@ -696,9 +696,39 @@
             проходящей в данный момент конференции');
 
             create table user_settings_users(
-                user_settings_id uuid references user_settings(id),
-                user_id uuid references users(id)
+            user_settings_id uuid references user_settings(id),
+            user_id uuid references users(id)
             );
+        </sql>
+    </changeSet>
+    <changeSet id="201512052227" author="vmakarenko">
+        <comment>
+            add log table
+        </comment>
+        <sql>
+            create table log_entries(
+            id uuid primary key,
+            type text,
+            description text,
+            time timestamp,
+            user_id uuid references users(id)
+            );
+        </sql>
+    </changeSet>
+    <changeSet id="201512061826" author="vmakarenko">
+        <comment>
+            add status
+        </comment>
+        <sql>
+            alter table log_entries add column status boolean;
+        </sql>
+    </changeSet>
+    <changeSet id="20151202106" author="vmakarenko">
+        <comment>
+            rename status to success
+        </comment>
+        <sql>
+            alter table log_entries rename column status to success;
         </sql>
     </changeSet>
 </databaseChangeLog>

@@ -30,8 +30,13 @@
             </div>
             <div ng-repeat="item in currentEvent.techPeopleList" ng-click="currentTechPeopleItem = item">{{item.value}}
             </div>
-            <div>
-                <span>Организации-организаторы: </span>
+            <div >
+                <span class="form-inline">Организации-организаторы: <select class="form-control" ng-model="data.currentOrgOrganisationId" ng-options="org.id as org.shortName for org in organisationList"></select><button ng-click="addOrgToList()" class="btn btn-info">Добавить</button></span>
+
+                <ul>
+                    <li ng-repeat="org in currentEvent.orgOrganisationList">{{org.name}}</li>
+                </ul>
+                <button type="button" class="btn btn-success" ng-click="save()">Сохранить</button>
             </div>
 
 
@@ -66,7 +71,7 @@
                         </label>
                         <ng-datepicker class="form-control" id="info-rec-end-date"
                                        ng-model="currentEvent.infoRecEndDate" locale="ru" view-format="DD.MM.YYYY"
-                                       format="YYYY-MM-DD">
+                                        format="YYYY-MM-DD">
                         </ng-datepicker>
                     </div>
                     <div class="form-group">

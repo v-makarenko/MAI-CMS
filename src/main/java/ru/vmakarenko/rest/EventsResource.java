@@ -5,6 +5,7 @@ import ru.vmakarenko.common.RestResponse;
 import ru.vmakarenko.dto.common.MessageDto;
 import ru.vmakarenko.dto.events.EventDto;
 import ru.vmakarenko.dto.events.PresenceDto;
+import ru.vmakarenko.entities.events.Event;
 import ru.vmakarenko.services.EventsService;
 import ru.vmakarenko.services.MessageService;
 
@@ -65,9 +66,11 @@ public class EventsResource {
 
     @POST
     public Response save(EventDto dto){
+        EventDto result = service.save(dto);
+//        result.setUserList(null);
         return Response
                 .ok(RestResponse.createOk()
-                        .data(service.save(dto)))
+                        .data(result))
                 .build();
     }
 

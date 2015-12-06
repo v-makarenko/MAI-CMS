@@ -6,10 +6,12 @@ import ma.glasnost.orika.MappingContext;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 import ma.glasnost.orika.metadata.Type;
 import ru.vmakarenko.common.UserType;
+import ru.vmakarenko.dao.LogEntryDao;
 import ru.vmakarenko.dao.UserDao;
 import ru.vmakarenko.dto.common.*;
 import ru.vmakarenko.dto.events.CoauthorDto;
 import ru.vmakarenko.dto.events.EventDto;
+import ru.vmakarenko.dto.events.LogEntryDto;
 import ru.vmakarenko.dto.events.ThesisDto;
 import ru.vmakarenko.dto.users.UserDto;
 import ru.vmakarenko.entities.events.Event;
@@ -18,6 +20,7 @@ import ru.vmakarenko.entities.events.thesis.*;
 import ru.vmakarenko.entities.messages.EmailMessage;
 import ru.vmakarenko.entities.messages.EmailTemplate;
 import ru.vmakarenko.entities.messages.InnerMessage;
+import ru.vmakarenko.entities.users.LogEntry;
 import ru.vmakarenko.entities.users.User;
 import ru.vmakarenko.entities.users.WorkingPlace;
 
@@ -176,9 +179,24 @@ public class MapperService {
                 .customize(new CustomMapper<WorkingPlace, WorkingPlaceDto>() {
                     @Override
                     public void mapAtoB(WorkingPlace workingPlace, WorkingPlaceDto workingPlaceDto, MappingContext context) {
-                        workingPlaceDto.setEmployeeCount(workingPlace.getEmployeeList().size());
+                        workingPlaceDto.setEmployeeCount(workingPlace.getEmployeeList() == null ? 0 : workingPlace.getEmployeeList().size());
                     }
                 })
+                .byDefault()
+                .register();
+
+
+        mapperFactory.classMap(LogEntry.class, LogEntryDto.class)
+                .customize(new CustomMapper<LogEntry, LogEntryDto>() {
+                               @Override
+                               public void mapAtoB(LogEntry logEntry, LogEntryDto logEntryDto, MappingContext context) {
+                                   logEntryDto.setUserLongName(logEntry.getUser().getLongSNP());
+                                   logEntryDto.setUserShortName(logEntry.getUser().getShortSNP());
+                               }
+                           }
+
+                )
+                .fieldAToB("user.id", "userId")
                 .byDefault()
                 .register();
 

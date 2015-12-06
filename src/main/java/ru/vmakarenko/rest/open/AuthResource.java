@@ -1,13 +1,16 @@
 package ru.vmakarenko.rest.open;
 
 
+import ru.vmakarenko.common.LogAction;
 import ru.vmakarenko.common.RestResponse;
 import ru.vmakarenko.common.TokenService;
+import ru.vmakarenko.dao.UserDao;
 import ru.vmakarenko.dto.users.AccessAuthDto;
 import ru.vmakarenko.dto.users.UserAuthDto;
 import ru.vmakarenko.dto.users.UserDto;
 import ru.vmakarenko.dto.users.UserSignUpDto;
 import ru.vmakarenko.services.AuthService;
+import ru.vmakarenko.services.LogService;
 import ru.vmakarenko.services.UserService;
 import ru.vmakarenko.util.Util;
 
@@ -17,6 +20,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
+import java.util.HashMap;
 
 /**
  * Created by vmakarenko on 22.04.2015.
@@ -29,6 +33,10 @@ public class AuthResource {
     private AuthService authService;
     @Inject
     private TokenService tokenService;
+    @Inject
+    private LogService logService;
+    @Inject
+    private UserDao userDao;
 
     @POST
     @Path("login")
@@ -42,11 +50,14 @@ public class AuthResource {
             boolean secure = false;
             NewCookie cookie1 = new NewCookie(AccessAuthDto.PARAM_AUTH_TOKEN, responseDto.getToken(), path, domain, comment, maxAge, secure);
             NewCookie cookie2 = new NewCookie(AccessAuthDto.PARAM_AUTH_EMAIL, responseDto.getEmail(), path, domain, comment, maxAge, secure);
+            UserDto userDto = tokenService.get(responseDto.getToken());
+            logService.log(LogAction.USER_LOGIN, userDto.getId(), new HashMap<>(), true);
             return Response
-                    .ok(RestResponse.createOk().data(tokenService.get(responseDto.getToken())))
-                    .cookie(new NewCookie[]{cookie1, cookie2})
-                    .build();
+                    .ok(RestResponse.createOk().data(userDto))
+                            .cookie(new NewCookie[]{cookie1, cookie2})
+                            .build();
         } else {
+            logService.log(LogAction.USER_LOGIN, new HashMap<>(), true);
             return Response.ok(RestResponse.createError(RestResponse.ErrorCodes.NOT_AUTHENTICATED)).build();
         }
     }

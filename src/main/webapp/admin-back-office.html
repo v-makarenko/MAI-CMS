@@ -31,6 +31,8 @@
 <script src="admin-back-office/js/controllers/sections-controller.js"></script>
 <script src="admin-back-office/js/controllers/event-details-controller.js"></script>
 <script src="admin-back-office/js/controllers/wp-connect-modal-controller.js"></script>
+<script src="admin-back-office/js/controllers/logs-controller.js"></script>
+
 
 
 <script src="common/js/directives/users-list.js"></script>
@@ -45,7 +47,7 @@
 <script src="common/js/services/wp-service.js"></script>
 <script src="common/js/services/sections-service.js"></script>
 <script src="common/js/services/thesis-service.js"></script>
-
+<script src="common/js/services/log-service.js"></script>
 
 <title>Администрирование</title>
 
@@ -54,6 +56,9 @@
 
     <div class="no-float">
         <ul class="nav nav-tabs">
+            <li ng-class="curTab=='messages' ? 'active' : ''">
+                <a href="./">На главную</a>
+            </li>
             <li ng-class="curTab=='messages' ? 'active' : ''">
                 <a href="#/messages">Почта</a>
             </li>
@@ -65,6 +70,9 @@
             </li>
             <li ng-class="curTab=='wplaces' ? 'active' : ''">
                 <a href="#/workingPlaces">Организации</a>
+            </li>
+            <li ng-class="curTab=='wplaces' ? 'active' : ''">
+                <a href="#/logs">История действий</a>
             </li>
             <div class="pull-right header-right" style="padding-top: 5px; padding-bottom: 5px">
                 <span>

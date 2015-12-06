@@ -1,5 +1,6 @@
 package ru.vmakarenko.entities.users;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import ru.vmakarenko.common.UserType;
 import ru.vmakarenko.entities.DomainEntity;
 
@@ -115,4 +116,16 @@ public class User extends DomainEntity {
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
     }
+
+    @JsonIgnore
+    public String getShortSNP(){
+        return surname + " " + name.substring(0,1) + "." + ( patronymic != null ? patronymic.substring(0,1) + "." : "");
+    }
+
+    @JsonIgnore
+    public String getLongSNP(){
+        return surname + " " + name + " " + (patronymic != null? patronymic : "");
+
+    }
+
 }

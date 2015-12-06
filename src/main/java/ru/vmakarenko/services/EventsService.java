@@ -6,6 +6,7 @@ import ru.vmakarenko.dao.UserDao;
 import ru.vmakarenko.dto.common.MessageDto;
 import ru.vmakarenko.dto.events.EventDto;
 import ru.vmakarenko.dto.events.PresenceDto;
+import ru.vmakarenko.dto.users.UserDto;
 import ru.vmakarenko.entities.events.Event;
 import ru.vmakarenko.entities.messages.InnerMessage;
 import ru.vmakarenko.entities.users.User;
@@ -17,6 +18,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * Created by VMakarenko on 4/25/2015.
@@ -37,8 +39,11 @@ public class EventsService {
         return mapperService.map(dao.find(id), EventDto.class);
     }
 
-    public Event save(EventDto dto) {
-        return dao.update(mapperService.map(dto, Event.class));
+    public EventDto save(EventDto dto) {
+        Event event = mapperService.map(dto, Event.class);
+        event.setUserList(event.getUserList().stream().map(user -> usersDao.find(user.getId()))
+                .collect(Collectors.toList()));
+        return mapperService.map(dao.update(event), EventDto.class);
     }
 
     public void delete(UUID id) {

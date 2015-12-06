@@ -23,7 +23,12 @@ angular.module("app").service('WPService',
 
         this.connect = function(list, origin){
             return $http.post(url + 'connect', {wpReduceList:list, originId:origin});
-        }
+        };
+
+
+        this.getAllPublic = function(){
+            return $http.get("api/open/wplaces/getAll");
+        };
 
     }
 )

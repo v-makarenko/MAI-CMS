@@ -18,17 +18,18 @@ angular.module('app', ['ui.bootstrap','jkuri.datepicker',
                 templateUrl: 'admin-back-office/html/fragments/wplaces.html',
                 controller: 'WPController'
             }).
-
             when('/events/:id', {
                 templateUrl: 'admin-back-office/html/fragments/events-edit.html',
                 controller: 'EventEditController'
             }).
-
             when('/events/:id/details', {
                 templateUrl: 'admin-back-office/html/fragments/event-details.html',
                 controller: 'EventDetailsController'
             }).
-
+            when('/logs', {
+                templateUrl: 'admin-back-office/html/fragments/logs.html',
+                controller: 'LogsController'
+            }).
             otherwise({
                 redirectTo: '/users'
             });

@@ -31,10 +31,10 @@
             <span class="title">Организаторы</span>
         <ul>
             <li ng-repeat="org in currentEvent.orgOrganisationList">
-                {{org.longName}}
+                {{org.name}}
             </li>
         </ul>
-        <button class="btn btn-success">
+        <button class="btn btn-success" ng-click="alert('Не доделано')">
             Принять участие!
         </button>
 
