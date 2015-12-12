@@ -5,19 +5,19 @@ angular.module("app").service('SectionsService',
     function ($http) {
         var url = "api/private/sections/";
 
-        this.save = function(wplace){
+        this.save = function (wplace) {
             return $http.put(url, wplace)
         };
 
-        this.find = function(id){
+        this.find = function (id) {
             return $http.get(url + id);
         };
 
-        this.getAll = function(eventId){
-            return $http.get(url + 'getAll', {params:{eventId: eventId}});
+        this.getAll = function (eventId) {
+            return $http.get(url + 'getAll', {params: {eventId: eventId}});
         };
-        this.delete = function(id){
-            return $http.delete(url + '?id=' + id );
+        this.send = function (fromId, toId, messageText, attach) {
+            return $http.post(url + 'send', {fromId: fromId, toId: toId, messageText: messageText, attach: attach});
         };
 
     }

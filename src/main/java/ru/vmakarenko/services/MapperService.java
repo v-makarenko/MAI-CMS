@@ -111,7 +111,7 @@ public class MapperService {
 
 
         mapperFactory.classMap(InnerMessage.class, MessageDto.class)
-                .fieldAToB("from.id", "from").fieldAToB("to.id", "to")
+                .fieldAToB("from.id", "fromId").fieldAToB("to.id", "toId")
                 .customize(
                         new CustomMapper<InnerMessage, MessageDto>() {
                             public void mapAtoB(InnerMessage a, MessageDto b, MappingContext context) {

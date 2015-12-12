@@ -12,22 +12,41 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
+import java.util.UUID;
 
 /**
  * Created by vmakarenko on 22.04.2015.
  */
-@Path("/private/message")
+@Path("/private/messages")
 @Consumes("application/json")
 @Produces("application/json")
 public class MessageResource {
     @Inject
     private MessageService msgService;
 
-    @Path("incoming")
+    @Path("incAdmin")
     @GET
-    public Response getAllIncoming(){
+    public Response getAllIncomingForAdmin(@QueryParam("fromUserId") UUID fromUserId){
         return Response
-                .ok(RestResponse.createOk().data(msgService.getAllIncoming()))
+                .ok(RestResponse.createOk().data(msgService.getAllMessages(fromUserId, true)))
+                .build();
+    }
+
+
+    @Path("incUser")
+    @GET
+    public Response getAllIncomingForUser(@QueryParam("fromUserId") UUID fromUserId){
+        return Response
+                .ok(RestResponse.createOk().data(msgService.getAllMessages(fromUserId, false)))
+                .build();
+    }
+
+
+    @Path("userList")
+    @GET
+    public Response getUserListForAdmin(){
+        return Response
+                .ok(RestResponse.createOk().data(msgService.getUserList()))
                 .build();
     }
 

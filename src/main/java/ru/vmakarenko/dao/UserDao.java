@@ -2,12 +2,14 @@ package ru.vmakarenko.dao;
 
 import ru.vmakarenko.dao.filters.UserFilter;
 import ru.vmakarenko.dao.generic.GenericDao;
+import ru.vmakarenko.dto.users.UserMessagesDto;
 import ru.vmakarenko.entities.users.User;
 
 import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.QueryParam;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by VMakarenko on 4/25/2015.
@@ -49,5 +51,10 @@ public class UserDao extends GenericDao<User> {
             query.setParameter("eventId", filter.getEventId());
         }
         return query.getResultList();
+    }
+
+    public List<UserMessagesDto> getUsersWithUnread(UUID toId) {
+        return em.createQuery("select u from User u join InnerMessage im where im.to.id = :toId and im.from.id = u.id", UserMessagesDto.class)
+                .setParameter("toId",toId).getResultList();
     }
 }

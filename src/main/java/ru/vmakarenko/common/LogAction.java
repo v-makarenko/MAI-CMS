@@ -10,6 +10,7 @@ public enum LogAction {
 
     USER_REGISTERED("user.register",LogAction.userFormat + " зарегистрировался в системе"),
     USER_LOGIN("user.login",LogAction.userFormat + " вошел в систему"),
+    USER_LOGOUT("user.logout",LogAction.userFormat + " вышел из системы"),
 
     USER_REFRESHED_INFO("user.save",LogAction.userFormat + " обновил свои личные данные"),
 

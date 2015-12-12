@@ -1,5 +1,6 @@
 package ru.vmakarenko.dto.common;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import ru.vmakarenko.entities.DomainEntity;
 
 import java.util.UUID;
@@ -7,10 +8,11 @@ import java.util.UUID;
 /**
  * Created by VMakarenko on 7/15/2015.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class MessageDto extends DomainEntity{
-    private UUID from;
+    private UUID fromId;
     private String fromName;
-    private UUID to;
+    private UUID toId;
     private String text;
 
     public String getText() {
@@ -21,27 +23,27 @@ public class MessageDto extends DomainEntity{
         this.text = text;
     }
 
-    public UUID getFrom() {
-        return from;
-    }
-
-    public void setFrom(UUID from) {
-        this.from = from;
-    }
-
-    public UUID getTo() {
-        return to;
-    }
-
-    public void setTo(UUID to) {
-        this.to = to;
-    }
-
     public String getFromName() {
         return fromName;
     }
 
     public void setFromName(String fromName) {
         this.fromName = fromName;
+    }
+
+    public UUID getFromId() {
+        return fromId;
+    }
+
+    public void setFromId(UUID fromId) {
+        this.fromId = fromId;
+    }
+
+    public UUID getToId() {
+        return toId;
+    }
+
+    public void setToId(UUID toId) {
+        this.toId = toId;
     }
 }

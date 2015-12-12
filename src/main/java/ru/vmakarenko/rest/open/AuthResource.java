@@ -66,6 +66,7 @@ public class AuthResource {
     @Path("logout")
     public Response logout(@Context HttpServletRequest request) {
         tokenService.remove(Util.getCookieValueFromRequest(AccessAuthDto.PARAM_AUTH_TOKEN, request));
+        logService.log(LogAction.USER_LOGOUT, new HashMap<>(),true);
         return Response.ok(RestResponse.createOk()).build();
     }
 
@@ -103,6 +104,7 @@ public class AuthResource {
     @Path("signUp")
     public Response signUp(UserDto dto) {
         userService.create(dto);
+        logService.log(LogAction.USER_REGISTERED, userDao.getByEmail(dto.getEmail()).getId(), new HashMap<>(), true);
         return Response.ok().build();
     }
 
@@ -110,6 +112,7 @@ public class AuthResource {
     @Path("restorePassword")
     public Response restorePassword(String email){
         userService.generatePassword(email);
+        logService.log(LogAction.USER_RESETTED_PASSWORD, new HashMap<>(), true);
         return Response.ok(RestResponse.createOk()).build();
     }
 

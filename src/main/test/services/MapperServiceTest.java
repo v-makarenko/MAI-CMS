@@ -48,8 +48,8 @@ public class MapperServiceTest {
 
         MessageDto dto = service.map(msg, MessageDto.class);
         Assert.assertEquals(msg.getText(), dto.getText());
-        Assert.assertEquals(msg.getTo().getId(), dto.getTo());
-        Assert.assertEquals(msg.getFrom().getId(), dto.getFrom());
+        Assert.assertEquals(msg.getTo().getId(), dto.getToId());
+        Assert.assertEquals(msg.getFrom().getId(), dto.getFromId());
         Assert.assertEquals(msg.getFrom().getSurname() + " " + msg.getFrom().getName(),
                 dto.getFromName());
     }

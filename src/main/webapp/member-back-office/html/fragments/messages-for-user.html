@@ -1,0 +1,46 @@
+<div class="fixed-width-mid">
+    <h1>
+        Почта
+    </h1>
+
+    <div class="logic-area messages-area">
+        <div class="col-md-6">
+            <div class="v-scrollable">
+                <div ng-repeat="user in userList">
+                    <a href="" ng-class="user.id == currentChatUser.id ? 'text-success' : ''"
+                       ng-click="setCurrentUser(user.id)">{{user.snpLong}}({{user.unreadCount}})</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div>
+                <div ng-repeat="messsage in messages" class="message">
+                    <div class="message-time">{{message.data}}</div>
+                    <div class="message-full">
+                        <div class="message-text">{{message.text}}</div>
+                    </div>
+                    <div class="message-attaches">
+
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <textarea class="form-control">
+                    </textarea>
+                </div>
+                <div>
+                    Прикрепленный файл: {{currentMsg.file}}
+                    <span ng-show="currentMsg.file.isPhoto">preview</span>
+                </div>
+                <div>
+                    <div class="btn-block">
+                        <button class="btn btn-success" ng-click="send()" type="button">Отправить</button>
+                        <button class="btn btn-info" ng-click="addFile(true)" type="button">Прикрепить файл</button>
+                        <button class="btn btn-info" ng-click="addFile(false)" type="button">Прикрепить фото</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
