@@ -4,6 +4,7 @@ import ru.vmakarenko.dao.generic.GenericDao;
 import ru.vmakarenko.entities.messages.InnerMessage;
 
 import javax.ejb.Stateless;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,10 +14,14 @@ import java.util.UUID;
 @Stateless
 public class MessageDao extends GenericDao<InnerMessage> {
     public List<InnerMessage> getAllIncoming(String currentUserEmail, UUID fromUserId){
-        return em.createQuery("select m from InnerMessage m where m.to.email=:email and (m.from.id=:fromUserId or m.to.id=:fromUserId)", InnerMessage.class)
+        List<InnerMessage> resultList = em.createQuery("select m from InnerMessage m where (m.to.email=:email and m.from.id=:fromUserId)" +
+                "or (m.from.email=:email and m.to.id=:fromUserId) order by m.time desc ", InnerMessage.class)
                 .setParameter("email", currentUserEmail)
                 .setParameter("fromUserId", fromUserId)
+                .setMaxResults(5)
                 .getResultList();
+        Collections.reverse(resultList);
+        return resultList;
     }
 
     public List<InnerMessage> getAdminMail( UUID fromUserId){

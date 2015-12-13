@@ -4,7 +4,15 @@
     </h1>
 
     <div class="logic-area messages-area">
-        <div class="col-md-12" style="height:400px">
+        <div class="col-md-6">
+            <div class="v-scrollable">
+                <div ng-repeat="user in userList">
+                    <a href="" ng-class="user.id == currentChatUser.id ? 'text-success' : ''"
+                       ng-click="setCurrentUser(user.id)">{{user.snpLong}}({{user.unreadCount ? user.unreadCount : '0'}})</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
             <div class="v-scrollable">
                 <div ng-repeat="message in messages" class="message">
                     <div class="message-time"><span class="messages-name">{{message.fromName}}</span>{{message.time|date:'dd/MM hh:mm:ss'}}</div>
@@ -22,7 +30,7 @@
                 </div>
                 <div>
                     Прикрепленный файл: {{currentMsg.file}}
-                    <span ng-show="currentMsg.file.isPhoto">preview</span>
+                    <span ng-show="currentMessage.file.isPhoto">preview</span>
                 </div>
                 <div>
                     <div class="btn-block">

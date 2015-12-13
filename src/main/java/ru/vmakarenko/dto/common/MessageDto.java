@@ -3,6 +3,7 @@ package ru.vmakarenko.dto.common;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import ru.vmakarenko.entities.DomainEntity;
 
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -14,6 +15,7 @@ public class MessageDto extends DomainEntity{
     private String fromName;
     private UUID toId;
     private String text;
+    private Long time;
 
     public String getText() {
         return text;
@@ -45,5 +47,13 @@ public class MessageDto extends DomainEntity{
 
     public void setToId(UUID toId) {
         this.toId = toId;
+    }
+
+    public Long getTime() {
+        return time;
+    }
+
+    public void setTime(Long time) {
+        this.time = time;
     }
 }

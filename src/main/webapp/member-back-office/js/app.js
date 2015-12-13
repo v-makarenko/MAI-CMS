@@ -27,7 +27,7 @@ angular.module('app', [
                 controller: 'EventController'
             }).
             when('/messages', {
-                templateUrl: 'member-back-office/html/fragments/messages.html',
+                templateUrl: 'member-back-office/html/fragments/messages-for-user.html',
                 controller: 'MessagesController'
             }).
             when('/distribMail', {

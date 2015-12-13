@@ -54,7 +54,7 @@ public class UserDao extends GenericDao<User> {
     }
 
     public List<UserMessagesDto> getUsersWithUnread(UUID toId) {
-        return em.createQuery("select u from User u join InnerMessage im where im.to.id = :toId and im.from.id = u.id", UserMessagesDto.class)
+        return em.createQuery("select u from User u join InnerMessage im where im.to.id = :toId and im.from.id = '00000000-0000-0000-0000-000000000002'", UserMessagesDto.class)
                 .setParameter("toId",toId).getResultList();
     }
 }

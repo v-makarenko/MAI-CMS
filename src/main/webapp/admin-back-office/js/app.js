@@ -30,6 +30,10 @@ angular.module('app', ['ui.bootstrap','jkuri.datepicker',
                 templateUrl: 'admin-back-office/html/fragments/logs.html',
                 controller: 'LogsController'
             }).
+            when('/messages', {
+                templateUrl: 'admin-back-office/html/fragments/messages.html',
+                controller: 'MessagesController'
+            }).
             otherwise({
                 redirectTo: '/users'
             });

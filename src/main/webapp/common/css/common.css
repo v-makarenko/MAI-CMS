@@ -103,3 +103,7 @@
 .messages-area{
     height:600px;
 }
+
+.messages-name{
+    font-weight: bold;
+}

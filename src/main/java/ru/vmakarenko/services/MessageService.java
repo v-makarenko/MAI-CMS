@@ -27,14 +27,14 @@ public class MessageService {
     private UserDao userDao;
 
     public List<MessageDto> getAllMessages(UUID fromId, boolean forAdmin){
-        User currentUser = forAdmin ? userDao.find(UUID.fromString("00000000-0000-0000-0000-000000000002")) : userDao.getByEmail(currentService.getEmail());
+        User currentToUser = forAdmin ? userDao.find(UUID.fromString("00000000-0000-0000-0000-000000000002")) : userDao.getByEmail(currentService.getEmail());
         return mapperService.map(messageDao
-                .getAllIncoming(currentService.getEmail(), currentUser.getId()), MessageDto.class);
+                .getAllIncoming(currentToUser.getEmail(), fromId), MessageDto.class);
     }
 
     public void sendMsg(MessageDto messageDto) {
         InnerMessage msg = mapperService.map(messageDto, InnerMessage.class);
-        msg.setFrom(userDao.getByEmail(currentService.getEmail()));
+        msg.setFrom(userDao.find(messageDto.getFromId()));
         msg.setTo(userDao.find(messageDto.getToId()));
         messageDao.insert(msg);
     }

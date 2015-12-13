@@ -10,15 +10,15 @@ angular.module("app").service('MessagesService',
         };
 
         this.getMessagesForAdmin = function(fromId){
-            return $http.get(url + 'incAdmin');
+            return $http.get(url + 'incAdmin?fromUserId=' + fromId);
         };
 
-        this.getMessagesForUser = function(fromId, toId){
-            return $http.get(url + 'incUser');
+        this.getMessagesForUser = function(fromId){
+            return $http.get(url + 'incUser?fromUserId=' + fromId);
         };
 
-        this.send = function(fromId, toId){
-            return $http.get(url + 'incUser');
+        this.send = function(message){
+            return $http.post(url + 'send', message);
         };
 
     }

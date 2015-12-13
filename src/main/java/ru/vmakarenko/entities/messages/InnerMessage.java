@@ -4,6 +4,7 @@ import ru.vmakarenko.entities.DomainEntity;
 import ru.vmakarenko.entities.users.User;
 
 import javax.persistence.*;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -20,9 +21,8 @@ public class InnerMessage extends DomainEntity {
     private User to;
     @Column(name = "text")
     private String text;
-    @Column(name="time")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date time;
+    @Column(name="message_time")
+    private Long time;
 
 //    private List<InnerMessageAttaches>
     // maybe shuold add some attaches
@@ -50,5 +50,21 @@ public class InnerMessage extends DomainEntity {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public Long getTime() {
+        return time;
+    }
+
+    public void setTime(Long time) {
+        this.time = time;
+    }
+
+    @PrePersist
+    @PreUpdate
+    public void preUpdate(){
+        if(time == null){
+            time = Calendar.getInstance().getTime().getTime();
+        }
     }
 }

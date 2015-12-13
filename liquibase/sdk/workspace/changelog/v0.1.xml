@@ -731,4 +731,15 @@
             alter table log_entries rename column status to success;
         </sql>
     </changeSet>
+
+
+    <changeSet id="201512130135" author="vmakarenko">
+        <comment>
+            change message time
+        </comment>
+        <sql>
+            alter table inner_messages drop column time;
+            alter table inner_messages add message_time bigint;
+        </sql>
+    </changeSet>
 </databaseChangeLog>
