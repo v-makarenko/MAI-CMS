@@ -8,17 +8,26 @@
             <div class="v-scrollable">
                 <div ng-repeat="user in userList">
                     <a href="" ng-class="user.id == currentChatUser.id ? 'text-success' : ''"
-                       ng-click="setCurrentUser(user.id)">{{user.snpLong}}({{user.unreadCount ? user.unreadCount : '0'}})</a>
+                       ng-click="setCurrentUser(user.id)">{{user.snpLong}}({{user.unreadCount ? user.unreadCount :
+                        '0'}})</a>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="v-scrollable">
                 <div ng-repeat="message in messages" class="message">
-                    <div class="message-time"><span class="messages-name">{{message.fromName}}</span>{{message.time|date:'dd/MM hh:mm:ss'}}</div>
+                    <div class="message-time"><span class="messages-name">{{message.fromName}}</span>{{message.time|date:'dd/MM
+                        hh:mm:ss'}}
+                    </div>
                     <div class="message-full">
                         <div class="message-text">{{message.text}}</div>
                         <div class="message-attaches">
+                            <div ng-show="message.fileIsImage">
+                                <a ng-href="message.fileLink"><img src="{{message.fileLink}}"/></a>
+                            </div>
+                            <div ng-hide="message.fileIsImage">
+                                <a href="./api/private/files?id={{message.fileId}}">{{message.fileName}}</a>
+                            </div>
 
                         </div>
                     </div>
@@ -35,11 +44,18 @@
                 <div>
                     <div class="btn-block">
                         <button class="btn btn-success" ng-click="send()" type="button">Отправить</button>
-                        <button class="btn btn-info" ng-click="addFile(true)" type="button">Прикрепить файл</button>
-                        <button class="btn btn-info" ng-click="addFile(false)" type="button">Прикрепить фото</button>
+
+                        <input type="file" id="thesisFile"
+                               class="btn btn-primary btn-upload"
+                               nv-file-select
+                               url="/api/private/files"
+                               uploader="uploader">
+                        </input>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>

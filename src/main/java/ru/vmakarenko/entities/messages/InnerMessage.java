@@ -1,11 +1,13 @@
 package ru.vmakarenko.entities.messages;
 
 import ru.vmakarenko.entities.DomainEntity;
+import ru.vmakarenko.entities.common.files.FileEntry;
 import ru.vmakarenko.entities.users.User;
 
 import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * Created by VMakarenko on 7/15/2015.
@@ -23,6 +25,9 @@ public class InnerMessage extends DomainEntity {
     private String text;
     @Column(name="message_time")
     private Long time;
+    @OneToOne
+    @JoinColumn(name="file_id")
+    private FileEntry file;
 
 //    private List<InnerMessageAttaches>
     // maybe shuold add some attaches
@@ -66,5 +71,13 @@ public class InnerMessage extends DomainEntity {
         if(time == null){
             time = Calendar.getInstance().getTime().getTime();
         }
+    }
+
+    public FileEntry getFile() {
+        return file;
+    }
+
+    public void setFile(FileEntry file) {
+        this.file = file;
     }
 }

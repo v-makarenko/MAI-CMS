@@ -742,4 +742,29 @@
             alter table inner_messages add message_time bigint;
         </sql>
     </changeSet>
+    <changeSet id="201512132144" author="vmakarenko">
+        <comment>
+            add file id column
+        </comment>
+        <sql>
+            alter table inner_messages add file_id uuid references file_entries(id);
+        </sql>
+    </changeSet>
+    <changeSet id="20151214858" author="vmakarenko">
+        <comment>
+            add content type
+        </comment>
+        <sql>
+            alter table inner_messages add content_type text;
+        </sql>
+    </changeSet>
+    <changeSet id="201512140915" author="vmakarenko">
+        <comment>
+            add content type
+        </comment>
+        <sql>
+            alter table inner_messages drop column content_type;
+            alter table file_entries add content_type text;
+        </sql>
+    </changeSet>
 </databaseChangeLog>

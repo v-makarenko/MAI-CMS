@@ -112,12 +112,20 @@ public class MapperService {
 
         mapperFactory.classMap(InnerMessage.class, MessageDto.class)
                 .fieldAToB("from.id", "fromId").fieldAToB("to.id", "toId")
+                .fieldAToB("file.id", "fileId")
                 .customize(
                         new CustomMapper<InnerMessage, MessageDto>() {
                             public void mapAtoB(InnerMessage a, MessageDto b, MappingContext context) {
                                 // add your custom mapping code here
                                 if (a.getFrom() != null) {
                                     b.setFromName(a.getFrom().getSurname() + " " + a.getFrom().getName());
+                                }
+                                if (a.getFile() != null) {
+                                    b.setFileId(a.getFile().getId());
+                                    b.setFileName(a.getFile().getFilename()
+                                            + "."
+                                    +a.getFile().getExtension());
+                                    b.setFileIsImage(a.getFile().getContentType().equals("image/jpeg"));
                                 }
                             }
                         }

@@ -2,7 +2,7 @@
  * Created by VMakarenko on 2/7/15.
  */
 
-angular.module('app', ['ui.bootstrap','jkuri.datepicker',
+angular.module('app', ['ui.bootstrap','jkuri.datepicker','angularFileUpload',
     'ngRoute']).config(['$routeProvider',
     function ($routeProvider) {
         $routeProvider.

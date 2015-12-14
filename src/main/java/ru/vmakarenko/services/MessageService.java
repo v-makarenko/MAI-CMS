@@ -1,5 +1,6 @@
 package ru.vmakarenko.services;
 
+import ru.vmakarenko.dao.FileEntryDao;
 import ru.vmakarenko.dao.MessageDao;
 import ru.vmakarenko.dao.UserDao;
 import ru.vmakarenko.dto.common.MessageDto;
@@ -24,6 +25,8 @@ public class MessageService {
     @Inject
     private MapperService mapperService;
     @Inject
+    private FileEntryDao fileEntryDao;
+    @Inject
     private UserDao userDao;
 
     public List<MessageDto> getAllMessages(UUID fromId, boolean forAdmin){
@@ -36,6 +39,7 @@ public class MessageService {
         InnerMessage msg = mapperService.map(messageDto, InnerMessage.class);
         msg.setFrom(userDao.find(messageDto.getFromId()));
         msg.setTo(userDao.find(messageDto.getToId()));
+        msg.setFile(fileEntryDao.find(messageDto.getFileId()));
         messageDao.insert(msg);
     }
 

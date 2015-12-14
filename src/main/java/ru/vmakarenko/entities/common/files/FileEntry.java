@@ -24,6 +24,9 @@ public class FileEntry extends DomainEntity {
     @Column(name="content_id")
     private UUID contentId;
 
+    @Column(name="content_type")
+    private String contentType;
+
     public String getExtension() {
         return extension;
     }
@@ -46,5 +49,13 @@ public class FileEntry extends DomainEntity {
 
     public void setContentId(UUID contentId) {
         this.contentId = contentId;
+    }
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
     }
 }

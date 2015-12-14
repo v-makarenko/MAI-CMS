@@ -3,8 +3,8 @@
  */
 
 
-angular.module('app').controller('MessagesController', ['$scope', '$rootScope', '$interval', 'UsersService', 'MessagesService',
-    function ($scope, $rootScope, $interval, UsersService, MessagesService) {
+angular.module('app').controller('MessagesController', ['$scope', '$rootScope', '$interval', 'UsersService', 'MessagesService', 'FileUploader',
+    function ($scope, $rootScope, $interval, UsersService, MessagesService, FileUploader) {
         $scope.currentMessage = {};
         $scope.setFrom  = function(){
             $scope.isAdmin = $rootScope.currentUser.userType == 'ADMIN';
@@ -61,11 +61,25 @@ angular.module('app').controller('MessagesController', ['$scope', '$rootScope', 
             });
         };
 
+        $scope.addFile = function(isPhoto){
+
+        };
+
         $interval(function(){
             $scope.loadMessages();
         }, 2000);
 
         $scope.getUsers();
+
+
+        $scope.uploader = new FileUploader({
+            url: 'api/private/files',
+            autoUpload: true,
+            removeAfterUpload : true,
+            onSuccessItem : function(item, data){
+                $scope.currentMessage.fileId = data.data;
+            }
+        });
 
     }
 ])

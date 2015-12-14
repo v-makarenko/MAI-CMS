@@ -16,7 +16,9 @@ public class MessageDto extends DomainEntity{
     private UUID toId;
     private String text;
     private Long time;
-
+    private UUID fileId;
+    private String fileName;
+    private boolean fileIsImage;
     public String getText() {
         return text;
     }
@@ -55,5 +57,29 @@ public class MessageDto extends DomainEntity{
 
     public void setTime(Long time) {
         this.time = time;
+    }
+
+    public UUID getFileId() {
+        return fileId;
+    }
+
+    public void setFileId(UUID fileId) {
+        this.fileId = fileId;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public boolean isFileIsImage() {
+        return fileIsImage;
+    }
+
+    public void setFileIsImage(boolean fileIsImage) {
+        this.fileIsImage = fileIsImage;
     }
 }

@@ -25,20 +25,22 @@ public class FileService {
     private MapperService mapperService;
 
     public FileEntryDto download(UUID id){
-        FileEntryDto dto = mapperService.map(dao.find(id), FileEntryDto.class);
-        dto.setContent(getContent(dto.getId()));
+        FileEntry fileEntry = dao.find(id);
+        FileEntryDto dto = mapperService.map(fileEntry, FileEntryDto.class);
+        dto.setContent(getContent(fileEntry.getContentId()));
         return dto;
     }
 
-    public void upload(String filename, String extension, byte[] content){
+    public UUID upload(String filename, String extension, String contentType, byte[] content){
         FileEntry fileEntry = new FileEntry();
         fileEntry.setFilename(filename);
         fileEntry.setExtension(extension);
+        fileEntry.setContentType(contentType);
         FileContentsEntry fce = new FileContentsEntry();
         fce.setContent(content);
         fce = fceDao.insert(fce);
         fileEntry.setContentId(fce.getId());
-        dao.insert(fileEntry);
+        return dao.insert(fileEntry).getId();
     }
 
     private byte[] getContent(UUID contentId){
