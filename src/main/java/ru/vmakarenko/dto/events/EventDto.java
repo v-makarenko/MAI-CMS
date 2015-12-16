@@ -2,10 +2,13 @@ package ru.vmakarenko.dto.events;
 
 import ru.vmakarenko.dto.common.SectionDto;
 import ru.vmakarenko.dto.common.WorkingPlaceDto;
+import ru.vmakarenko.dto.events.financial.FinancialDocumentTypeDto;
 import ru.vmakarenko.dto.users.UserDto;
 import ru.vmakarenko.dto.users.UserNoPassDto;
 import ru.vmakarenko.entities.DomainEntity;
 import ru.vmakarenko.entities.common.SimpleStringValue;
+import ru.vmakarenko.entities.events.financial.FinancialDocumentType;
+
 import java.util.Date;
 import java.util.List;
 
@@ -33,6 +36,7 @@ public class EventDto extends DomainEntity {
     private List<SectionDto> sectionList;
     private List<SimpleStringValue> techPeopleList;
     private List<WorkingPlaceDto> orgOrganisationList;
+    private List<FinancialDocumentTypeDto> financialDocumentTypeList;
 
 
     public String getName() {
@@ -171,4 +175,11 @@ public class EventDto extends DomainEntity {
         this.shortName = shortName;
     }
 
+    public List<FinancialDocumentTypeDto> getFinancialDocumentTypeList() {
+        return financialDocumentTypeList;
+    }
+
+    public void setFinancialDocumentTypeList(List<FinancialDocumentTypeDto> financialDocumentTypeList) {
+        this.financialDocumentTypeList = financialDocumentTypeList;
+    }
 }

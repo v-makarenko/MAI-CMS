@@ -1,0 +1,26 @@
+<h1>
+    {{currentDocument.name}}
+</h1>
+
+<h2>
+    История изменений
+</h2>
+<div>
+    <div ng-repeat="historyItem in currentDocument.historyItemList">
+        <a href="historyItem.link">{{historyItem.name}}</a>
+    </div>
+</div>
+
+<h2>
+    Статус
+</h2>
+<div ng-class="currentDocument.status=='Принято' ? 'text-success' : 'text-danger'">
+{{currentDocument.status}}
+</div>
+
+<h2>
+    Комментарий администратора
+</h2>
+<p style="font-weight: bolder">
+    {{currentDocument.adminComment}}
+</p>

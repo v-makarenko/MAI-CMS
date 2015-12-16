@@ -3,6 +3,7 @@ package ru.vmakarenko.entities.events;
 import ru.vmakarenko.entities.DomainEntity;
 import ru.vmakarenko.entities.FakeDeleteDomainEntity;
 import ru.vmakarenko.entities.common.SimpleStringValue;
+import ru.vmakarenko.entities.events.financial.FinancialDocumentType;
 import ru.vmakarenko.entities.users.WorkingPlace;
 import ru.vmakarenko.entities.users.User;
 
@@ -77,6 +78,9 @@ public class Event extends FakeDeleteDomainEntity {
 
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Section> sectionList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<FinancialDocumentType> financialDocumentTypeList = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -208,5 +212,13 @@ public class Event extends FakeDeleteDomainEntity {
 
     public void setShortName(String shortName) {
         this.shortName = shortName;
+    }
+
+    public List<FinancialDocumentType> getFinancialDocumentTypeList() {
+        return financialDocumentTypeList;
+    }
+
+    public void setFinancialDocumentTypeList(List<FinancialDocumentType> financialDocumentTypeList) {
+        this.financialDocumentTypeList = financialDocumentTypeList;
     }
 }

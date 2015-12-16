@@ -17,6 +17,8 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -34,13 +36,16 @@ public class FileResource {
 
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @POST
-    public Response upload(@QueryParam("filename") String filename, MultipartFormDataInput input) throws IOException {
+    @Path("/{filename}")
+    public Response upload(@PathParam("filename") String filename, MultipartFormDataInput input) throws IOException {
         Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
         List<InputPart> inputParts = uploadForm.get("file");
         UUID resultId = null;
         for (InputPart inputPart : inputParts) {
             try {
-                filename = getFileName(inputPart.getHeaders());
+                if(filename == null){
+                    filename = getFileName(inputPart.getHeaders());
+                }
                 if(filename == null){
                     filename = "file.doc";
                 }
@@ -61,14 +66,14 @@ public class FileResource {
     }
 
     @GET
-    public Response download(@QueryParam("id") UUID id) {
+    public Response download(@QueryParam("id") UUID id) throws UnsupportedEncodingException {
         FileEntryDto dto = service
                 .download(id);
 
         return Response.ok(dto.getContent())
-                .header("Content-Disposition", "attachment; filename="
-                        + dto.getFilename() + "." + dto.getExtension())
-        .build();
+                .header("Content-Disposition", "attachment; filename*=UTF-8''"
+                        + URLEncoder.encode(dto.getFilename() + "." + dto.getExtension(), "UTF-8"))
+                        .build();
 
     }
 

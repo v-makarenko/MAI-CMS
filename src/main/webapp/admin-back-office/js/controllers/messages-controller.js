@@ -65,9 +65,11 @@ angular.module('app').controller('MessagesController', ['$scope', '$rootScope', 
 
         };
 
-        $interval(function(){
+        var intervalPromise = $interval(function(){
             $scope.loadMessages();
         }, 2000);
+
+        $scope.$on('$destroy', function () { $interval.cancel(intervalPromise); });
 
         $scope.getUsers();
 

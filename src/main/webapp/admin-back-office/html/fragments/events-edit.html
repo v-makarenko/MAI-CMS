@@ -1,4 +1,4 @@
-<div class="fixed-width-mid ">
+<div class="fixed-width-mid " xmlns="http://java.sun.com/jsf/html">
     <div>
         <a href="#/events/" class="btn">Назад</a>
 
@@ -30,8 +30,12 @@
             </div>
             <div ng-repeat="item in currentEvent.techPeopleList" ng-click="currentTechPeopleItem = item">{{item.value}}
             </div>
-            <div >
-                <span class="form-inline">Организации-организаторы: <select class="form-control" ng-model="data.currentOrgOrganisationId" ng-options="org.id as org.shortName for org in organisationList"></select><button ng-click="addOrgToList()" class="btn btn-info">Добавить</button></span>
+            <div>
+                <span class="form-inline">Организации-организаторы: <select class="form-control"
+                                                                            ng-model="data.currentOrgOrganisationId"
+                                                                            ng-options="org.id as org.shortName for org in organisationList"></select><button
+                        ng-click="addOrgToList()" class="btn btn-info">Добавить
+                </button></span>
 
                 <ul>
                     <li ng-repeat="org in currentEvent.orgOrganisationList">{{org.name}}</li>
@@ -71,7 +75,7 @@
                         </label>
                         <ng-datepicker class="form-control" id="info-rec-end-date"
                                        ng-model="currentEvent.infoRecEndDate" locale="ru" view-format="DD.MM.YYYY"
-                                        format="YYYY-MM-DD">
+                                       format="YYYY-MM-DD">
                         </ng-datepicker>
                     </div>
                     <div class="form-group">
@@ -104,6 +108,53 @@
                     </div>
                 </form>
             </div>
+        </accordion-group>
+        <accordion-group heading="Финансовые документы">
+            <!--<div class="form-inline">-->
+            <!--<input class="form-control" ng-model="currentFinancialDocumentType.value"/>-->
+            <!--<button class="btn btn-small" type="button" id="fin-doc-type-add" ng-enabled="currentFinancialDocument && currentFinancialDocumentType.value"-->
+            <!--ng-click="saveItem(currentEvent.financialDocumentTypeList, 'currentFinancialDocumentType')">-->
+            <!--Сохранить-->
+            <!--</button>-->
+            <!--</div>-->
+            <!--<div ng-repeat="item in currentEvent.financialDocumentTypeList" ng-click="currentFinancialDocumentType = item">{{item.value}}-->
+            <!--</div>-->
+            <button type="button" ng-click="editFinDocType()" class="btn btn-success">Добавить</button>
+            <table class="table table-striped">
+                <thead>
+                <th>
+                    No
+                </th>
+                <th>
+                    Название документа
+                </th>
+                <th>
+                    Образец
+                </th>
+                <th>
+                    Действия
+                </th>
+                </thead>
+                <tbody>
+                <tr ng-repeat="docType in currentEvent.financialDocumentTypeList">
+                    <td>
+                        {{$index + 1}}
+                    </td>
+                    <td>
+                        <a href="" ng-click="editFinDocType(docType.id)">
+                            {{docType.name}}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="./api/private/files?id={{docType.exampleFileId}}">{{docType.exampleFileName}}</a>
+                    </td>
+                    <td>
+                        <a href="" ng-click="deleteFinDoc(docType.id)">удалить</a>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
         </accordion-group>
         <!--<accordion-group heading="Шаблоны рассылаемых сообщений">-->
         <!--<div class="vertical-tabs">-->

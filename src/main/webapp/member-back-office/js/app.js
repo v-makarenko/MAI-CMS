@@ -38,6 +38,14 @@ angular.module('app', [
                 templateUrl: 'member-back-office/html/fragments/email-templates.html',
                 controller: 'EmailTemplatesController'
             }).
+            when('/financialDocs', {
+                templateUrl: 'member-back-office/html/fragments/financial-docs.html',
+                controller: 'FinancialDocsController'
+            }).
+            when('/financialDocs/:id', {
+                templateUrl: 'member-back-office/html/fragments/financial-document.html',
+                controller: 'FinancialDocumentController'
+            }).
             otherwise({
                 redirectTo: '/home'
             });

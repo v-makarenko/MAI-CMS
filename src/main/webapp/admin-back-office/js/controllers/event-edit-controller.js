@@ -3,10 +3,10 @@
  */
 
 
-angular.module('app').controller('EventEditController', ['$scope', '$routeParams', '$location', 'EventsService', 'SectionsService', 'WPService',
-    function ($scope, $routeParams, $location, EventsService, SectionsService, WPService) {
+angular.module('app').controller('EventEditController', ['$scope', '$routeParams', '$location', '$modal', 'EventsService', 'SectionsService', 'WPService', 'FinancialDocumentTypeService',
+    function ($scope, $routeParams, $location, $modal, EventsService, SectionsService, WPService, FinancialDocumentTypeService) {
         $scope.eventId = $routeParams.id;
-        $scope.organisationList = [{id:1, name:'fdsfds'}];
+        $scope.organisationList = [{id: 1, name: 'fdsfds'}];
         $scope.data = {};
 
 
@@ -66,19 +66,40 @@ angular.module('app').controller('EventEditController', ['$scope', '$routeParams
         };
 
         $scope.finishSectionsEditing = function () {
-            $scope.sectionClick($scope.currentEvent.sectionList, _.find($scope.currentEvent.sectionList, {editing: true}));
+            $scope.itemClick($scope.currentEvent.sectionList, _.find($scope.currentEvent.sectionList, {editing: true}), SectionsService);
             _.each($scope.currentEvent.sectionList, function (item) {
                 item.editing = false
             });
         };
 
-        $scope.sectionClick = function (list, item) {
-            if(item == null) return;
+        $scope.editFinDocType = function (id) {
+            $scope.editFinDocInstance = $modal.open({
+                templateUrl: 'admin-back-office/html/modals/edit-fin-doc-type-modal.html',
+                controller: 'FinDocTypeModalController',
+                //size: size,
+                resolve: {
+                    data: function () {
+                        return {
+                            id: id,
+                            eventId: $scope.currentEvent.id
+                        }
+                    }
+
+                }
+            });
+            $scope.editFinDocInstance.result.then(function () {
+                $scope.loadEvent();
+            }, function () {
+            });
+        };
+
+        $scope.itemClick = function (list, item, service) {
+            if (item == null) return;
             _.each(list, function (listItem) {
                 if (listItem.editing) {
                     var saveItem = angular.copy(listItem);
                     saveItem.editing = undefined;
-                    SectionsService.save(saveItem);
+                    service.save(saveItem);
                 }
                 listItem.editing = listItem.id == item.id;
             })
@@ -93,27 +114,35 @@ angular.module('app').controller('EventEditController', ['$scope', '$routeParams
             });
         };
 
-        $scope.addOrgToList = function(){
-            if(!$scope.currentEvent.orgOrganisationList){
+        $scope.deleteFinDoc = function (id) {
+            FinancialDocumentTypeService.delete(id).success(function (data) {
+                alert('Удалено');
+                $scope.loadEvent();
+
+            });
+        };
+
+        $scope.addOrgToList = function () {
+            if (!$scope.currentEvent.orgOrganisationList) {
                 $scope.currentEvent.orgOrganisationList = [];
             }
-            var duplicates = _.filter($scope.currentEvent.orgOrganisationList, {id:$scope.data.currentOrgOrganisationId});
-            if(!duplicates || duplicates.length != 0){
-                return ;
+            var duplicates = _.filter($scope.currentEvent.orgOrganisationList, {id: $scope.data.currentOrgOrganisationId});
+            if (!duplicates || duplicates.length != 0) {
+                return;
             }
-          $scope.currentEvent.orgOrganisationList.push(_.filter($scope.organisationList, {id:$scope.data.currentOrgOrganisationId})[0])
+            $scope.currentEvent.orgOrganisationList.push(_.filter($scope.organisationList, {id: $scope.data.currentOrgOrganisationId})[0])
         };
 
 
-        WPService.getAllPublic().success(function(data){
-            if(data.status == 'OK'){
+        WPService.getAllPublic().success(function (data) {
+            if (data.status == 'OK') {
                 $scope.organisationList = data.data;
             }
         });
 
 
-
         $scope.currentTechPeopleItem = {};
+        $scope.currentFinancialDocument = {};
 
         $scope.loadEvent();
 

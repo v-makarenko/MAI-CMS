@@ -4,18 +4,21 @@ import ma.glasnost.orika.CustomMapper;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.MappingContext;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
-import ma.glasnost.orika.metadata.Type;
 import ru.vmakarenko.common.UserType;
-import ru.vmakarenko.dao.LogEntryDao;
+import ru.vmakarenko.dao.EventsDao;
+import ru.vmakarenko.dao.FileEntryDao;
 import ru.vmakarenko.dao.UserDao;
 import ru.vmakarenko.dto.common.*;
 import ru.vmakarenko.dto.events.CoauthorDto;
 import ru.vmakarenko.dto.events.EventDto;
 import ru.vmakarenko.dto.events.LogEntryDto;
 import ru.vmakarenko.dto.events.ThesisDto;
+import ru.vmakarenko.dto.events.financial.FinancialDocumentTypeDto;
 import ru.vmakarenko.dto.users.UserDto;
+import ru.vmakarenko.entities.FakeDeleteDomainEntity;
 import ru.vmakarenko.entities.events.Event;
 import ru.vmakarenko.entities.events.Section;
+import ru.vmakarenko.entities.events.financial.FinancialDocumentType;
 import ru.vmakarenko.entities.events.thesis.*;
 import ru.vmakarenko.entities.messages.EmailMessage;
 import ru.vmakarenko.entities.messages.EmailTemplate;
@@ -28,7 +31,6 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,6 +46,11 @@ public class MapperService {
 
     @Inject
     private UserDao userDao;
+
+    @Inject
+    private EventsDao eventDao;
+    @Inject
+    private FileEntryDao fileEntryDao;
 
     @PostConstruct
     public void init() {
@@ -124,8 +131,12 @@ public class MapperService {
                                     b.setFileId(a.getFile().getId());
                                     b.setFileName(a.getFile().getFilename()
                                             + "."
-                                    +a.getFile().getExtension());
-                                    b.setFileIsImage(a.getFile().getContentType().equals("image/jpeg"));
+                                            + a.getFile().getExtension());
+                                    if (a.getFile().getContentType() != null) {
+                                        b.setFileIsImage(a.getFile().getContentType().equals("image/jpeg"));
+                                    } else{
+                                        b.setFileIsImage(false);
+                                    }
                                 }
                             }
                         }
@@ -167,7 +178,7 @@ public class MapperService {
 
                                 }
                                 if (coauthor instanceof CoauthorToBeRegistered) {
-                                    CoauthorToBeRegistered ctbr = (CoauthorToBeRegistered)coauthor;
+                                    CoauthorToBeRegistered ctbr = (CoauthorToBeRegistered) coauthor;
                                     coauthorDto.setEmail(ctbr.getEmail());
                                 }
                             }
@@ -208,6 +219,53 @@ public class MapperService {
                 .byDefault()
                 .register();
 
+        mapperFactory.classMap(FinancialDocumentType.class, FinancialDocumentTypeDto.class)
+                .customize(
+                        new CustomMapper<FinancialDocumentType, FinancialDocumentTypeDto>() {
+                            @Override
+                            public void mapBtoA(FinancialDocumentTypeDto financialDocumentTypeDto, FinancialDocumentType financialDocumentType, MappingContext context) {
+                                if (financialDocumentTypeDto.getEventId() != null) {
+                                    financialDocumentType.setEvent(eventDao.find(financialDocumentTypeDto.getEventId()));
+                                }
+                                if (financialDocumentTypeDto.getExampleFileId() != null) {
+                                    financialDocumentType.setExample(fileEntryDao.find(financialDocumentTypeDto.getExampleFileId()));
+                                }
+                            }
+
+                            @Override
+                            public void mapAtoB(FinancialDocumentType financialDocumentType, FinancialDocumentTypeDto financialDocumentTypeDto, MappingContext context) {
+                                if (financialDocumentType.getExample() != null) {
+                                    financialDocumentTypeDto.setExampleFileId(financialDocumentType.getExample().getId());
+                                    financialDocumentTypeDto.setExampleFileName(financialDocumentType.getExample().getFilename()
+                                            + "." + financialDocumentType.getExample().getExtension());
+                                }
+                            }
+                        }
+                )
+                .fieldAToB("event.id", "eventId")
+                .fieldAToB("example.filename", "exampleFileName")
+                .fieldAToB("example.id", "exampleFileId")
+                .byDefault()
+                .register();
+
+
+        mapperFactory.classMap(Event.class, EventDto.class)
+                .customize(new CustomMapper<Event, EventDto>() {
+                    @Override
+                    public void mapBtoA(EventDto eventDto, Event event, MappingContext context) {
+                        super.mapBtoA(eventDto, event, context);
+                    }
+
+                    @Override
+                    public void mapAtoB(Event event, EventDto eventDto, MappingContext context) {
+                        super.mapAtoB(event, eventDto, context);
+                        eventDto.setFinancialDocumentTypeList(eventDto.getFinancialDocumentTypeList()
+                                .stream()
+                                .filter(FakeDeleteDomainEntity::isActive)
+                                .collect(Collectors.toList()));
+                    }
+                })
+                .byDefault().register();
 
     }
 

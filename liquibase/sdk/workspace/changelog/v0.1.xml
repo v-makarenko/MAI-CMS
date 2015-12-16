@@ -767,4 +767,54 @@
             alter table file_entries add content_type text;
         </sql>
     </changeSet>
+    <changeSet id="201512150101" author="vmakarenko">
+        <comment>
+            add financial documents for user
+        </comment>
+        <sql>
+            create table financial_documents_types(
+            id uuid primary key,
+            name text
+            );
+
+
+            create table financial_documents(
+            id uuid primary key,
+            type_id uuid references financial_documents_types(id),
+            status text,
+            admin_comment text
+            );
+
+            create table financial_documents_file_entries(
+            financial_document_id uuid references financial_documents(id),
+            file_entry uuid references file_entries(id)
+            );
+
+
+        </sql>
+    </changeSet>
+    <changeSet id="201512151537" author="vmakarenko">
+        <comment>
+            example id
+        </comment>
+        <sql>
+            alter table financial_documents_types add example_file_id uuid references file_entries(id);
+        </sql>
+    </changeSet>
+    <changeSet id="201512151637" author="vmakarenko">
+        <comment>
+            add active for doc type
+        </comment>
+        <sql>
+            alter table financial_documents_types add column active boolean;
+        </sql>
+    </changeSet>
+    <changeSet id="2015121512328" author="vmakarenko">
+        <comment>
+            add event link for financial documents
+        </comment>
+        <sql>
+            alter table financial_documents_types add column event_id uuid references events(id);
+        </sql>
+    </changeSet>
 </databaseChangeLog>
