@@ -34,6 +34,14 @@ public class FinancialDocumentTypeResource {
                 .build();
     }
 
+    @GET
+    @Path("forEvent")
+    public Response getForEvent(@QueryParam("id") UUID id){
+        return Response
+                .ok(RestResponse.createOk().data(service.find(id)))
+                .build();
+    }
+
 
     @GET
     public Response getAll(){

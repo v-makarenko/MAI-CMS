@@ -817,4 +817,12 @@
             alter table financial_documents_types add column event_id uuid references events(id);
         </sql>
     </changeSet>
+    <changeSet id="201512171612" author="vmakarenko">
+        <comment>
+            added user_id for financial documents
+        </comment>
+        <sql>
+            alter table financial_documents add column user_id uuid references users(id);
+        </sql>
+    </changeSet>
 </databaseChangeLog>

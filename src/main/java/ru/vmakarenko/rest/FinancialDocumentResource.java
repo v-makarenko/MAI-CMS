@@ -26,13 +26,13 @@ public class FinancialDocumentResource {
     private FinancialDocumentService service;
 
 
-//    @GET
-//    @Path("{id}")
-//    public Response get(@PathParam("id") UUID id){
-//        return Response
-//                .ok(RestResponse.createOk().data(service.get(id)))
-//                .build();
-//    }
+    @GET
+    @Path("forEvent/{id}")
+    public Response getForEvent(@PathParam("id") UUID id){
+        return Response
+                .ok(RestResponse.createOk().data(service.getForEvent(id)))
+                .build();
+    }
 
 
     @GET

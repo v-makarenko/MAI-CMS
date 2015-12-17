@@ -1,7 +1,9 @@
 package ru.vmakarenko.entities.events.financial;
 
+import ru.vmakarenko.entities.DomainEntity;
 import ru.vmakarenko.entities.FakeDeleteDomainEntity;
 import ru.vmakarenko.entities.common.files.FileEntry;
+import ru.vmakarenko.entities.users.User;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,7 +13,7 @@ import java.util.List;
  */
 @Entity
 @Table(name="financial_documents")
-public class FinancialDocument extends FakeDeleteDomainEntity {
+public class FinancialDocument extends DomainEntity {
     @ManyToOne
     @JoinColumn(name = "type_id")
     private FinancialDocumentType type;
@@ -25,6 +27,10 @@ public class FinancialDocument extends FakeDeleteDomainEntity {
 
     @Column(name="admin_comment")
     private String adminComment;
+
+    @OneToOne
+    @JoinColumn(name="user_id")
+    private User user;
 
     public FinancialDocument() {
     }
@@ -59,5 +65,13 @@ public class FinancialDocument extends FakeDeleteDomainEntity {
 
     public void setAdminComment(String adminComment) {
         this.adminComment = adminComment;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

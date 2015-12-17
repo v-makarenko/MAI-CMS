@@ -1,7 +1,10 @@
 package ru.vmakarenko.services;
 
+import org.omg.CORBA.Current;
+import ru.vmakarenko.dao.EventsDao;
 import ru.vmakarenko.dao.FinancialDocumentTypesDao;
 import ru.vmakarenko.dao.FinancialDocumentsDao;
+import ru.vmakarenko.dao.UserDao;
 import ru.vmakarenko.dto.events.financial.FinancialDocumentDto;
 import ru.vmakarenko.dto.events.financial.FinancialDocumentTypeDto;
 import ru.vmakarenko.entities.events.financial.FinancialDocument;
@@ -21,6 +24,13 @@ public class FinancialDocumentService {
     private FinancialDocumentsDao dao;
     @Inject
     private MapperService mapperService;
+    @Inject
+    private UserDao userDao;
+    @Inject
+    private EventsDao eventsDao;
+
+    @Inject
+    private CurrentService currentService;
 
     public List<FinancialDocumentDto> getAll(){
         return mapperService.map(dao.findAll(), FinancialDocumentDto.class);
@@ -37,5 +47,10 @@ public class FinancialDocumentService {
     public void delete(UUID typeId){
         dao.delete(typeId);
 
+    }
+
+    public List<FinancialDocumentDto> getForEvent(UUID id) {
+        List<FinancialDocumentDto> dtoList = mapperService.map(dao.getForEvent(id, userDao.getByEmail(currentService.getEmail()).getId()), FinancialDocumentDto.class);
+        return dtoList;
     }
 }
