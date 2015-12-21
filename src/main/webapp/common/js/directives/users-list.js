@@ -18,12 +18,13 @@ angular.module("app").directive('usersList', ['$rootScope', 'UsersService',
                         }
                     });
             };
-
+            
             scope.getFiltered();
         },
         scope: {
             list: '=list',
-            eventId: '=eventId'
+            eventId: '=eventId',
+            userLink: '=userLink'
         }
     }
 }]);

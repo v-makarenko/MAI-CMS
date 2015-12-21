@@ -13,11 +13,13 @@ import ru.vmakarenko.dto.events.CoauthorDto;
 import ru.vmakarenko.dto.events.EventDto;
 import ru.vmakarenko.dto.events.LogEntryDto;
 import ru.vmakarenko.dto.events.ThesisDto;
+import ru.vmakarenko.dto.events.financial.FinancialDocumentDto;
 import ru.vmakarenko.dto.events.financial.FinancialDocumentTypeDto;
 import ru.vmakarenko.dto.users.UserDto;
 import ru.vmakarenko.entities.FakeDeleteDomainEntity;
 import ru.vmakarenko.entities.events.Event;
 import ru.vmakarenko.entities.events.Section;
+import ru.vmakarenko.entities.events.financial.FinancialDocument;
 import ru.vmakarenko.entities.events.financial.FinancialDocumentType;
 import ru.vmakarenko.entities.events.thesis.*;
 import ru.vmakarenko.entities.messages.EmailMessage;
@@ -216,6 +218,20 @@ public class MapperService {
 
                 )
                 .fieldAToB("user.id", "userId")
+                .byDefault()
+                .register();
+
+        mapperFactory.classMap(FinancialDocument.class, FinancialDocumentDto.class)
+                .customize(new CustomMapper<FinancialDocument, FinancialDocumentDto>() {
+                    @Override
+                    public void mapAtoB(FinancialDocument financialDocument, FinancialDocumentDto financialDocumentDto, MappingContext context) {
+                        super.mapAtoB(financialDocument, financialDocumentDto, context);
+                        financialDocumentDto.setTypeName(financialDocument.getType().getName());
+                        financialDocumentDto.setTypeId(financialDocument.getType().getId());
+                        financialDocumentDto.setStatusId(financialDocument.getStatus().getName());
+                        financialDocumentDto.setStatusDescription(financialDocument.getStatus().getDescription() );
+                    }
+                })
                 .byDefault()
                 .register();
 

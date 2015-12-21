@@ -4,7 +4,7 @@ package ru.vmakarenko.entities.events.financial;
  * Created by VMakarenko on 14.12.2015.
  */
 public enum FinancialDocumentStatus {
-    ASKED("asked", "Требуется документ"), ACCEPTED("accepted", "Документ принят"), ERROR("errot", "Ошибка в документах");
+    REQUESTED("asked", "Требуется документ"), ACCEPTED("accepted", "Документ принят"), ERROR("errot", "Ошибка в документах");
 
     private String name, description;
 

@@ -6,6 +6,7 @@ import ru.vmakarenko.dto.events.EventDto;
 import ru.vmakarenko.dto.events.PresenceDto;
 import ru.vmakarenko.dto.events.financial.FinancialDocumentDto;
 import ru.vmakarenko.dto.events.financial.FinancialDocumentTypeDto;
+import ru.vmakarenko.dto.findocs.CreateForUserDto;
 import ru.vmakarenko.services.EventsService;
 import ru.vmakarenko.services.FinancialDocumentService;
 import ru.vmakarenko.services.FinancialDocumentTypeService;
@@ -31,6 +32,14 @@ public class FinancialDocumentResource {
     public Response getForEvent(@PathParam("id") UUID id){
         return Response
                 .ok(RestResponse.createOk().data(service.getForEvent(id)))
+                .build();
+    }
+
+    @GET
+    @Path("forUser")
+    public Response getForUser(@QueryParam("eventId") UUID eventId, @QueryParam("userId") UUID userId){
+        return Response
+                .ok(RestResponse.createOk().data(service.getForUser(eventId, userId)))
                 .build();
     }
 
@@ -60,6 +69,15 @@ public class FinancialDocumentResource {
     @PUT
     public Response update(FinancialDocumentDto dto){
         service.update(dto);
+        return Response
+                .ok(RestResponse.createOk())
+                .build();
+    }
+
+    @POST
+    @Path("createDocsForUser")
+    public Response createDocsForUser(CreateForUserDto dto){
+        service.createDocsForUser(dto);
         return Response
                 .ok(RestResponse.createOk())
                 .build();

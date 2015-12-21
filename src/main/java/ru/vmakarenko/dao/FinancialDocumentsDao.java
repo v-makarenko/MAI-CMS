@@ -14,7 +14,7 @@ import java.util.UUID;
 @Stateless
 public class FinancialDocumentsDao extends GenericDao<FinancialDocument> {
     public List<FinancialDocument> getForEvent(UUID eventId, UUID userId) {
-        return em.createQuery("select fd from FinancialDocument fd where fd.type.event.id = :eventId and fd.user.id = :userId", FinancialDocument.class)
+        return em.createQuery("select fd from FinancialDocument fd where fd.type.event.id = :eventId and fd.user.id = :userId and fd.type.active = true", FinancialDocument.class)
                 .setParameter("eventId", eventId)
                 .setParameter("userId", userId)
                 .getResultList();

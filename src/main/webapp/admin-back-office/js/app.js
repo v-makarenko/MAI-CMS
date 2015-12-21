@@ -26,6 +26,10 @@ angular.module('app', ['ui.bootstrap','jkuri.datepicker','angularFileUpload',
                 templateUrl: 'admin-back-office/html/fragments/event-details.html',
                 controller: 'EventDetailsController'
             }).
+            when('/events/:id/user/:userId', {
+                templateUrl: 'admin-back-office/html/fragments/event-user-cmds.html',
+                controller: 'EventUserCmdsController'
+            }).
             when('/logs', {
                 templateUrl: 'admin-back-office/html/fragments/logs.html',
                 controller: 'LogsController'

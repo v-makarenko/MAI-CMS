@@ -6,6 +6,7 @@ import ru.vmakarenko.entities.common.files.FileEntry;
 import ru.vmakarenko.entities.users.User;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,7 +24,7 @@ public class FinancialDocument extends DomainEntity {
 
     @ManyToMany
     @JoinTable(name = "financial_documents_file_entries", joinColumns = @JoinColumn(name = "financial_document_id"), inverseJoinColumns = @JoinColumn(name="file_entry_id"))
-    private List<FileEntry> historyList;
+    private List<FileEntry> historyList = new ArrayList<>();
 
     @Column(name="admin_comment")
     private String adminComment;

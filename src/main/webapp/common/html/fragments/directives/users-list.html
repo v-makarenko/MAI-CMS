@@ -22,7 +22,9 @@
             {{$index + 1 }}
         </td>
         <td>
-            {{user.snpShort}}
+            <a href="{{userLink}}{{user.id}}">
+                {{user.snpShort}}
+            </a>
         </td>
         <td>
             {{user.wpNameShort}}

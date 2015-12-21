@@ -25,6 +25,14 @@ angular.module("app").service('FinancialDocumentService',
 
         this.getForEvent = function(eventId){
             return $http.get(url + 'forEvent/' + eventId);
+        };
+
+        this.getForUser= function(userId, eventId){
+            return $http.get(url + 'forUser?eventId=' + eventId + '&userId=' + userId) ;
+        };
+
+        this.createDocsForUser = function(userId,eventId){
+            return $http.post(url + 'createDocsForUser/', {userId: userId, eventId: eventId});
         }
 
     }
