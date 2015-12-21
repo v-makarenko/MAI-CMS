@@ -825,4 +825,12 @@
             alter table financial_documents add column user_id uuid references users(id);
         </sql>
     </changeSet>
+    <changeSet id="201512210027" author="vmakarenko">
+        <comment>
+            renamed file_entry_id
+        </comment>
+        <sql>
+            alter table financial_documents_file_entries rename column file_entry to file_entry_id;
+        </sql>
+    </changeSet>
 </databaseChangeLog>
