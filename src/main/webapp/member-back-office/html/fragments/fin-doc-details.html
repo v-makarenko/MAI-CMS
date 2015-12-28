@@ -1,0 +1,38 @@
+<div class="fixed-width-mid">
+    <div class="page-header">
+        Добавление документов
+    </div>
+    <div>
+        <form class="form-horizontal" role="form">
+            <div class="form-group "><label class="control-label col-sm-2">Название: </label>
+
+                <div class="col-sm-10"><p class="form-control-static">{{currentFinDoc.typeName}}</p></div>
+            </div>
+            <div class="form-group"><label class="control-label col-sm-2">Статус: </label>
+
+                <div class="col-sm-10"><p class="form-control-static">{{currentFinDoc.statusDescription}}</p></div>
+            </div>
+        </form>
+        <table class="table table-striped">
+            <caption>История</caption>
+            <thead>
+            <th>
+                Ссылка
+            </th>
+            <th>
+                Дата
+            </th>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in currentFinDoc.historyList">
+                <td>
+                    {{item.fileName}}
+                </td>
+                <td>
+                    {{item.fileDate}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

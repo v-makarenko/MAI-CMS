@@ -22,6 +22,10 @@ angular.module('app', [
                 templateUrl: 'member-back-office/html/fragments/events.html',
                 controller: 'EventsController'
             }).
+            when('/event/:id/financialDocs/:finDocId', {
+                templateUrl: 'member-back-office/html/fragments/fin-doc-details.html',
+                controller: 'FinDocDetailsController'
+            }).
             when('/event/:id', {
                 templateUrl: 'member-back-office/html/fragments/event.html',
                 controller: 'EventController'

@@ -79,4 +79,8 @@ public class FinancialDocumentService {
     public List<FinancialDocumentDto> getForUser(UUID eventId, UUID userId) {
         return mapperService.map(finDocDao.getForEvent(eventId, userId), FinancialDocumentDto.class);
     }
+
+    public FinancialDocumentDto find(UUID id) {
+        return mapperService.map(finDocDao.find(id), FinancialDocumentDto.class);
+    }
 }

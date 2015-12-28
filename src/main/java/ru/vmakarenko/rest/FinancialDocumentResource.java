@@ -2,14 +2,9 @@ package ru.vmakarenko.rest;
 
 
 import ru.vmakarenko.common.RestResponse;
-import ru.vmakarenko.dto.events.EventDto;
-import ru.vmakarenko.dto.events.PresenceDto;
 import ru.vmakarenko.dto.events.financial.FinancialDocumentDto;
-import ru.vmakarenko.dto.events.financial.FinancialDocumentTypeDto;
 import ru.vmakarenko.dto.findocs.CreateForUserDto;
-import ru.vmakarenko.services.EventsService;
 import ru.vmakarenko.services.FinancialDocumentService;
-import ru.vmakarenko.services.FinancialDocumentTypeService;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -48,6 +43,14 @@ public class FinancialDocumentResource {
     public Response getAll(){
         return Response
                 .ok(RestResponse.createOk().data(service.getAll()))
+                .build();
+    }
+
+    @GET
+    @Path("/{id}")
+    public Response find(@PathParam("id") UUID id){
+        return Response
+                .ok(RestResponse.createOk().data(service.find(id)))
                 .build();
     }
 

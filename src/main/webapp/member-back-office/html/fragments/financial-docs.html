@@ -8,12 +8,12 @@
     </th>
     </thead>
     <tbody>
-    <tr ng-repeat="doc in currentEvent.finDocList">
+    <tr ng-repeat="doc in finDocList">
         <td>
-            <a href="#/financialDocs/{{doc.id}}">doc.name</a>
+            <a href="#/event/{{currentEventId}}/financialDocs/{{doc.id}}">{{doc.typeName}}</a>
         </td>
         <td ng-class="doc.status == 'Принято' ? 'text-success' : 'text-danger'">
-            doc.status
+            {{doc.statusDescription}}
         </td>
     </tr>
     </tbody>
