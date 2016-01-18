@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="3231264299">
+    <data-source source="LOCAL" name="PostgreSQL - maicms@localhost" uuid="f35a03b0-0cdb-4708-929f-d4e9da2e4b60">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/maicms</jdbc-url>
+      <libraries />
+    </data-source>
+  </component>
+</project>

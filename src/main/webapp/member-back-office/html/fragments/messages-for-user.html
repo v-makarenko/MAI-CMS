@@ -5,9 +5,9 @@
 
     <div class="logic-area messages-area">
         <div class="col-md-12" style="height:400px">
-            <div class="v-scrollable">
-                <div ng-repeat="message in messages" class="message">
-                    <div class="message-time"><span class="messages-name">{{message.fromName}}</span>{{message.time|date:'dd/MM hh:mm:ss'}}</div>
+            <div class="v-scrollable"  style="height: 500px" id="scrollable-area">
+                <div ng-repeat="message in messages" class="message" ng-class="message.from ? 'chat-message-from' : 'chat-message-to'">
+                    <div class="chat-message-header" ng-class="message.from ? 'chat-header-from' : 'chat-header-to'"><span class="messages-name">{{message.fromName}}</span><span class="pull-right">{{message.time|date:'dd/MM hh:mm:ss'}}</span></div>
                     <div class="message-full">
                         <div class="message-text">{{message.text}}</div>
                         <div class="message-attaches">

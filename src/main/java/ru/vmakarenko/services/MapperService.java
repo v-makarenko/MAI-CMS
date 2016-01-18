@@ -142,7 +142,10 @@ public class MapperService {
                                 }
                             }
                         }
-                ).byDefault().register();
+                )
+                .exclude("from")
+                .byDefault()
+                .register();
 
         mapperFactory.classMap(Section.class, SectionDto.class)
                 .fieldAToB("event.id", "eventId")

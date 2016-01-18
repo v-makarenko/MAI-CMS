@@ -18,7 +18,7 @@ public class MessageDao extends GenericDao<InnerMessage> {
                 "or (m.from.email=:email and m.to.id=:fromUserId) order by m.time desc ", InnerMessage.class)
                 .setParameter("email", currentUserEmail)
                 .setParameter("fromUserId", fromUserId)
-                .setMaxResults(5)
+                .setMaxResults(15)
                 .getResultList();
         Collections.reverse(resultList);
         return resultList;

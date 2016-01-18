@@ -16,8 +16,8 @@
         <div class="col-md-6">
             <div class="v-scrollable">
                 <div ng-repeat="message in messages" class="message">
-                    <div class="message-time"><span class="messages-name">{{message.fromName}}</span>{{message.time|date:'dd/MM
-                        hh:mm:ss'}}
+                    <div class="message-time"><span class="messages-name">{{message.fromName}}</span> <span class="pull-right">{{message.time|date:'dd/MM
+                        hh:mm:ss'}}</span>
                     </div>
                     <div class="message-full">
                         <div class="message-text">{{message.text}}</div>
@@ -45,12 +45,6 @@
                     <div class="btn-block">
                         <button class="btn btn-success" ng-click="send()" type="button">Отправить</button>
 
-                        <input type="file" id="thesisFile"
-                               class="btn btn-primary btn-upload"
-                               nv-file-select
-                               url="/api/private/files"
-                               uploader="uploader">
-                        </input>
 
                     </div>
                 </div>

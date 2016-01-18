@@ -34,7 +34,6 @@ angular.module('app').controller('MessagesController', ['$scope', '$rootScope', 
                 if(!$scope.isAdmin){
                     $scope.setCurrentUser('00000000-0000-0000-0000-000000000002');
                 }
-
             });
         };
 
@@ -43,6 +42,7 @@ angular.module('app').controller('MessagesController', ['$scope', '$rootScope', 
             method($scope.currentChatUser.id).success(function (data) {
                 if (data.status === 'OK') {
                     $scope.messages = data.data;
+                    $('#scrollable-area')[0].scrollTop = $('#scrollable-area')[0].scrollHeight;
                 }
             });
 
@@ -62,11 +62,11 @@ angular.module('app').controller('MessagesController', ['$scope', '$rootScope', 
         };
 
         $scope.addFile = function(isPhoto){
-
+            //$scope.uploader.addToQueue()
         };
 
         var intervalPromise = $interval(function(){
-            $scope.loadMessages();
+            //$scope.loadMessages();
         }, 2000);
 
         $scope.$on('$destroy', function () { $interval.cancel(intervalPromise); });
@@ -80,7 +80,10 @@ angular.module('app').controller('MessagesController', ['$scope', '$rootScope', 
             removeAfterUpload : true,
             onSuccessItem : function(item, data){
                 $scope.currentMessage.fileId = data.data;
-            }
+            },
+            onBeforeUploadItem : function(item){
+            item.url +="/" + item._file.name;
+        }
         });
 
     }

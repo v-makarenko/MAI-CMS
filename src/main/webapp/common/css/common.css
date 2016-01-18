@@ -107,3 +107,39 @@
 .messages-name{
     font-weight: bold;
 }
+
+.message {
+    color: black;
+    margin: 20px;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 1.1em;
+}
+
+.messages-time {
+    text-align: right;
+}
+
+.chat-message-from {
+    background-color: rgb(183, 248, 171);
+    margin-left: 50px;
+}
+
+.chat-message-to {
+    background-color: rgb(162, 224, 236);
+    margin-right: 50px;
+}
+
+.chat-message-header {
+    border-radius: 5px;
+    padding: 5px;
+    margin: -5px -5px 5px -5px;
+}
+
+.chat-header-from {
+    background-color: rgb(153, 211, 141);
+}
+
+.chat-header-to {
+    background-color: rgb(134, 186, 196);
+}

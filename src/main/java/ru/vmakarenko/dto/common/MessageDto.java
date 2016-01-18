@@ -3,7 +3,6 @@ package ru.vmakarenko.dto.common;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import ru.vmakarenko.entities.DomainEntity;
 
-import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -13,6 +12,7 @@ import java.util.UUID;
 public class MessageDto extends DomainEntity{
     private UUID fromId;
     private String fromName;
+    private boolean from;
     private UUID toId;
     private String text;
     private Long time;
@@ -81,5 +81,13 @@ public class MessageDto extends DomainEntity{
 
     public void setFileIsImage(boolean fileIsImage) {
         this.fileIsImage = fileIsImage;
+    }
+
+    public boolean isFrom() {
+        return from;
+    }
+
+    public void setFrom(boolean from) {
+        this.from = from;
     }
 }
