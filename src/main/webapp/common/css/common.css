@@ -143,3 +143,7 @@
 .chat-header-to {
     background-color: rgb(134, 186, 196);
 }
+
+.chat-user-selected {
+    text-decoration: underline;
+}

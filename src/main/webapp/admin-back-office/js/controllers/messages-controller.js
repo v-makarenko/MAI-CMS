@@ -6,24 +6,24 @@
 angular.module('app').controller('MessagesController', ['$scope', '$rootScope', '$interval', 'UsersService', 'MessagesService', 'FileUploader',
     function ($scope, $rootScope, $interval, UsersService, MessagesService, FileUploader) {
         $scope.currentMessage = {};
-        $scope.setFrom  = function(){
+        $scope.setFrom = function () {
             $scope.isAdmin = $rootScope.currentUser.userType == 'ADMIN';
-            if($scope.isAdmin) {
+            if ($scope.isAdmin) {
                 $scope.currentMessage.fromId = '00000000-0000-0000-0000-000000000002';
-            } else{
+            } else {
                 $scope.currentMessage.fromId = $scope.currentUser.id;
             }
         };
 
-        if($rootScope.currentUser){
+        if ($rootScope.currentUser) {
             $scope.setFrom();
         }
 
         $rootScope.$on('user.loaded', $scope.setFrom);
 
 
-        $scope.setCurrentUser = function(id){
-            $scope.currentChatUser = _.find($scope.userList, {id:id});
+        $scope.setCurrentUser = function (id) {
+            $scope.currentChatUser = _.find($scope.userList, {id: id});
             $scope.currentMessage.toId = $scope.currentChatUser.id;
             $scope.loadMessages();
         };
@@ -31,7 +31,7 @@ angular.module('app').controller('MessagesController', ['$scope', '$rootScope', 
         $scope.getUsers = function () {
             UsersService.getAllUsers().success(function (data) {
                 $scope.userList = data.data;
-                if(!$scope.isAdmin){
+                if (!$scope.isAdmin) {
                     $scope.setCurrentUser('00000000-0000-0000-0000-000000000002');
                 }
             });
@@ -48,28 +48,30 @@ angular.module('app').controller('MessagesController', ['$scope', '$rootScope', 
 
         };
 
-        $scope.send = function(){
-            MessagesService.send($scope.currentMessage).success(function(){
+        $scope.send = function () {
+            MessagesService.send($scope.currentMessage).success(function () {
                 $scope.currentMessage = {};
                 $scope.loadMessages();
-                if($scope.isAdmin) {
+                if ($scope.isAdmin) {
                     $scope.currentMessage.fromId = '00000000-0000-0000-0000-000000000002';
-                } else{
+                } else {
                     $scope.currentMessage.fromId = $scope.currentUser.id;
                 }
                 $scope.currentMessage.toId = $scope.isAdmin ? '00000000-0000-0000-0000-000000000002' : $scope.currentChatUser.id;
             });
         };
 
-        $scope.addFile = function(isPhoto){
-            //$scope.uploader.addToQueue()
+        $scope.addFile = function () {
+            $scope.uploader.addToQueue()
         };
 
-        var intervalPromise = $interval(function(){
+        var intervalPromise = $interval(function () {
             //$scope.loadMessages();
         }, 2000);
 
-        $scope.$on('$destroy', function () { $interval.cancel(intervalPromise); });
+        $scope.$on('$destroy', function () {
+            $interval.cancel(intervalPromise);
+        });
 
         $scope.getUsers();
 
@@ -77,14 +79,19 @@ angular.module('app').controller('MessagesController', ['$scope', '$rootScope', 
         $scope.uploader = new FileUploader({
             url: 'api/private/files',
             autoUpload: true,
-            removeAfterUpload : true,
-            onSuccessItem : function(item, data){
+            removeAfterUpload: true,
+            onSuccessItem: function (item, data) {
                 $scope.currentMessage.fileId = data.data;
-            },
-            onBeforeUploadItem : function(item){
-            item.url +="/" + item._file.name;
-        }
+            }
+            ,
+            onBeforeUploadItem: function (item) {
+                item.url += "/" + item._file.name;
+            }
         });
+
+        $scope.openFileModal = function () {
+            $('#selectedFile').click()
+        };
 
     }
 ])

@@ -1,33 +1,29 @@
-<div class="fixed-width-mid">
+<div class="">
     <h1>
         Почта
     </h1>
 
     <div class="logic-area messages-area">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="v-scrollable">
                 <div ng-repeat="user in userList">
-                    <a href="" ng-class="user.id == currentChatUser.id ? 'text-success' : ''"
+                    <a href="" ng-class="user.id == currentChatUser.id ? 'text-success chat-user-selected' : ''"
                        ng-click="setCurrentUser(user.id)">{{user.snpLong}}({{user.unreadCount ? user.unreadCount :
                         '0'}})</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="v-scrollable">
-                <div ng-repeat="message in messages" class="message">
-                    <div class="message-time"><span class="messages-name">{{message.fromName}}</span> <span class="pull-right">{{message.time|date:'dd/MM
-                        hh:mm:ss'}}</span>
+        <div class="col-md-8" style="height:400px">
+            <div class="v-scrollable" style="height: 500px" id="scrollable-area">
+                <div ng-repeat="message in messages" class="message"
+                     ng-class="message.from ? 'chat-message-from' : 'chat-message-to'">
+                    <div class="chat-message-header" ng-class="message.from ? 'chat-header-from' : 'chat-header-to'">
+                        <span class="messages-name">{{message.fromName}}</span><span class="pull-right">{{message.time|date:'dd/MM hh:mm:ss'}}</span>
                     </div>
                     <div class="message-full">
                         <div class="message-text">{{message.text}}</div>
-                        <div class="message-attaches">
-                            <div ng-show="message.fileIsImage">
-                                <a ng-href="message.fileLink"><img src="{{message.fileLink}}"/></a>
-                            </div>
-                            <div ng-hide="message.fileIsImage">
-                                <a href="./api/private/files?id={{message.fileId}}">{{message.fileName}}</a>
-                            </div>
+                        <div ng-show="message.fileId" class="message-attaches">
+                            <a href="api/private/files?id={{message.fileId}}">{{message.fileName}}</a>
 
                         </div>
                     </div>
@@ -43,7 +39,13 @@
                 </div>
                 <div>
                     <div class="btn-block">
-                        <button class="btn btn-success" ng-click="send()" type="button">Отправить</button>
+                        <button class="btn btn-success" ng-click="send()"
+                                type="button">Отправить
+                        </button>
+                        <input class="btn btn-info" type="file" id="selectedFile"
+                               uploader="uploader"
+                               nv-file-select ng-show="false">Добавить</input>
+                        <button class="btn btn-info" ng-click="openFileModal()" type="button">Прикрепить файл</button>
 
 
                     </div>
