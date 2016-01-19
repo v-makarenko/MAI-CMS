@@ -1,21 +1,14 @@
 package ru.vmakarenko.services;
 
 import ru.vmakarenko.dao.EventsDao;
-import ru.vmakarenko.dao.MessageDao;
 import ru.vmakarenko.dao.UserDao;
-import ru.vmakarenko.dto.common.MessageDto;
 import ru.vmakarenko.dto.events.EventDto;
 import ru.vmakarenko.dto.events.PresenceDto;
-import ru.vmakarenko.dto.users.UserDto;
 import ru.vmakarenko.entities.events.Event;
-import ru.vmakarenko.entities.messages.InnerMessage;
 import ru.vmakarenko.entities.users.User;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.swing.*;
-import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -24,7 +17,7 @@ import java.util.stream.Collectors;
  * Created by VMakarenko on 4/25/2015.
  */
 @Stateless
-@Transactional(Transactional.TxType.REQUIRES_NEW)
+//@Transactional(Transactional.TxType.REQUIRES_NEW)
 public class EventsService {
     @Inject
     private EventsDao dao;
@@ -53,9 +46,12 @@ public class EventsService {
     public List<EventDto> getAll() {
         List<Event> eventList = dao.findActive();
         eventList.stream().forEach(event -> event.getSectionList().size());
+        eventList.stream().forEach(event -> event.getUserList().size());
+        eventList.stream().forEach(event -> event.getFinancialDocumentTypeList().size());
+        eventList.stream().forEach(event -> event.getOrgOrganisationList().size());
+        eventList.stream().forEach(event -> event.getTechPeopleList().size());
         List<EventDto> dtoList = mapperService.map(eventList, EventDto.class);
         User user = usersDao.getByEmail(currentService.getEmail());
-
         dtoList.forEach(eventDto -> {
             Event event = eventList.get(eventList.indexOf(new Event().id(eventDto.getId())));
             eventDto.setPresent(event.isParticipating(user.getId()));

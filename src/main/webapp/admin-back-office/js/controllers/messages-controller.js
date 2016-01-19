@@ -66,7 +66,7 @@ angular.module('app').controller('MessagesController', ['$scope', '$rootScope', 
         };
 
         var intervalPromise = $interval(function () {
-            //$scope.loadMessages();
+            $scope.loadMessages();
         }, 2000);
 
         $scope.$on('$destroy', function () {
