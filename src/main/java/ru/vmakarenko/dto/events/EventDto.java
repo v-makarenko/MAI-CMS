@@ -3,11 +3,9 @@ package ru.vmakarenko.dto.events;
 import ru.vmakarenko.dto.common.SectionDto;
 import ru.vmakarenko.dto.common.WorkingPlaceDto;
 import ru.vmakarenko.dto.events.financial.FinancialDocumentTypeDto;
-import ru.vmakarenko.dto.users.UserDto;
 import ru.vmakarenko.dto.users.UserNoPassDto;
 import ru.vmakarenko.entities.DomainEntity;
 import ru.vmakarenko.entities.common.SimpleStringValue;
-import ru.vmakarenko.entities.events.financial.FinancialDocumentType;
 
 import java.util.Date;
 import java.util.List;
@@ -18,8 +16,8 @@ import java.util.List;
 public class EventDto extends DomainEntity {
     private String name;
     private String shortName;
-    private Date createDate;
     private String eventType;
+    private Date createDate;
     private Date startDate;
     private Date endDate;
     private Date applicationStartDate;

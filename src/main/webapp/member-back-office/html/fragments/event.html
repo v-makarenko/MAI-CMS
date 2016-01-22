@@ -5,7 +5,30 @@
                 <a ng-href="#/events">Все конференции > </a>&nbsp;<span class="h5">{{currentEvent.name}}</span>
             </div>
             <tab heading="Информация">
-                Информация
+                <p>
+                    Полное название: {{currentEvent.name}}
+                </p>
+                <p>
+                    Краткое название: {{currentEvent.shortName}}
+                </p>
+                <p>
+                    Дата начала: {{currentEvent.startDate|date:'dd.MM.yy'}}
+                </p>
+                <p>
+                    Дата окончания: {{currentEvent.endDate|date:'dd.MM.yy'}}
+                </p>
+                <p>
+                    Дата начала приема заявок: {{currentEvent.applicationStartDate|date:'dd.MM.yy'}}
+                </p>
+                <p>
+                    Дата окончания приема заявок: {{currentEvent.applicationEndDate|date:'dd.MM.yy'}}
+                </p>
+                <p>
+                    Дата подготовки программы конференции: UNDER CONSTRUCTION
+                </p>
+                <p>
+                    Дата подготовки сборника тезисов: {{currentEvent.printEndDAte|date:'dd.MM.yy'}}
+                </p>
             </tab>
             <tab heading="Подача тезисов">
                 <div>
